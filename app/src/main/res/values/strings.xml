@@ -5,4 +5,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
+
+    <string-array name="tag_lovely_array">
+        <item>青春</item>
+        <item>素颜</item>
+        <item>清纯</item>
+        <item>可爱</item>
+        <item>校花</item>
+        <item>萝莉</item>
+        <item>甜素纯</item>
+        <item>小清新</item>
+        <item>唯美</item>
+        <item>甜美</item>
+    </string-array>
 </resources>

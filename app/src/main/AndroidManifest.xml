@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gpc.meinvxiupro">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MeinvxiuApplication"
         android:allowBackup="true"

@@ -3,10 +3,12 @@ package com.gpc.meinvxiupro.managers;
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by pcgu on 16-3-11.
@@ -20,6 +22,7 @@ public class DataRequestManager {
         Retrofit mRetrofit = new Retrofit.Builder()
                 .baseUrl(IP)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         mImageInterface = mRetrofit.create(ImageInterface.class);
     }
@@ -31,8 +34,12 @@ public class DataRequestManager {
         return mInstance;
     }
 
-    public synchronized void getImageResult(String tag, int pageNum, Callback<ImageResult> callback) {
-        Call<ImageResult> imageResult = mImageInterface.contributor(tag, pageNum);
-        imageResult.enqueue(callback);
+    public synchronized void getImageResult(String tag, int pageNum,
+                                            Scheduler scheduler,
+                                            Subscriber<ImageResult> callback) {
+        mImageInterface.getImages(tag, pageNum)
+                .subscribeOn(scheduler)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
     }
 }

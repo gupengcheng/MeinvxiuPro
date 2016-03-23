@@ -2,6 +2,7 @@ package com.gpc.meinvxiupro.managers;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
+import com.gpc.meinvxiupro.utils.LogUtil;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -37,6 +38,7 @@ public class DataRequestManager {
     public synchronized void getImageResult(String tag, int pageNum,
                                             Scheduler scheduler,
                                             Subscriber<ImageResult> callback) {
+        LogUtil.e("getImageResult == " + tag);
         mImageInterface.getImages(tag, pageNum)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())

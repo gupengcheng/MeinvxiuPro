@@ -5,9 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
+import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonFragment;
-import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity {
+    private static final String TAG = "HomeActivity";
     private Toolbar mHomeToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -39,9 +41,15 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initViews() {
         super.initViews();
+        initToolbar();
         initTabLayoutTitle();
         initViewPager();
         initTabLayout();
+    }
+
+    private void initToolbar() {
+        setSupportActionBar(mHomeToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     private void initTabLayoutTitle() {
@@ -51,20 +59,16 @@ public class HomeActivity extends BaseActivity {
     private void initViewPager() {
         mAdapter = new HomePagerAdapter(getSupportFragmentManager());
         for (String title : mHomeTabTitles) {
-            CommonFragment commonFragment = new CommonFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.BundleConstant.FRAGMENT_TITLE, title);
-            commonFragment.setArguments(bundle);
-            mAdapter.addTab(commonFragment, title);
+            LogUtil.e(TAG, "title == " + title);
+            mAdapter.addTab(CommonFragment.newInstance(title), title);
         }
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setPageTransformer(true, new TabletTransformer());
+        mViewPager.setOffscreenPageLimit(3);
     }
 
     private void initTabLayout() {
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    private void loadData() {
     }
 
 }

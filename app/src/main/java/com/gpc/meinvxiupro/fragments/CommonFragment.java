@@ -1,10 +1,12 @@
 package com.gpc.meinvxiupro.fragments;
 
-import android.widget.TextView;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.DataRequestManager;
 import com.gpc.meinvxiupro.models.ImageResult;
+import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
 
 import rx.Subscriber;
@@ -14,11 +16,21 @@ import rx.schedulers.Schedulers;
  * Created by pcgu on 16-3-23.
  */
 public class CommonFragment extends BaseFragment {
-    private TextView mTitleTv;
+    private RecyclerView mRecyclerView;
+
+    public static CommonFragment newInstance(String title) {
+        CommonFragment commonFragment = new CommonFragment();
+        Bundle args = new Bundle();
+        args.putString(Constant.BundleConstant.FRAGMENT_TITLE, title);
+        commonFragment.setArguments(args);
+        return commonFragment;
+    }
 
     @Override
     protected void loadDataFirst() {
-        DataRequestManager.getInstance().getImageResult(getFragmentTitle(), 0, Schedulers.computation(),
+        super.loadDataFirst();
+        DataRequestManager.getInstance().getImageResult(getFragmentTitle(), 0,
+                Schedulers.computation(),
                 new Subscriber<ImageResult>() {
                     @Override
                     public void onCompleted() {
@@ -35,20 +47,18 @@ public class CommonFragment extends BaseFragment {
                         setIsLoadData(true);
                         LogUtil.e(getFragmentTitle(), "onNext == " +
                                 imageResult.getImgs().get(0).getTitle());
-                        mTitleTv.setText(getFragmentTitle() +
-                                imageResult.getImgs().get(0).getTitle());
                     }
                 });
     }
 
     @Override
     protected void initViews() {
+        LogUtil.e("CommonFragment", "isLoadData == " + isLoadData());
         setInflateLayout(R.layout.fragment_common);
     }
 
     @Override
     protected void findViewByIds() {
-        mTitleTv = (TextView) getInflateView().findViewById(R.id.common_text);
-        setIsLoadData(true);
+        mRecyclerView = (RecyclerView) getInflateView().findViewById(R.id.common_recyclerview);
     }
 }

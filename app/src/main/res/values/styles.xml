@@ -3,6 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
     </style>
 
     <!-- 自定义字体大小，一般使用默认即可 -->

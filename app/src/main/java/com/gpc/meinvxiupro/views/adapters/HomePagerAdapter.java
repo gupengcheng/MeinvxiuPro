@@ -3,7 +3,6 @@ package com.gpc.meinvxiupro.views.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +36,12 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == object;
-    }
-
-    @Override
     public int getCount() {
         return mFragments.size();
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return FragmentPagerAdapter.POSITION_NONE;
+    }
 }

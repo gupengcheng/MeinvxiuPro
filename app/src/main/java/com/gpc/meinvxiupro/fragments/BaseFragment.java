@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.utils.Constant;
+
+import java.util.Random;
 
 /**
  * Created by pcgu on 16-3-23.
@@ -29,18 +32,15 @@ public class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mInflateView = inflater.inflate(mInflateLayoutId, null, false);
+        mInflateView = inflater.inflate(mInflateLayoutId, container, false);
+        int[] colors = new int[]{R.color.colorPrimary,
+                R.color.rgb_7789ff,
+                R.color.rgb_898900,
+                R.color.rgb_cdcdff,
+                R.color.rgb_ef89ff};
+        mInflateView.setBackgroundResource(colors[new Random().nextInt(colors.length)]);
         findViewByIds();
         return mInflateView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //第一个fragment会调用
-        if (getUserVisibleHint()) {
-            loadDataFirst();
-        }
     }
 
     //此方法在控件初始化前调用，所以不能在此方法中直接操作控件会出现空指针
@@ -54,7 +54,7 @@ public class BaseFragment extends Fragment {
 
     //每一个Fragment第一次加载数据
     protected void loadDataFirst() {
-
+        setIsLoadData(true);
     }
 
     //做一些初始化工作，比如setInflateLayout

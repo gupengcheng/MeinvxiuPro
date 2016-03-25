@@ -8,24 +8,6 @@ import java.util.List;
 public class ImgsEntity {
     private String id;
     private String desc;
-    /**
-     * userName : juq440
-     * userId : 862713848
-     * userSign : 4143972352 862959327
-     * isSelf : 0
-     * portrait : f8f76a75713434306b33
-     * isVip : 0
-     * isLanv : 0
-     * isJiaju :
-     * isHunjia :
-     * orgName :
-     * resUrl :
-     * cert :
-     * budgetNum :
-     * lanvName :
-     * contactName :
-     */
-
     private OwnerEntity owner;
     private String fromPageTitle;
     private String column;

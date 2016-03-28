@@ -54,10 +54,10 @@ public class CommonFragment extends BaseFragment {
                     public void onNext(ImageResult imageResult) {
                         setIsLoadData(true);
                         if (null != imageResult && imageResult.getImgs() != null) {
-                            mItems.addAll(imageResult.getImgs());
+                            mItems.addAll(getFilterEndNullItems(imageResult));
                             LogUtil.e(getFragmentTitle(), "onNext == " +
-                                    imageResult.getImgs().get(0).getTitle() +
-                                    " size == " + imageResult.getImgs().size());
+                                    getFilterEndNullItems(imageResult).get(getFilterEndNullItems(imageResult).size() - 1).getTitle() +
+                                    " size == " + getFilterEndNullItems(imageResult).size());
                             mAdapter.notifyDataSetChanged();
                         }
                     }
@@ -77,5 +77,15 @@ public class CommonFragment extends BaseFragment {
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private List<ImgsEntity> getFilterEndNullItems(ImageResult imageResult) {
+        List<ImgsEntity> notNullImageResults = new ArrayList<ImgsEntity>();
+        if (imageResult.getImgs().get(imageResult.getImgs().size() - 1) == null) {
+            notNullImageResults = imageResult.getImgs().subList(0, imageResult.getImgs().size() - 1);
+        } else {
+            notNullImageResults = imageResult.getImgs();
+        }
+        return notNullImageResults;
     }
 }

@@ -40,6 +40,7 @@ public class BaseFragment extends Fragment {
                 R.color.rgb_ef89ff};
         mInflateView.setBackgroundResource(colors[new Random().nextInt(colors.length)]);
         findViewByIds();
+        setListeners();
         return mInflateView;
     }
 
@@ -59,6 +60,10 @@ public class BaseFragment extends Fragment {
 
     //做一些初始化工作，比如setInflateLayout
     protected void initViews() {
+
+    }
+
+    protected void setListeners() {
 
     }
 

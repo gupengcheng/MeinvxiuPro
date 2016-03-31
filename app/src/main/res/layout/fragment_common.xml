@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/common_recyclerview"
+    <com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView
+        android:id="@+id/common_fungamerefreshview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:game_type="hit_block">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/common_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView>
 </RelativeLayout>

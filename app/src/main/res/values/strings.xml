@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">HomeActivity</string>
 
+    <!-- 可爱类 -->
     <string-array name="tag_lovely_array">
         <item>青春</item>
         <item>素颜</item>
@@ -17,5 +18,37 @@
         <item>小清新</item>
         <item>唯美</item>
         <item>甜美</item>
+    </string-array>
+
+    <!-- 高贵类 -->
+    <string-array name="tag_nobility_array">
+        <item>长发</item>
+        <item>女神</item>
+        <item>气质</item>
+        <item>时尚</item>
+        <item>日本</item>
+        <item>韩国</item>
+    </string-array>
+
+    <!-- 综合类 -->
+    <string-array name="tag_generalist_array">
+        <item>街拍</item>
+        <item>日韩</item>
+        <item>私房</item>
+        <item>外国</item>
+        <item>礼服</item>
+        <item>唯美</item>
+    </string-array>
+
+    <!-- 性感类 -->
+    <string-array name="tag_sexy_array">
+        <item>性感</item>
+        <item>少妇</item>
+        <item>丰满</item>
+        <item>浴室</item>
+        <item>短裙</item>
+        <item>丝袜</item>
+        <item>大胸</item>
+        <item>内衣</item>
     </string-array>
 </resources>

@@ -11,6 +11,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
+import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by pcgu on 16-3-23.
  */
 public class CommonFragment extends BaseFragment {
+    private FunGameRefreshView mFunGameRefreshView;
     private RecyclerView mRecyclerView;
     private CommonFragmentAdapter mAdapter;
     private List<ImgsEntity> mItems;
@@ -48,6 +50,7 @@ public class CommonFragment extends BaseFragment {
                     @Override
                     public void onError(Throwable throwable) {
                         setIsLoadData(false);
+                        mFunGameRefreshView.finishRefreshing();
                     }
 
                     @Override
@@ -55,10 +58,8 @@ public class CommonFragment extends BaseFragment {
                         setIsLoadData(true);
                         if (null != imageResult && imageResult.getImgs() != null) {
                             mItems.addAll(getFilterEndNullItems(imageResult));
-                            LogUtil.e(getFragmentTitle(), "onNext == " +
-                                    getFilterEndNullItems(imageResult).get(getFilterEndNullItems(imageResult).size() - 1).getTitle() +
-                                    " size == " + getFilterEndNullItems(imageResult).size());
                             mAdapter.notifyDataSetChanged();
+                            mFunGameRefreshView.finishRefreshing();
                         }
                     }
                 });
@@ -73,10 +74,21 @@ public class CommonFragment extends BaseFragment {
 
     @Override
     protected void findViewByIds() {
+        mFunGameRefreshView = (FunGameRefreshView) getInflateView().findViewById(R.id.common_fungamerefreshview);
         mRecyclerView = (RecyclerView) getInflateView().findViewById(R.id.common_recyclerview);
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void setListeners() {
+        mFunGameRefreshView.setOnRefreshListener(new FunGameRefreshView.FunGameRefreshListener() {
+            @Override
+            public void onRefreshing() {
+                loadDataFirst();
+            }
+        });
     }
 
     private List<ImgsEntity> getFilterEndNullItems(ImageResult imageResult) {

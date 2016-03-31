@@ -64,7 +64,7 @@ public class HomeActivity extends BaseActivity {
         }
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, new TabletTransformer());
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(1);
     }
 
     private void initTabLayout() {

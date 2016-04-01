@@ -1,6 +1,8 @@
 package com.gpc.meinvxiupro.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,9 +19,11 @@ import java.util.Random;
  */
 public class BaseFragment extends Fragment {
     private boolean mIsLoadData = false;
+    private int mStartIndex = 0;
     private String mTitleTag;
     private int mInflateLayoutId;
     private View mInflateView;
+    protected Handler mHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,15 +37,15 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mInflateView = inflater.inflate(mInflateLayoutId, container, false);
-        int[] colors = new int[]{R.color.colorPrimary,
-                R.color.rgb_7789ff,
-                R.color.rgb_898900,
-                R.color.rgb_cdcdff,
-                R.color.rgb_ef89ff};
-        mInflateView.setBackgroundResource(colors[new Random().nextInt(colors.length)]);
         findViewByIds();
         setListeners();
         return mInflateView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     //此方法在控件初始化前调用，所以不能在此方法中直接操作控件会出现空指针
@@ -60,10 +64,19 @@ public class BaseFragment extends Fragment {
 
     //做一些初始化工作，比如setInflateLayout
     protected void initViews() {
+        mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
 
+            }
+        };
     }
 
     protected void setListeners() {
+
+    }
+
+    protected void initData() {
 
     }
 
@@ -93,5 +106,13 @@ public class BaseFragment extends Fragment {
 
     public void setIsLoadData(boolean isLoadData) {
         this.mIsLoadData = isLoadData;
+    }
+
+    public int getStartIndex() {
+        return mStartIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.mStartIndex = startIndex;
     }
 }

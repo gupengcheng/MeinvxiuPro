@@ -69,8 +69,8 @@ public class FunGameHeader extends FrameLayout {
         maskReLayout = new RelativeLayout(mContext);
         maskReLayout.setBackgroundColor(Color.parseColor("#3A3A3A"));
 
-        topMaskView = createMaskTextView("Pull to Break Out!", 20, Gravity.BOTTOM);
-        bottomMaskView = createMaskTextView("Scrooll to move handle", 18, Gravity.TOP);
+        topMaskView = createMaskTextView("下拉刷新数据", 20, Gravity.BOTTOM);
+        bottomMaskView = createMaskTextView("滚动控制游戏手柄", 18, Gravity.TOP);
 
         coverMaskView();
 

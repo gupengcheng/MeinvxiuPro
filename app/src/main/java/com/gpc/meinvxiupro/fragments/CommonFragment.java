@@ -1,8 +1,13 @@
 package com.gpc.meinvxiupro.fragments;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.DataRequestManager;
@@ -25,6 +30,7 @@ import rx.schedulers.Schedulers;
 public class CommonFragment extends BaseFragment {
     private FunGameRefreshView mFunGameRefreshView;
     private RecyclerView mRecyclerView;
+    private RelativeLayout mLoadingView;
     private CommonFragmentAdapter mAdapter;
     private List<ImgsEntity> mItems;
 
@@ -39,35 +45,18 @@ public class CommonFragment extends BaseFragment {
     @Override
     protected void loadDataFirst() {
         super.loadDataFirst();
-        DataRequestManager.getInstance().getImageResult(getFragmentTitle(), 0,
-                Schedulers.computation(),
-                new Subscriber<ImageResult>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        setIsLoadData(false);
-                        mFunGameRefreshView.finishRefreshing();
-                    }
-
-                    @Override
-                    public void onNext(ImageResult imageResult) {
-                        setIsLoadData(true);
-                        if (null != imageResult && imageResult.getImgs() != null) {
-                            mItems.addAll(getFilterEndNullItems(imageResult));
-                            mAdapter.notifyDataSetChanged();
-                            mFunGameRefreshView.finishRefreshing();
-                        }
-                    }
-                });
+        LogUtil.e("tst", "loadDataFirst");
+        if (null != mLoadingView && mItems.isEmpty()) {
+            mLoadingView.setVisibility(View.VISIBLE);
+        }
+        setStartIndex(0);
+        loadData();
     }
 
     @Override
     protected void initViews() {
-        LogUtil.e("CommonFragment", "isLoadData == " + isLoadData());
+        super.initViews();
+        LogUtil.e("CommonFragment", "initViews");
         setInflateLayout(R.layout.fragment_common);
         mItems = new ArrayList<>();
     }
@@ -76,6 +65,7 @@ public class CommonFragment extends BaseFragment {
     protected void findViewByIds() {
         mFunGameRefreshView = (FunGameRefreshView) getInflateView().findViewById(R.id.common_fungamerefreshview);
         mRecyclerView = (RecyclerView) getInflateView().findViewById(R.id.common_recyclerview);
+        mLoadingView = (RelativeLayout) getInflateView().findViewById(R.id.common_loading);
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mRecyclerView.setAdapter(mAdapter);
@@ -86,18 +76,58 @@ public class CommonFragment extends BaseFragment {
         mFunGameRefreshView.setOnRefreshListener(new FunGameRefreshView.FunGameRefreshListener() {
             @Override
             public void onRefreshing() {
-                loadDataFirst();
+                setStartIndex(0);
+                loadData();
             }
         });
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+    }
+
     private List<ImgsEntity> getFilterEndNullItems(ImageResult imageResult) {
         List<ImgsEntity> notNullImageResults = new ArrayList<ImgsEntity>();
-        if (imageResult.getImgs().get(imageResult.getImgs().size() - 1) == null) {
-            notNullImageResults = imageResult.getImgs().subList(0, imageResult.getImgs().size() - 1);
-        } else {
+        if (imageResult.getImgs().get(imageResult.getImgs().size() - 1) != null &&
+                !TextUtils.isEmpty(imageResult.getImgs().get(imageResult.getImgs().size() - 1).getId())) {
             notNullImageResults = imageResult.getImgs();
+        } else {
+            notNullImageResults = imageResult.getImgs().subList(0, imageResult.getImgs().size() - 1);
         }
         return notNullImageResults;
+    }
+
+    private void loadData() {
+        DataRequestManager.getInstance().getImageResult(getFragmentTitle(), getStartIndex(), Schedulers.computation(),
+                new Subscriber<ImageResult>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        if (mItems.isEmpty()) {
+                            setIsLoadData(false);
+                        }
+                        mLoadingView.setVisibility(View.GONE);
+                        mFunGameRefreshView.finishRefreshing();
+                    }
+
+                    @Override
+                    public void onNext(ImageResult imageResult) {
+                        if (null != imageResult && imageResult.getImgs() != null) {
+                            if (getStartIndex() == 0) {
+                                mItems.clear();
+                                mLoadingView.setVisibility(View.GONE);
+                            }
+                            setStartIndex(getStartIndex() + 1);
+                            mItems.addAll(getFilterEndNullItems(imageResult));
+                            mAdapter.notifyDataSetChanged();
+                            mFunGameRefreshView.finishRefreshing();
+                        }
+                    }
+                });
     }
 }

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.os.SystemClock;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
+
+import com.gpc.meinvxiupro.utils.LogUtil;
 
 import java.util.concurrent.Executors;
 
@@ -77,7 +80,8 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
     /**
      * 当前状态
      */
-    private int currentStatus = STATUS_REFRESH_FINISHED;;
+    private int currentStatus = STATUS_REFRESH_FINISHED;
+    ;
 
     /**
      * 手指按下时屏幕纵坐标
@@ -160,7 +164,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
                     return false;
                 }
 
-                if (headerLayoutParams.topMargin > 0 ) { // 头部全部被下拉出来的时候状态转换为释放刷新
+                if (headerLayoutParams.topMargin > 0) { // 头部全部被下拉出来的时候状态转换为释放刷新
                     currentStatus = STATUS_RELEASE_TO_REFRESH;
                 }
 
@@ -193,6 +197,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
 
     /**
      * 给header设置topMargin参数
+     *
      * @param margin
      */
     private void setHeaderTopMarign(int margin) {
@@ -211,6 +216,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
 
     /**
      * 处理手指第二次按住屏幕玩游戏的事件
+     *
      * @param event
      * @return
      */
@@ -240,7 +246,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
     private void checkAblePull(MotionEvent event) {
         View firstChild = listView.getChildAt(0);
         if (firstChild != null) {
-            GridLayoutManager layoutManager = (GridLayoutManager)listView.getLayoutManager();
+            GridLayoutManager layoutManager = (GridLayoutManager) listView.getLayoutManager();
             int firstVisiblePos = layoutManager.findFirstVisibleItemPosition();
             if (firstVisiblePos == 0 && firstChild.getTop() == 0) {
                 // 如果首个元素的上边缘，距离父布局值为0，就说明ListView滚动到了最顶部，此时应该允许下拉刷新
@@ -263,8 +269,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
     /**
      * 给下拉刷新控件注册一个监听器。
      *
-     * @param listener
-     *            监听器的实现。
+     * @param listener 监听器的实现。
      */
     public void setOnRefreshListener(FunGameRefreshListener listener) {
         mListener = listener;
@@ -285,7 +290,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
      */
     private void refreshingRollBack2Header() {
         ValueAnimator rbToHeaderAnimator = ValueAnimator.ofInt(headerLayoutParams.topMargin, 0);
-        long duration = (long) (headerLayoutParams.topMargin * 1.1f) >=0 ? (long) (headerLayoutParams.topMargin * 1.1f) : 0;
+        long duration = (long) (headerLayoutParams.topMargin * 1.1f) >= 0 ? (long) (headerLayoutParams.topMargin * 1.1f) : 0;
         rbToHeaderAnimator.setDuration(duration);
         rbToHeaderAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
         rbToHeaderAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -333,7 +338,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
             public void onAnimationEnd(Animator animation) {
                 if (currentStatus == STATUS_PULL_TO_REFRESH || currentStatus == STATUS_REFRESH_FINISHED) {
                     currentStatus = STATUS_REFRESH_FINISHED;
-                    return ;
+                    return;
                 }
                 currentStatus = STATUS_REFRESH_FINISHED;
                 header.postEnd();

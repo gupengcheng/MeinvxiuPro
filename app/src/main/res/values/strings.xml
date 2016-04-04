@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MeinvxiuPro</string>
+    <string name="app_name">图说</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
 
     <string name="hello_world">Hello world!</string>
@@ -50,6 +50,13 @@
         <item>丝袜</item>
         <item>大胸</item>
         <item>内衣</item>
+    </string-array>
+
+    <string-array name="tag_array">
+        <item>可爱</item>
+        <item>高贵</item>
+        <item>综合</item>
+        <item>性感</item>
     </string-array>
 
 </resources>

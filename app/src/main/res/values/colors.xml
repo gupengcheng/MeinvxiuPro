@@ -12,4 +12,7 @@
     <color name="rgb_333333">#333333</color>
     <color name="rgb_969696">#969696</color>
     <color name="rgb_e9e9e9">#e9e9e9</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="rgb_e6e6e6">#e6e6e6</color>
 </resources>

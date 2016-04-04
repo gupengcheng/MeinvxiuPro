@@ -12,7 +12,11 @@
     </style>
 
     <!-- 自定义字体大小，一般使用默认即可 -->
-    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+    <style name="BottomTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TopTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">14sp</item>
     </style>
 

@@ -7,15 +7,8 @@
     android:contentInsetLeft="0dp"
     android:contentInsetStart="0dp"
     android:gravity="center_vertical"
-    android:theme="@style/CustomToolbar"
     app:layout_scrollFlags="scroll|enterAlways"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:background="@mipmap/ic_launcher" />
 
     <TextView
         android:layout_width="wrap_content"

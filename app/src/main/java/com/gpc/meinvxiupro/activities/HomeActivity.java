@@ -8,11 +8,13 @@ import android.support.v7.widget.Toolbar;
 import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonFragment;
+import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity {
@@ -53,14 +55,14 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void initTabLayoutTitle() {
-        mHomeTabTitles.addAll(SharedPreferencesUtils.getHomeTabsTitle(mContext));
+        mHomeTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_array)));
     }
 
     private void initViewPager() {
         mAdapter = new HomePagerAdapter(getSupportFragmentManager());
         for (String title : mHomeTabTitles) {
-            LogUtil.e(TAG, "title == " + title);
-            mAdapter.addTab(CommonFragment.newInstance(title), title);
+            LogUtil.e(TAG, "tag == " + title);
+            mAdapter.addTab(CommonTagFragment.newInstance(title), title);
         }
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, new TabletTransformer());

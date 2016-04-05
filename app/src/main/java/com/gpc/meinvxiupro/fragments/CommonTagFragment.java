@@ -34,11 +34,23 @@ public class CommonTagFragment extends BaseFragment {
     }
 
     @Override
+    protected void initInflateView() {
+        super.initInflateView();
+        setInflateLayout(R.layout.fragment_tag_common);
+    }
+
+    @Override
+    protected void findViewByIds() {
+        super.findViewByIds();
+        mTabLayout = (TabLayout) getInflateView().findViewById(R.id.common_tag_tab_layout);
+        mViewPager = (ViewPager) getInflateView().findViewById(R.id.common_tag_viewpager);
+    }
+
+    @Override
     protected void initViews() {
         super.initViews();
-        setInflateLayout(R.layout.fragment_tag_common);
         mCommonTagTabTitles = new ArrayList<>();
-        if (getFragmentTitle().equals("可爱")){
+        if (getFragmentTitle().equals("可爱")) {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_lovely_array)));
         } else if (getFragmentTitle().equals("高贵")) {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_nobility_array)));
@@ -47,13 +59,6 @@ public class CommonTagFragment extends BaseFragment {
         } else if (getFragmentTitle().equals("性感")) {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_sexy_array)));
         }
-    }
-
-    @Override
-    protected void findViewByIds() {
-        super.findViewByIds();
-        mTabLayout = (TabLayout) getInflateView().findViewById(R.id.common_tag_tab_layout);
-        mViewPager = (ViewPager) getInflateView().findViewById(R.id.common_tag_viewpager);
         mAdapter = new HomePagerAdapter(getChildFragmentManager());
         for (String title : mCommonTagTabTitles) {
             LogUtil.e(TAG, "title == " + title);

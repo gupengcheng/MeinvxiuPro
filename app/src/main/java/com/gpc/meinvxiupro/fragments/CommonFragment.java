@@ -1,11 +1,9 @@
 package com.gpc.meinvxiupro.fragments;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -14,7 +12,6 @@ import com.gpc.meinvxiupro.managers.DataRequestManager;
 import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.listener.EndlessRecyclerViewOnScrollListener;
 import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
@@ -48,20 +45,14 @@ public class CommonFragment extends BaseFragment {
     @Override
     protected void loadDataFirst() {
         super.loadDataFirst();
-        LogUtil.e("tst", "loadDataFirst");
-        if (null != mLoadingView && mItems.isEmpty()) {
-            mLoadingView.setVisibility(View.VISIBLE);
-        }
         setStartIndex(0);
         loadData();
     }
 
     @Override
-    protected void initViews() {
-        super.initViews();
-        LogUtil.e("CommonFragment", "initViews");
+    protected void initInflateView() {
+        super.initInflateView();
         setInflateLayout(R.layout.fragment_common);
-        mItems = new ArrayList<>();
     }
 
     @Override
@@ -70,11 +61,17 @@ public class CommonFragment extends BaseFragment {
         mRecyclerView = (RecyclerView) getInflateView().findViewById(R.id.common_recyclerview);
         mLoadingView = (RelativeLayout) getInflateView().findViewById(R.id.common_loading);
         mLoadMoreView = (RelativeLayout) getInflateView().findViewById(R.id.common_loadmore);
+    }
+
+    @Override
+    protected void initViews() {
+        super.initViews();
+        mItems = new ArrayList<>();
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-        if (getStartIndex() == 0 && mItems.isEmpty()) {
+        if (getStartIndex() == 0) {
             mLoadingView.setVisibility(View.VISIBLE);
         }
     }
@@ -96,11 +93,6 @@ public class CommonFragment extends BaseFragment {
                 loadData();
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
     }
 
     private List<ImgsEntity> getFilterEndNullItems(ImageResult imageResult) {

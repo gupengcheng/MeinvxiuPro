@@ -30,29 +30,25 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         mTitleTag = bundle.getString(Constant.BundleConstant.FRAGMENT_TITLE);
-        initViews();
+        initInflateView();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogUtil.e(TAG, "onCreateView");
         mInflateView = inflater.inflate(mInflateLayoutId, container, false);
         findViewByIds();
+        initViews();
         setListeners();
         return mInflateView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData();
     }
 
     //此方法在控件初始化前调用，所以不能在此方法中直接操作控件会出现空指针
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        LogUtil.e(TAG, "setUserVisibleHint isVisibleToUser == " + isVisibleToUser + " mIsLoadData ==" + mIsLoadData);
+        LogUtil.e(TAG, "setUserVisibleHint isVisibleToUser == " + getFragmentTitle() + "  " + isVisibleToUser + " mIsLoadData ==" + mIsLoadData);
         if (isVisibleToUser && !mIsLoadData) {
             loadDataFirst();
         }
@@ -64,7 +60,7 @@ public class BaseFragment extends Fragment {
     }
 
     //做一些初始化工作，比如setInflateLayout
-    protected void initViews() {
+    protected void initInflateView() {
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -77,10 +73,6 @@ public class BaseFragment extends Fragment {
 
     }
 
-    protected void initData() {
-
-    }
-
     //初始化控件之前调用这个方法得到当前View
     public View getInflateView() {
         return mInflateView;
@@ -88,6 +80,10 @@ public class BaseFragment extends Fragment {
 
     //初始化控件
     protected void findViewByIds() {
+
+    }
+
+    protected void initViews() {
 
     }
 

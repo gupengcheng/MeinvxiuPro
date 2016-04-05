@@ -53,10 +53,10 @@
     </string-array>
 
     <string-array name="tag_array">
+        <item>性感</item>
         <item>可爱</item>
         <item>高贵</item>
         <item>综合</item>
-        <item>性感</item>
     </string-array>
 
 </resources>

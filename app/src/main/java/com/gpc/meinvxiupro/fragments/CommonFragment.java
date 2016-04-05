@@ -16,6 +16,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
+import com.gpc.meinvxiupro.views.listener.EndlessRecyclerViewOnScrollListener;
 import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
 
 import java.util.ArrayList;
@@ -30,7 +31,9 @@ import rx.schedulers.Schedulers;
 public class CommonFragment extends BaseFragment {
     private FunGameRefreshView mFunGameRefreshView;
     private RecyclerView mRecyclerView;
+    private GridLayoutManager mGridLayoutManager;
     private RelativeLayout mLoadingView;
+    private RelativeLayout mLoadMoreView;
     private CommonFragmentAdapter mAdapter;
     private List<ImgsEntity> mItems;
 
@@ -66,9 +69,14 @@ public class CommonFragment extends BaseFragment {
         mFunGameRefreshView = (FunGameRefreshView) getInflateView().findViewById(R.id.common_fungamerefreshview);
         mRecyclerView = (RecyclerView) getInflateView().findViewById(R.id.common_recyclerview);
         mLoadingView = (RelativeLayout) getInflateView().findViewById(R.id.common_loading);
+        mLoadMoreView = (RelativeLayout) getInflateView().findViewById(R.id.common_loadmore);
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        mGridLayoutManager = new GridLayoutManager(getContext(), 2);
+        mRecyclerView.setLayoutManager(mGridLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        if (getStartIndex() == 0 && mItems.isEmpty()) {
+            mLoadingView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -77,6 +85,14 @@ public class CommonFragment extends BaseFragment {
             @Override
             public void onRefreshing() {
                 setStartIndex(0);
+                loadData();
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewOnScrollListener(mGridLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                mLoadMoreView.setVisibility(View.VISIBLE);
                 loadData();
             }
         });
@@ -112,6 +128,7 @@ public class CommonFragment extends BaseFragment {
                             setIsLoadData(false);
                         }
                         mLoadingView.setVisibility(View.GONE);
+                        mLoadMoreView.setVisibility(View.GONE);
                         mFunGameRefreshView.finishRefreshing();
                     }
 
@@ -125,6 +142,7 @@ public class CommonFragment extends BaseFragment {
                             setStartIndex(getStartIndex() + 1);
                             mItems.addAll(getFilterEndNullItems(imageResult));
                             mAdapter.notifyDataSetChanged();
+                            mLoadMoreView.setVisibility(View.GONE);
                             mFunGameRefreshView.finishRefreshing();
                         }
                     }

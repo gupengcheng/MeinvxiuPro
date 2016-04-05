@@ -9,15 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.LogUtil;
 
-import java.util.Random;
 
 /**
  * Created by pcgu on 16-3-23.
  */
 public class BaseFragment extends Fragment {
+    private static final String TAG = "BaseFragment";
     private boolean mIsLoadData = false;
     private int mStartIndex = 0;
     private String mTitleTag;
@@ -52,6 +52,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtil.e(TAG, "setUserVisibleHint isVisibleToUser == " + isVisibleToUser + " mIsLoadData ==" + mIsLoadData);
         if (isVisibleToUser && !mIsLoadData) {
             loadDataFirst();
         }

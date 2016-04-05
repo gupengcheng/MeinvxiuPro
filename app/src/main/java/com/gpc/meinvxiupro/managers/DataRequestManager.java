@@ -38,7 +38,7 @@ public class DataRequestManager {
     public synchronized void getImageResult(String tag, int pageNum,
                                             Scheduler scheduler,
                                             Subscriber<ImageResult> callback) {
-        LogUtil.e("getImageResult == " + tag);
+        LogUtil.e("getImageResult == " + tag + "  pageNum == " + pageNum);
         mImageInterface.getImages(tag, pageNum)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())

@@ -26,4 +26,11 @@
         </attr>
     </declare-styleable>
 
+    <!-- NumberIncreaseView -->
+    <declare-styleable name="NumberIncreaseView">
+        <attr name="increase_num" format="integer" />
+        <attr name="num_color" format="color" />
+        <attr name="num_size" format="dimension" />
+    </declare-styleable>
+
 </resources>

@@ -4,9 +4,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.gpc.meinvxiupro.R;
@@ -68,7 +71,9 @@ public class NumberIncreaseView extends View implements View.OnClickListener {
         mPaint.setColor(mNumColor);
         mPaint.setTextSize(mNumSize);
         mBgPaint = new Paint();
-        mBgPaint.setColor(ContextCompat.getColor(context, R.color.rgb_e9e9e9));
+        mBgPaint.setColor(ContextCompat.getColor(context, R.color.rgb_333333));
+        mBgPaint.setAntiAlias(true);
+        setOnClickListener(this);
     }
 
     private void increaseNum() {
@@ -122,7 +127,14 @@ public class NumberIncreaseView extends View implements View.OnClickListener {
     protected void onDraw(Canvas canvas) {
         LogUtil.e(TAG, "onDraw");
         super.onDraw(canvas);
-        canvas.drawCircle(0, 0, getMeasuredWidth() / 2, mBgPaint);
-        canvas.drawText(String.valueOf(mNum), getMeasuredWidth() / 2, getMeasuredHeight() / 2, mPaint);
+        canvas.drawColor(ContextCompat.getColor(getContext(), R.color.rgb_ffffff));
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredWidth() / 2, mBgPaint);
+        canvas.drawText(String.valueOf(mNum), 0, 0, mPaint);
+
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 }

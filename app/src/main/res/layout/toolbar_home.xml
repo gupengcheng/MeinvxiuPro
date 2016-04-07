@@ -18,11 +18,13 @@
         android:textColor="@color/rgb_ffffff"
         android:textSize="@dimen/text_huge" />
 
+    <!--
     <com.gpc.meinvxiupro.views.widgets.NumberIncreaseView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
+        android:gravity="center"
+        app:increase_num="12"
         app:num_color="@color/rgb_ffffff"
-        app:num_size="@dimen/text_huge"
-        app:increase_num="12" />
+        app:num_size="@dimen/text_huge" />-->
 </android.support.v7.widget.Toolbar>

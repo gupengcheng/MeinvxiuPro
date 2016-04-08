@@ -50,7 +50,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        Picasso.with(mContext).load(mItems.get(position).getThumbnailUrl()).into(holder.mImageView);
+        Picasso.with(mContext).load(mItems.get(position).getThumbLargeUrl()).into(holder.mImageView);
     }
 
     public static class BaseViewHolder extends RecyclerView.ViewHolder {

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private static final String TAG = "CommonFragmentAdapter";
     private List<ImgsEntity> mItems;
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public CommonFragmentAdapter(List<ImgsEntity> items, Context context) {
         if (items == null) {
@@ -49,8 +51,14 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
         Picasso.with(mContext).load(mItems.get(position).getThumbLargeUrl()).into(holder.mImageView);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClickListener(mItems.get(position), position);
+            }
+        });
     }
 
     public static class BaseViewHolder extends RecyclerView.ViewHolder {
@@ -60,5 +68,9 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
             super(view);
             mImageView = (ImageView) view.findViewById(R.id.common_image);
         }
+    }
+
+    public void setOnClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

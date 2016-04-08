@@ -1,11 +1,14 @@
 package com.gpc.meinvxiupro.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by pcgu on 16-3-11.
  */
-public class ImgsEntity {
+public class ImgsEntity implements Parcelable {
     private String id;
     private String desc;
     private OwnerEntity owner;
@@ -537,4 +540,149 @@ public class ImgsEntity {
     public List<String> getTags() {
         return tags;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.desc);
+        dest.writeParcelable(this.owner, flags);
+        dest.writeString(this.fromPageTitle);
+        dest.writeString(this.column);
+        dest.writeString(this.parentTag);
+        dest.writeString(this.date);
+        dest.writeString(this.downloadUrl);
+        dest.writeString(this.imageUrl);
+        dest.writeInt(this.imageWidth);
+        dest.writeInt(this.imageHeight);
+        dest.writeString(this.thumbnailUrl);
+        dest.writeInt(this.thumbnailWidth);
+        dest.writeInt(this.thumbnailHeight);
+        dest.writeInt(this.thumbLargeWidth);
+        dest.writeInt(this.thumbLargeHeight);
+        dest.writeString(this.thumbLargeUrl);
+        dest.writeInt(this.thumbLargeTnWidth);
+        dest.writeInt(this.thumbLargeTnHeight);
+        dest.writeString(this.thumbLargeTnUrl);
+        dest.writeString(this.siteName);
+        dest.writeString(this.siteLogo);
+        dest.writeString(this.siteUrl);
+        dest.writeString(this.fromUrl);
+        dest.writeString(this.isBook);
+        dest.writeString(this.bookId);
+        dest.writeString(this.objUrl);
+        dest.writeString(this.shareUrl);
+        dest.writeString(this.setId);
+        dest.writeString(this.albumId);
+        dest.writeInt(this.isAlbum);
+        dest.writeString(this.albumName);
+        dest.writeInt(this.albumNum);
+        dest.writeString(this.userId);
+        dest.writeInt(this.isVip);
+        dest.writeInt(this.isDapei);
+        dest.writeString(this.dressId);
+        dest.writeString(this.dressBuyLink);
+        dest.writeInt(this.dressPrice);
+        dest.writeInt(this.dressDiscount);
+        dest.writeString(this.dressExtInfo);
+        dest.writeString(this.dressTag);
+        dest.writeInt(this.dressNum);
+        dest.writeString(this.objTag);
+        dest.writeInt(this.dressImgNum);
+        dest.writeString(this.hostName);
+        dest.writeString(this.pictureId);
+        dest.writeString(this.pictureSign);
+        dest.writeString(this.dataSrc);
+        dest.writeString(this.contentSign);
+        dest.writeString(this.albumDi);
+        dest.writeString(this.canAlbumId);
+        dest.writeString(this.albumObjNum);
+        dest.writeString(this.appId);
+        dest.writeString(this.photoId);
+        dest.writeInt(this.fromName);
+        dest.writeString(this.fashion);
+        dest.writeString(this.title);
+        dest.writeStringList(this.tags);
+    }
+
+    public ImgsEntity() {
+    }
+
+    protected ImgsEntity(Parcel in) {
+        this.id = in.readString();
+        this.desc = in.readString();
+        this.owner = in.readParcelable(OwnerEntity.class.getClassLoader());
+        this.fromPageTitle = in.readString();
+        this.column = in.readString();
+        this.parentTag = in.readString();
+        this.date = in.readString();
+        this.downloadUrl = in.readString();
+        this.imageUrl = in.readString();
+        this.imageWidth = in.readInt();
+        this.imageHeight = in.readInt();
+        this.thumbnailUrl = in.readString();
+        this.thumbnailWidth = in.readInt();
+        this.thumbnailHeight = in.readInt();
+        this.thumbLargeWidth = in.readInt();
+        this.thumbLargeHeight = in.readInt();
+        this.thumbLargeUrl = in.readString();
+        this.thumbLargeTnWidth = in.readInt();
+        this.thumbLargeTnHeight = in.readInt();
+        this.thumbLargeTnUrl = in.readString();
+        this.siteName = in.readString();
+        this.siteLogo = in.readString();
+        this.siteUrl = in.readString();
+        this.fromUrl = in.readString();
+        this.isBook = in.readString();
+        this.bookId = in.readString();
+        this.objUrl = in.readString();
+        this.shareUrl = in.readString();
+        this.setId = in.readString();
+        this.albumId = in.readString();
+        this.isAlbum = in.readInt();
+        this.albumName = in.readString();
+        this.albumNum = in.readInt();
+        this.userId = in.readString();
+        this.isVip = in.readInt();
+        this.isDapei = in.readInt();
+        this.dressId = in.readString();
+        this.dressBuyLink = in.readString();
+        this.dressPrice = in.readInt();
+        this.dressDiscount = in.readInt();
+        this.dressExtInfo = in.readString();
+        this.dressTag = in.readString();
+        this.dressNum = in.readInt();
+        this.objTag = in.readString();
+        this.dressImgNum = in.readInt();
+        this.hostName = in.readString();
+        this.pictureId = in.readString();
+        this.pictureSign = in.readString();
+        this.dataSrc = in.readString();
+        this.contentSign = in.readString();
+        this.albumDi = in.readString();
+        this.canAlbumId = in.readString();
+        this.albumObjNum = in.readString();
+        this.appId = in.readString();
+        this.photoId = in.readString();
+        this.fromName = in.readInt();
+        this.fashion = in.readString();
+        this.title = in.readString();
+        this.tags = in.createStringArrayList();
+    }
+
+    public static final Parcelable.Creator<ImgsEntity> CREATOR = new Parcelable.Creator<ImgsEntity>() {
+        @Override
+        public ImgsEntity createFromParcel(Parcel source) {
+            return new ImgsEntity(source);
+        }
+
+        @Override
+        public ImgsEntity[] newArray(int size) {
+            return new ImgsEntity[size];
+        }
+    };
 }

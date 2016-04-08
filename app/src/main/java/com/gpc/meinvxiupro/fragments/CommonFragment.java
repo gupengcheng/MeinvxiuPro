@@ -14,6 +14,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
+import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.gpc.meinvxiupro.views.listener.EndlessRecyclerViewOnScrollListener;
 import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
 
@@ -93,6 +94,13 @@ public class CommonFragment extends BaseFragment {
             public void onLoadMore(int currentPage) {
                 mLoadMoreView.setVisibility(View.VISIBLE);
                 loadData();
+            }
+        });
+
+        mAdapter.setOnClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClickListener(ImgsEntity imgsEntity, int position) {
+                LogUtil.e(TAG, "position ->" + position + "  imgsEntity ->" + imgsEntity.getTitle());
             }
         });
     }

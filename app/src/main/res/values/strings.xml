@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">图说</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="title_activity_welcome">欢迎页</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">图说</string>
+    <string name="title_activity_image_detail">图片详情</string>
 
     <!-- 可爱类 -->
     <string-array name="tag_lovely_array">

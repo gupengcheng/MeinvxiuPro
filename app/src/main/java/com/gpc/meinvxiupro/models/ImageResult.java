@@ -1,11 +1,14 @@
 package com.gpc.meinvxiupro.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by pcgu on 16-3-11.
  */
-public class ImageResult {
+public class ImageResult implements Parcelable {
 
     /**
      * col : 美女
@@ -151,4 +154,47 @@ public class ImageResult {
     public List<ImgsEntity> getImgs() {
         return imgs;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.col);
+        dest.writeString(this.tag);
+        dest.writeString(this.tag3);
+        dest.writeString(this.sort);
+        dest.writeInt(this.totalNum);
+        dest.writeInt(this.startIndex);
+        dest.writeInt(this.returnNumber);
+        dest.writeTypedList(imgs);
+    }
+
+    public ImageResult() {
+    }
+
+    protected ImageResult(Parcel in) {
+        this.col = in.readString();
+        this.tag = in.readString();
+        this.tag3 = in.readString();
+        this.sort = in.readString();
+        this.totalNum = in.readInt();
+        this.startIndex = in.readInt();
+        this.returnNumber = in.readInt();
+        this.imgs = in.createTypedArrayList(ImgsEntity.CREATOR);
+    }
+
+    public static final Parcelable.Creator<ImageResult> CREATOR = new Parcelable.Creator<ImageResult>() {
+        @Override
+        public ImageResult createFromParcel(Parcel source) {
+            return new ImageResult(source);
+        }
+
+        @Override
+        public ImageResult[] newArray(int size) {
+            return new ImageResult[size];
+        }
+    };
 }

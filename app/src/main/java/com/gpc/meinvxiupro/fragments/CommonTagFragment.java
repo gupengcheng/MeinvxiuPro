@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.ToxicBakery.viewpager.transforms.ScaleInOutTransformer;
 import com.ToxicBakery.viewpager.transforms.TabletTransformer;
@@ -67,7 +68,7 @@ public class CommonTagFragment extends BaseFragment {
             mAdapter.addTab(CommonFragment.newInstance(title), title);
         }
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageTransformer(true, new DepthPageTransformer());
+        mViewPager.setPageTransformer(true, new CubeOutTransformer());
         mViewPager.setOffscreenPageLimit(1);
         mTabLayout.setupWithViewPager(mViewPager);
     }

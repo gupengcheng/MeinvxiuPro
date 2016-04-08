@@ -30,13 +30,14 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         mTitleTag = bundle.getString(Constant.BundleConstant.FRAGMENT_TITLE);
+        LogUtil.e(TAG, "onCreate ->" + getFragmentTitle());
         initInflateView();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.e(TAG, "onCreateView");
+        LogUtil.e(TAG, "onCreateView ->" + getFragmentTitle());
         mInflateView = inflater.inflate(mInflateLayoutId, container, false);
         findViewByIds();
         initViews();
@@ -48,7 +49,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        LogUtil.e(TAG, "setUserVisibleHint isVisibleToUser == " + getFragmentTitle() + "  " + isVisibleToUser + " mIsLoadData ==" + mIsLoadData);
         if (isVisibleToUser && !mIsLoadData) {
             loadDataFirst();
         }

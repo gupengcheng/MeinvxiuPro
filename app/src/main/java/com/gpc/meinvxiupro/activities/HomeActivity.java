@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
+import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonFragment;
@@ -65,7 +66,7 @@ public class HomeActivity extends BaseActivity {
             mAdapter.addTab(CommonTagFragment.newInstance(title), title);
         }
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageTransformer(true, new TabletTransformer());
+        mViewPager.setPageTransformer(true, new DepthPageTransformer());
         mViewPager.setOffscreenPageLimit(1);
     }
 

@@ -12,6 +12,7 @@ import com.gpc.meinvxiupro.managers.DataRequestManager;
 import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.listener.EndlessRecyclerViewOnScrollListener;
 import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
@@ -26,13 +27,15 @@ import rx.schedulers.Schedulers;
  * Created by pcgu on 16-3-23.
  */
 public class CommonFragment extends BaseFragment {
+    private static final String TAG = "CommonFragment";
+
     private FunGameRefreshView mFunGameRefreshView;
     private RecyclerView mRecyclerView;
     private GridLayoutManager mGridLayoutManager;
     private RelativeLayout mLoadingView;
     private RelativeLayout mLoadMoreView;
     private CommonFragmentAdapter mAdapter;
-    private List<ImgsEntity> mItems;
+    private List<ImgsEntity> mItems = new ArrayList<>();
 
     public static CommonFragment newInstance(String title) {
         CommonFragment commonFragment = new CommonFragment();
@@ -66,7 +69,6 @@ public class CommonFragment extends BaseFragment {
     @Override
     protected void initViews() {
         super.initViews();
-        mItems = new ArrayList<>();
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
@@ -127,6 +129,7 @@ public class CommonFragment extends BaseFragment {
                     @Override
                     public void onNext(ImageResult imageResult) {
                         if (null != imageResult && imageResult.getImgs() != null) {
+                            LogUtil.e(TAG, "onNext->" + imageResult.getImgs().get(0).getTitle() + "  StartIndex->" + getStartIndex());
                             if (getStartIndex() == 0) {
                                 mItems.clear();
                                 mLoadingView.setVisibility(View.GONE);

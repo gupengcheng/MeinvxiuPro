@@ -1,11 +1,13 @@
 package com.gpc.meinvxiupro.activities;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.jaeger.library.StatusBarUtil;
 
 /**
  * Created by pcgu on 16-4-8.
@@ -19,6 +21,9 @@ public class ImageDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_detail);
+
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.rgb_333333));
+
     }
 
     @Override

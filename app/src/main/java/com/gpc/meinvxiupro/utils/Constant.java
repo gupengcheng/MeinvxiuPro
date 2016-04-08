@@ -12,6 +12,8 @@ public class Constant {
 
     public class BundleConstant {
         public static final String FRAGMENT_TITLE = "fragment_title";
+        public static final String IMAGE_ENTITY = "imgsEntity";
+        public static final String IMAGE_POSITION = "imgPosition";
     }
 
     public class BroadcastReceiverAction {

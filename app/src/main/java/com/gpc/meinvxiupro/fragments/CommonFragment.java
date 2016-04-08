@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.activities.ImageDetailActivity;
 import com.gpc.meinvxiupro.managers.DataRequestManager;
 import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.ContextUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
@@ -101,6 +103,10 @@ public class CommonFragment extends BaseFragment {
             @Override
             public void onItemClickListener(ImgsEntity imgsEntity, int position) {
                 LogUtil.e(TAG, "position ->" + position + "  imgsEntity ->" + imgsEntity.getTitle());
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.BundleConstant.IMAGE_ENTITY, imgsEntity);
+                bundle.putInt(Constant.BundleConstant.IMAGE_POSITION, position);
+                ContextUtils.goActivity(getContext(), ImageDetailActivity.class, bundle);
             }
         });
     }

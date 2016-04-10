@@ -60,4 +60,7 @@
         <item>综合</item>
     </string-array>
 
+    <string name="set_lockscreen">设置锁屏</string>
+    <string name="setting_wallpaper">设置壁纸</string>
+
 </resources>

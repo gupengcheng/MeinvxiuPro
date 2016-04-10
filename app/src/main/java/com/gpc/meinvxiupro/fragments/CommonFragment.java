@@ -146,12 +146,12 @@ public class CommonFragment extends BaseFragment {
                             LogUtil.e(TAG, "onNext->" + imageResult.getImgs().get(0).getTitle() + "  StartIndex->" + getStartIndex());
                             if (getStartIndex() == 0) {
                                 mItems.clear();
-                                mLoadingView.setVisibility(View.GONE);
                             }
                             setStartIndex(getStartIndex() + 1);
                             mItems.addAll(getFilterEndNullItems(imageResult));
                             mAdapter.notifyDataSetChanged();
                             mLoadMoreView.setVisibility(View.GONE);
+                            mLoadingView.setVisibility(View.GONE);
                             mFunGameRefreshView.finishRefreshing();
                         }
                     }

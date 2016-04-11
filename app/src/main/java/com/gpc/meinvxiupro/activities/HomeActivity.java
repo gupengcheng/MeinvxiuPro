@@ -6,13 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
-import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.gpc.meinvxiupro.R;
-import com.gpc.meinvxiupro.fragments.CommonFragment;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.utils.LogUtil;
-import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;

@@ -1,8 +1,14 @@
 package com.gpc.meinvxiupro.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.graphics.Palette;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -10,6 +16,7 @@ import android.widget.TextView;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;
@@ -68,6 +75,7 @@ public class ImageDetailActivity extends BaseActivity {
             @Override
             public void onSuccess() {
                 mLoadingView.setVisibility(View.GONE);
+//                getPaletteColor();
             }
 
             @Override
@@ -79,5 +87,16 @@ public class ImageDetailActivity extends BaseActivity {
 
     private void initListener() {
 
+    }
+
+    private void getPaletteColor() {
+        Palette.PaletteAsyncListener paletteAsyncListener = new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                int vibrantColor = palette.getDarkVibrantColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                StatusBarUtil.setColor(ImageDetailActivity.this, vibrantColor);
+            }
+        };
+        Palette.from(ImageUtils.getImageViewBitmap(mDetailImg)).generate(paletteAsyncListener);
     }
 }

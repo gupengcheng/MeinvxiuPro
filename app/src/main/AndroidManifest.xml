@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name=".activities.ImageDetailActivity"
-            android:label="@string/title_activity_image_detail">
+            android:label="@string/title_activity_image_detail"
+            android:theme="@style/AppTheme.TranslucentStatus">
 
         </activity>
     </application>

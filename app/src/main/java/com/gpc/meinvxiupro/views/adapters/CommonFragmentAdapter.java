@@ -99,7 +99,8 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
             public void onGenerated(Palette palette) {
                 int mutedColor = palette.getMutedColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
                 StatusBarUtil.setColor(((Activity) mContext), mutedColor);
-                setBottomTabLayoutTextColor(mutedColor);
+                setToolbarBackground(mutedColor);
+//                setBottomTabLayoutTextColor(mutedColor);
                 setTopTabLayoutTextColor(mutedColor);
             }
         };
@@ -127,8 +128,11 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         }
     }
 
-    private void setBottomTabLayoutTextColor(int mutedColor) {
+    private void setToolbarBackground(int mutedColor) {
         ((Activity) mContext).findViewById(R.id.home_toolbar).setBackgroundColor(mutedColor);
+    }
+
+    private void setBottomTabLayoutTextColor(int mutedColor) {
         TabLayout tabLayout = (TabLayout) ((Activity) mContext).findViewById(R.id.home_tab_layout);
         tabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
     }

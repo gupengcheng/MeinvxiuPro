@@ -2,7 +2,6 @@ package com.gpc.meinvxiupro.managers;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
-import com.gpc.meinvxiupro.utils.LogUtil;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

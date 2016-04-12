@@ -60,7 +60,11 @@
         <item>综合</item>
     </string-array>
 
-    <string name="set_lockscreen">设置锁屏</string>
+    <string name="setting_lock_screen">设置锁屏</string>
     <string name="setting_wallpaper">设置壁纸</string>
+    <string name="set_lock_screen_succeed">设置锁屏成功</string>
+    <string name="set_lock_screen_failure">不好了，该机型不支持设置锁屏</string>
+    <string name="set_wallpaper_succeed">设置壁纸成功</string>
+    <string name="click_again_exit">双击壁纸两次可以关闭当前页面</string>
 
 </resources>

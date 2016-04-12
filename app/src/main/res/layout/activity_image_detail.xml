@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/rgb_f8f8f8">
 
-    <ImageView
+    <com.gpc.meinvxiupro.views.widgets.CustomTouchImageView
         android:id="@+id/img_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,15 +34,6 @@
             android:gravity="center"
             android:text="@string/setting_wallpaper" />
 
-        <TextView
-            android:id="@+id/tv_set_lockscreen"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/set_lockscreen" />
     </LinearLayout>
 
 </RelativeLayout>

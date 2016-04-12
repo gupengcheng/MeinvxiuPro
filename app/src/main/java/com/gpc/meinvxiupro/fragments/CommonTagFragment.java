@@ -5,9 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
-import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
-import com.ToxicBakery.viewpager.transforms.ScaleInOutTransformer;
-import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;

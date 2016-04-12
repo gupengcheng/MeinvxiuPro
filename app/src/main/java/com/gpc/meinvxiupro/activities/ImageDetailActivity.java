@@ -1,15 +1,7 @@
 package com.gpc.meinvxiupro.activities;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.graphics.Palette;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,8 +9,8 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
-import com.gpc.meinvxiupro.utils.LogUtil;
-import com.jaeger.library.StatusBarUtil;
+import com.gpc.meinvxiupro.utils.WallpaperUtils;
+import com.gpc.meinvxiupro.views.widgets.CustomTouchImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -27,10 +19,9 @@ import com.squareup.picasso.Picasso;
  */
 public class ImageDetailActivity extends BaseActivity {
     private static final String TAG = "ImageDetailActivity";
-    private ImageView mDetailImg;
+    private CustomTouchImageView mDetailImg;
     private RelativeLayout mLoadingView;
     private TextView mSettingWallpaperTv;
-    private TextView mSettingLockScreenTv;
 
     private int mParentImagePosition;
     private static final int DEFAULT_PARENT_IMAGE_POSITION = 0;
@@ -44,10 +35,9 @@ public class ImageDetailActivity extends BaseActivity {
     @Override
     protected void findViewByIds() {
         super.findViewByIds();
-        mDetailImg = (ImageView) findViewById(R.id.img_detail);
+        mDetailImg = (CustomTouchImageView) findViewById(R.id.img_detail);
         mLoadingView = (RelativeLayout) findViewById(R.id.common_loading);
         mSettingWallpaperTv = (TextView) findViewById(R.id.tv_set_wallpaper);
-        mSettingLockScreenTv = (TextView) findViewById(R.id.tv_set_lockscreen);
     }
 
     @Override
@@ -62,10 +52,6 @@ public class ImageDetailActivity extends BaseActivity {
         mParentImagePosition = bundle.getInt(Constant.BundleConstant.IMAGE_POSITION,
                 DEFAULT_PARENT_IMAGE_POSITION);
         ImgsEntity imgsEntity = bundle.getParcelable(Constant.BundleConstant.IMAGE_ENTITY);
-        if (null != imgsEntity) {
-            LogUtil.e(TAG, "title ->" + imgsEntity.getTitle());
-        }
-        LogUtil.e(TAG, " mParentImagePosition ->" + mParentImagePosition);
         loadData(imgsEntity.getDownloadUrl());
     }
 
@@ -75,7 +61,6 @@ public class ImageDetailActivity extends BaseActivity {
             @Override
             public void onSuccess() {
                 mLoadingView.setVisibility(View.GONE);
-//                getPaletteColor();
             }
 
             @Override
@@ -86,17 +71,18 @@ public class ImageDetailActivity extends BaseActivity {
     }
 
     private void initListener() {
-
-    }
-
-    private void getPaletteColor() {
-        Palette.PaletteAsyncListener paletteAsyncListener = new Palette.PaletteAsyncListener() {
+        mSettingWallpaperTv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onGenerated(Palette palette) {
-                int vibrantColor = palette.getDarkVibrantColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
-                StatusBarUtil.setColor(ImageDetailActivity.this, vibrantColor);
+            public void onClick(View v) {
+                WallpaperUtils.setWallpaper(mContext, ImageUtils.getImageViewBitmap(mDetailImg));
             }
-        };
-        Palette.from(ImageUtils.getImageViewBitmap(mDetailImg)).generate(paletteAsyncListener);
+        });
+
+        mDetailImg.setOnClickListener(new CustomTouchImageView.CustomImageOnClickListener() {
+            @Override
+            public void OnTwiceClickListener() {
+                ImageDetailActivity.this.finish();
+            }
+        });
     }
 }

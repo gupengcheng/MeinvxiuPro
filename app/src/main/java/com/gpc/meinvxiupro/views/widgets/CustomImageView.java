@@ -18,7 +18,7 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     private long mSysClickLastTime = 0;
     private int mClickCount = 1;
     private DoubleClickListener mDoubleClickListener;
-    private float mDy;
+    private int mLastMoveY;
 
     public CustomImageView(Context context) {
         super(context);
@@ -42,7 +42,7 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     }
 
     private void init() {
-        setOnClickListener(this);
+//        setOnClickListener(this);
     }
 
     @Override
@@ -52,24 +52,26 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
+        int action = event.getAction();
+        int currentY;
+        switch (action) {
             case MotionEvent.ACTION_DOWN:
-                mDy = event.getY();
+                mLastMoveY = (int) event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                onMoveEvent(event);
+                currentY = (int) event.getY();
+                int distanceY = currentY - mLastMoveY;
+                scrollTo(0, distanceY);
+                mLastMoveY = currentY;
                 break;
             case MotionEvent.ACTION_UP:
+                currentY = (int) event.getY();
+                mLastMoveY = currentY;
                 break;
             case MotionEvent.ACTION_CANCEL:
                 break;
         }
-        return super.onTouchEvent(event);
-    }
-
-    private void onMoveEvent(MotionEvent event) {
-        scrollTo(0, (int) (event.getY() - mDy));
-        mDy = event.getY();
+        return true;
     }
 
     public void setOnDoubleClickListener(DoubleClickListener doubleClickListener) {

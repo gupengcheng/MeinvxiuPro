@@ -13,30 +13,30 @@ import com.gpc.meinvxiupro.utils.ToastUtils;
 /**
  * Created by pcgu on 16-4-12.
  */
-public class CustomTouchImageView extends ImageView implements View.OnClickListener {
+public class CustomImageView extends ImageView implements View.OnClickListener {
     private static final long EXIT_INTERVAL = 1000;
     private long mSysClickLastTime = 0;
     private int mClickCount = 1;
-    private CustomImageOnClickListener mCustomImageOnClickListener;
+    private DoubleClickListener mDoubleClickListener;
     private float mDy;
 
-    public CustomTouchImageView(Context context) {
+    public CustomImageView(Context context) {
         super(context);
         init();
     }
 
-    public CustomTouchImageView(Context context, AttributeSet attrs) {
+    public CustomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public CustomTouchImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     @TargetApi(21)
-    public CustomTouchImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public CustomImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -72,11 +72,11 @@ public class CustomTouchImageView extends ImageView implements View.OnClickListe
         mDy = event.getY();
     }
 
-    public void setOnClickListener(CustomImageOnClickListener customImageOnClickListener) {
-        this.mCustomImageOnClickListener = customImageOnClickListener;
+    public void setOnDoubleClickListener(DoubleClickListener doubleClickListener) {
+        this.mDoubleClickListener = doubleClickListener;
     }
 
-    public interface CustomImageOnClickListener {
+    public interface DoubleClickListener {
         public abstract void OnTwiceClickListener();
     }
 
@@ -92,7 +92,7 @@ public class CustomTouchImageView extends ImageView implements View.OnClickListe
         if (mClickCount == 1) {
             ToastUtils.showShortToast(getContext(), R.string.click_again_exit);
         } else if (mClickCount == 2) {
-            mCustomImageOnClickListener.OnTwiceClickListener();
+            mDoubleClickListener.OnTwiceClickListener();
             mClickCount = 0;
             mSysClickLastTime = now;
         } else {

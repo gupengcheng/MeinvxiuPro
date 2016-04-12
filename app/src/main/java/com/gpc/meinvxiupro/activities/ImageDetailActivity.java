@@ -10,7 +10,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
-import com.gpc.meinvxiupro.views.widgets.CustomTouchImageView;
+import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
  */
 public class ImageDetailActivity extends BaseActivity {
     private static final String TAG = "ImageDetailActivity";
-    private CustomTouchImageView mDetailImg;
+    private CustomImageView mDetailImg;
     private RelativeLayout mLoadingView;
     private TextView mSettingWallpaperTv;
 
@@ -35,7 +35,7 @@ public class ImageDetailActivity extends BaseActivity {
     @Override
     protected void findViewByIds() {
         super.findViewByIds();
-        mDetailImg = (CustomTouchImageView) findViewById(R.id.img_detail);
+        mDetailImg = (CustomImageView) findViewById(R.id.img_detail);
         mLoadingView = (RelativeLayout) findViewById(R.id.common_loading);
         mSettingWallpaperTv = (TextView) findViewById(R.id.tv_set_wallpaper);
     }
@@ -74,11 +74,12 @@ public class ImageDetailActivity extends BaseActivity {
         mSettingWallpaperTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 WallpaperUtils.setWallpaper(mContext, ImageUtils.getImageViewBitmap(mDetailImg));
             }
         });
 
-        mDetailImg.setOnClickListener(new CustomTouchImageView.CustomImageOnClickListener() {
+        mDetailImg.setOnDoubleClickListener(new CustomImageView.DoubleClickListener() {
             @Override
             public void OnTwiceClickListener() {
                 ImageDetailActivity.this.finish();

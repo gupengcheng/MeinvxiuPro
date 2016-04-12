@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/rgb_f8f8f8">
 
-    <com.gpc.meinvxiupro.views.widgets.CustomTouchImageView
+    <com.gpc.meinvxiupro.views.widgets.CustomImageView
         android:id="@+id/img_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

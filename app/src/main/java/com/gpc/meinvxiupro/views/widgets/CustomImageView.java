@@ -1,24 +1,38 @@
 package com.gpc.meinvxiupro.views.widgets;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.ToastUtils;
+import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;
 
 /**
  * Created by pcgu on 16-4-12.
  */
 public class CustomImageView extends ImageView implements View.OnClickListener {
+    private static final String TAG = "CustomImageView";
     private static final long EXIT_INTERVAL = 1000;
     private long mSysClickLastTime = 0;
-    private int mClickCount = 1;
     private DoubleClickListener mDoubleClickListener;
-    private int mLastMoveY;
+    private OnTouchDistanceListener mOnTouchDistanceListener;
+    private int mClickCount = 1;
+
+    private static final int DISTANCE_Y_SET_WALLPAPER = 80;
+    private static final int DISTANCE_Y_COLLECT_WALLPAPER = -56;
+    private int mLastY;
+    private int mTotalY;
+    private ObjectAnimator mResetAnimator;
 
     public CustomImageView(Context context) {
         super(context);
@@ -52,34 +66,55 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getAction();
-        int currentY;
-        switch (action) {
+        int rawY = (int) event.getRawY();
+        int tempY;
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mLastMoveY = (int) event.getY();
+                mLastY = rawY;
                 break;
             case MotionEvent.ACTION_MOVE:
-                currentY = (int) event.getY();
-                int distanceY = currentY - mLastMoveY;
-                scrollTo(0, distanceY);
-                mLastMoveY = currentY;
+                int offsetY = rawY - mLastY;
+                tempY = mTotalY + offsetY;
+                if (tempY >= PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER)) {
+                    offsetTopAndBottom(PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER) - mTotalY);
+                    mTotalY = PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER);
+                } else if (tempY <= 0) {
+                    offsetTopAndBottom(0 - mTotalY);
+                    mTotalY = 0;
+                } else {
+                    offsetTopAndBottom(offsetY);
+                    mTotalY += offsetY;
+                }
+                mLastY = rawY;
                 break;
             case MotionEvent.ACTION_UP:
-                currentY = (int) event.getY();
-                mLastMoveY = currentY;
-                break;
             case MotionEvent.ACTION_CANCEL:
-                break;
+                resetAnimation();
         }
         return true;
     }
 
-    public void setOnDoubleClickListener(DoubleClickListener doubleClickListener) {
-        this.mDoubleClickListener = doubleClickListener;
-    }
-
-    public interface DoubleClickListener {
-        public abstract void OnTwiceClickListener();
+    private void resetAnimation() {
+        if (mTotalY == PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER)) {
+            mOnTouchDistanceListener.setWallpaper();
+        }
+        if (mTotalY == PixelUtil.dp2px(getContext(), DISTANCE_Y_COLLECT_WALLPAPER)) {
+            mOnTouchDistanceListener.collectWallpaper();
+        }
+        if (mResetAnimator != null && mResetAnimator.isRunning()) {
+            return;
+        }
+        mResetAnimator = ObjectAnimator.ofInt(mTotalY, "int", mTotalY, 0);
+        mResetAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int animatedValue = (int) animation.getAnimatedValue();
+                offsetTopAndBottom(-(mTotalY - animatedValue));
+                mTotalY = animatedValue;
+            }
+        });
+        mResetAnimator.start();
+        mLastY = 0;
     }
 
     private void twiceClickResponse() {
@@ -101,5 +136,20 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
             mClickCount = 0;
             mSysClickLastTime = now;
         }
+    }
+
+    public void setOnTouchDistanceListener(OnTouchDistanceListener listener) {
+        this.mOnTouchDistanceListener = listener;
+    }
+
+
+    public void setOnDoubleClickListener(DoubleClickListener listener) {
+        this.mDoubleClickListener = listener;
+    }
+
+    public interface OnTouchDistanceListener {
+        public abstract void setWallpaper();
+
+        public abstract void collectWallpaper();
     }
 }

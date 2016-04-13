@@ -112,19 +112,25 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         HomePagerAdapter adapter = (HomePagerAdapter) viewPager.getAdapter();
         //最外层viewpager的当前item
         android.support.v4.app.Fragment fragment = adapter.getItem(viewPager.getCurrentItem());
-        TabLayout topTabLayout = (TabLayout) fragment.getView().findViewById(R.id.common_tag_tab_layout);
-        topTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+        if (fragment.getView() != null) {
+            TabLayout topTabLayout = (TabLayout) fragment.getView().findViewById(R.id.common_tag_tab_layout);
+            topTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+        }
         //最外层viewpager的当前item之前的item
         if (viewPager.getCurrentItem() - 1 >= 0) {
             android.support.v4.app.Fragment lastFragment = adapter.getItem(viewPager.getCurrentItem() - 1);
-            TabLayout lastTabLayout = (TabLayout) lastFragment.getView().findViewById(R.id.common_tag_tab_layout);
-            lastTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+            if (lastFragment.getView() != null) {
+                TabLayout lastTabLayout = (TabLayout) lastFragment.getView().findViewById(R.id.common_tag_tab_layout);
+                lastTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+            }
         }
         //最外层viewpager的当前item之后的item
         if (viewPager.getCurrentItem() + 1 < adapter.getCount()) {
             android.support.v4.app.Fragment nextFragment = adapter.getItem(viewPager.getCurrentItem() + 1);
-            TabLayout nextTabLayout = (TabLayout) nextFragment.getView().findViewById(R.id.common_tag_tab_layout);
-            nextTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+            if (nextFragment.getView() != null) {
+                TabLayout nextTabLayout = (TabLayout) nextFragment.getView().findViewById(R.id.common_tag_tab_layout);
+                nextTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.gpc.meinvxiupro.activities;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
@@ -13,6 +14,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
@@ -95,8 +97,9 @@ public class ImageDetailActivity extends BaseActivity {
 
             @Override
             public void collectWallpaper() {
-
+                LogUtil.e(TAG, "collect wallpaper");
             }
+
         });
     }
 

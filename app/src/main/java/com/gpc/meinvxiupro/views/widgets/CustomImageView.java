@@ -7,12 +7,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.gpc.meinvxiupro.R;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;

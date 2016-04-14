@@ -5,6 +5,7 @@ package com.gpc.meinvxiupro.utils;
  */
 public class Constant {
     public static final boolean IS_DEBUG = true;
+    public static final int STATUS_BAR_HEIGHT = 24;
 
     public class ContextConstant {
         public static final String BUNDLE_NAME = "bundle_name";

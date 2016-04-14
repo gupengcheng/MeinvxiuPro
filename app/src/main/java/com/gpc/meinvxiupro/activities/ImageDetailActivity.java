@@ -1,5 +1,6 @@
 package com.gpc.meinvxiupro.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
@@ -13,6 +14,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
@@ -51,6 +53,7 @@ public class ImageDetailActivity extends BaseActivity {
     protected void initViews() {
         super.initViews();
         getData();
+        initData();
         initListener();
     }
 
@@ -76,6 +79,15 @@ public class ImageDetailActivity extends BaseActivity {
                 mLoadingView.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void initData() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            mDetailImg.setAddStatusBarDistanceYSetWallpaper();
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mSetWallpaperView.getLayoutParams();
+            layoutParams.setMargins(0, PixelUtil.dp2px(mContext, Constant.STATUS_BAR_HEIGHT), 0, 0);
+            mSetWallpaperView.setLayoutParams(layoutParams);
+        }
     }
 
     private void initListener() {

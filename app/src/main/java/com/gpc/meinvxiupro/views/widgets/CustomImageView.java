@@ -25,8 +25,11 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     private OnTouchDistanceListener mOnTouchDistanceListener;
     private int mClickCount = 1;
 
-    private static final int DISTANCE_Y_SET_WALLPAPER = 80;
+    private static final int DISTANCE_Y_ADD_STATUS_SET_WALLPAPER = 80;
+    private static final int DISTANCE_Y_SET_WALLPAPER = 56;
     private static final int DISTANCE_Y_COLLECT_WALLPAPER = -56;
+    //default value is no status height
+    private int mDistanceYSetWallpaper = DISTANCE_Y_SET_WALLPAPER;
     private int mLastY;
     private int mTotalY;
     private ObjectAnimator mResetAnimator;
@@ -73,9 +76,9 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
                 int offsetY = rawY - mLastY;
                 tempY = mTotalY + offsetY;
                 if (tempY > 0) {
-                    if (tempY >= PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER)) {
-                        offsetTopAndBottom(PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER) - mTotalY);
-                        mTotalY = PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER);
+                    if (tempY >= PixelUtil.dp2px(getContext(), mDistanceYSetWallpaper)) {
+                        offsetTopAndBottom(PixelUtil.dp2px(getContext(), mDistanceYSetWallpaper) - mTotalY);
+                        mTotalY = PixelUtil.dp2px(getContext(), mDistanceYSetWallpaper);
                     } else {
                         offsetTopAndBottom(offsetY);
                         mTotalY += offsetY;
@@ -92,16 +95,6 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
                     offsetTopAndBottom(0 - mTotalY);
                     mTotalY = 0;
                 }
-//                if (tempY >= PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER)) {
-//                    offsetTopAndBottom(PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER) - mTotalY);
-//                    mTotalY = PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER);
-//                } else if (tempY <= 0) {
-//                    offsetTopAndBottom(0 - mTotalY);
-//                    mTotalY = 0;
-//                } else {
-//                    offsetTopAndBottom(offsetY);
-//                    mTotalY += offsetY;
-//                }
                 mLastY = rawY;
                 break;
             case MotionEvent.ACTION_UP:
@@ -112,7 +105,7 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     }
 
     private void resetAnimation() {
-        if (mTotalY == PixelUtil.dp2px(getContext(), DISTANCE_Y_SET_WALLPAPER)) {
+        if (mTotalY == PixelUtil.dp2px(getContext(), mDistanceYSetWallpaper)) {
             mOnTouchDistanceListener.setWallpaper();
         }
         if (mTotalY == PixelUtil.dp2px(getContext(), DISTANCE_Y_COLLECT_WALLPAPER)) {
@@ -164,10 +157,14 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
         this.mDoubleClickListener = listener;
     }
 
-    public interface OnTouchDistanceListener {
-        public abstract void setWallpaper();
+    public void setAddStatusBarDistanceYSetWallpaper() {
+        this.mDistanceYSetWallpaper = DISTANCE_Y_ADD_STATUS_SET_WALLPAPER;
+    }
 
-        public abstract void collectWallpaper();
+    public interface OnTouchDistanceListener {
+        void setWallpaper();
+
+        void collectWallpaper();
 
     }
 }

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.models.ImageResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,5 +87,25 @@ public class SharedPreferencesUtils {
         editor.putBoolean(Constant.SharedPreferencesKey.APPLICATION_FIRST_INSTALLED
                 + getApkVersionCode(context, context.getPackageName()), installed);
         editor.apply();
+    }
+
+    public static ImageResult getCacheImageResult(Context context, String tag) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        String cacheData = sp.getString(tag, "");
+        if (!TextUtils.isEmpty(cacheData)) {
+            ImageResult imageResult = JsonUtils.fromJson(cacheData, ImageResult.class);
+            return imageResult;
+        }
+        return null;
+    }
+
+    public static void setCacheImageResult(Context context, String tag, ImageResult imageResult) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        String cacheJson = JsonUtils.toJson(imageResult);
+        if (!TextUtils.isEmpty(cacheJson)) {
+            editor.putString(tag, cacheJson);
+            editor.apply();
+        }
     }
 }

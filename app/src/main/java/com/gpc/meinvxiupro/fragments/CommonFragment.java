@@ -14,7 +14,9 @@ import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ContextUtils;
+import com.gpc.meinvxiupro.utils.JsonUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.gpc.meinvxiupro.views.listener.EndlessRecyclerViewOnScrollListener;
@@ -123,15 +125,17 @@ public class CommonFragment extends BaseFragment {
     }
 
     private void loadData() {
-        DataRequestManager.getInstance().getImageResult(getFragmentTitle(), getStartIndex(), Schedulers.computation(),
+        DataRequestManager.getInstance().getImageResult(getContext(), getFragmentTitle(),
+                getStartIndex(), Schedulers.computation(),
                 new Subscriber<ImageResult>() {
                     @Override
                     public void onCompleted() {
-
+                        LogUtil.e(TAG, "onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
+                        LogUtil.e(TAG, "onError ->" + throwable.toString());
                         if (mItems.isEmpty()) {
                             setIsLoadData(false);
                         }
@@ -142,10 +146,12 @@ public class CommonFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ImageResult imageResult) {
+                        LogUtil.e(TAG, "onNext");
                         if (null != imageResult && imageResult.getImgs() != null) {
                             LogUtil.e(TAG, "onNext->" + imageResult.getImgs().get(0).getTitle() + "  StartIndex->" + getStartIndex());
                             if (getStartIndex() == 0) {
                                 mItems.clear();
+                                SharedPreferencesUtils.setCacheImageResult(getContext(), imageResult.getTag(), imageResult);
                             }
                             setStartIndex(getStartIndex() + 1);
                             mItems.addAll(getFilterEndNullItems(imageResult));

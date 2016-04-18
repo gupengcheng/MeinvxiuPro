@@ -13,11 +13,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.LruCache;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -59,7 +62,8 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
-        Picasso.with(mContext).load(mItems.get(position).getThumbLargeUrl()).into(holder.mImageView, new Callback() {
+        ImageLoaderManager.getPicassoInstance(mContext).load(mItems.get(position)
+                .getThumbLargeUrl()).into(holder.mImageView, new Callback() {
             @Override
             public void onSuccess() {
                 if (position == 0) {

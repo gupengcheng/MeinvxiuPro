@@ -54,9 +54,20 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    protected void loadCacheData() {
+
+    }
+
+    protected void loadData() {
+
+    }
+
     //每一个Fragment第一次加载数据
     protected void loadDataFirst() {
         setIsLoadData(true);
+        setStartIndex(0);
+        loadCacheData();
+        loadData();
     }
 
     //做一些初始化工作，比如setInflateLayout

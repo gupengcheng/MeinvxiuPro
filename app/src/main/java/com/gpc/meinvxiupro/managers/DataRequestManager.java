@@ -14,6 +14,7 @@ import rx.Observable;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -41,10 +42,11 @@ public class DataRequestManager {
         return mInstance;
     }
 
-    public synchronized void getImageResult(final Context context, final String tag, int pageNum,
-                                            Scheduler scheduler,
-                                            Subscriber<ImageResult> callback) {
-        // get cache data
+    /**
+     * get cache data
+     */
+    public synchronized void getImageCache(final Context context, final String tag,
+                                           Subscriber<ImageResult> callback) {
         Observable.create(new Observable.OnSubscribe<ImageResult>() {
             @Override
             public void call(Subscriber<? super ImageResult> subscriber) {
@@ -52,13 +54,33 @@ public class DataRequestManager {
                 ImageResult imageResult = SharedPreferencesUtils.getCacheImageResult(context, tag);
                 subscriber.onNext(imageResult);
             }
-        }).subscribeOn(Schedulers.io())
+        })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
-        // request data from network
+    }
+
+    /**
+     * request data from network
+     *
+     * @param tag
+     * @param pageNum
+     * @param callback
+     */
+    public synchronized void getImageResult(final Context context, final String tag, final int pageNum,
+                                            Subscriber<ImageResult> callback) {
         mImageInterface.getImages(tag, pageNum)
-                .subscribeOn(scheduler)
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Action1<ImageResult>() {
+                    @Override
+                    public void call(ImageResult imageResult) {
+                        LogUtil.e(TAG, "getImageResult -> doOnNext " + pageNum + "  " + tag);
+                        if (pageNum == 0) {
+                            SharedPreferencesUtils.setCacheImageResult(context, tag, imageResult);
+                        }
+                    }
+                })
                 .subscribe(callback);
     }
 }

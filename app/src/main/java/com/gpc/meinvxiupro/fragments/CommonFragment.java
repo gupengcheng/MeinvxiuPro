@@ -53,8 +53,6 @@ public class CommonFragment extends BaseFragment {
     @Override
     protected void loadDataFirst() {
         super.loadDataFirst();
-        setStartIndex(0);
-        loadData();
     }
 
     @Override
@@ -114,7 +112,7 @@ public class CommonFragment extends BaseFragment {
     }
 
     private List<ImgsEntity> getFilterEndNullItems(ImageResult imageResult) {
-        List<ImgsEntity> notNullImageResults = new ArrayList<ImgsEntity>();
+        List<ImgsEntity> notNullImageResults;
         if (imageResult.getImgs().get(imageResult.getImgs().size() - 1) != null &&
                 !TextUtils.isEmpty(imageResult.getImgs().get(imageResult.getImgs().size() - 1).getId())) {
             notNullImageResults = imageResult.getImgs();
@@ -124,43 +122,79 @@ public class CommonFragment extends BaseFragment {
         return notNullImageResults;
     }
 
-    private void loadData() {
-        DataRequestManager.getInstance().getImageResult(getContext(), getFragmentTitle(),
-                getStartIndex(), Schedulers.computation(),
+    @Override
+    protected void loadCacheData() {
+        DataRequestManager.getInstance().getImageCache(
+                getContext(),
+                getFragmentTitle(),
                 new Subscriber<ImageResult>() {
                     @Override
                     public void onCompleted() {
-                        LogUtil.e(TAG, "onCompleted");
+                        LogUtil.e(TAG, "loadCacheData onCompleted");
                     }
 
                     @Override
-                    public void onError(Throwable throwable) {
-                        LogUtil.e(TAG, "onError ->" + throwable.toString());
-                        if (mItems.isEmpty()) {
-                            setIsLoadData(false);
-                        }
-                        mLoadingView.setVisibility(View.GONE);
-                        mLoadMoreView.setVisibility(View.GONE);
-                        mFunGameRefreshView.finishRefreshing();
+                    public void onError(Throwable e) {
+                        LogUtil.e(TAG, "loadCacheData onError ->" + e.toString());
+                        onErrorView();
                     }
 
                     @Override
                     public void onNext(ImageResult imageResult) {
-                        LogUtil.e(TAG, "onNext");
-                        if (null != imageResult && imageResult.getImgs() != null) {
-                            LogUtil.e(TAG, "onNext->" + imageResult.getImgs().get(0).getTitle() + "  StartIndex->" + getStartIndex());
-                            if (getStartIndex() == 0) {
-                                mItems.clear();
-                                SharedPreferencesUtils.setCacheImageResult(getContext(), imageResult.getTag(), imageResult);
-                            }
-                            setStartIndex(getStartIndex() + 1);
-                            mItems.addAll(getFilterEndNullItems(imageResult));
-                            mAdapter.notifyDataSetChanged();
-                            mLoadMoreView.setVisibility(View.GONE);
-                            mLoadingView.setVisibility(View.GONE);
-                            mFunGameRefreshView.finishRefreshing();
-                        }
+                        LogUtil.e(TAG, "loadCacheData onNext");
+                        onSucceedView(imageResult);
+                    }
+                }
+        );
+    }
+
+    @Override
+    protected void loadData() {
+        DataRequestManager.getInstance().getImageResult(
+                getContext(),
+                getFragmentTitle(),
+                getStartIndex(),
+                new Subscriber<ImageResult>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.e(TAG, "loadData onCompleted");
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        LogUtil.e(TAG, "loadData onError ->" + throwable.toString());
+                        onErrorView();
+                    }
+
+                    @Override
+                    public void onNext(ImageResult imageResult) {
+                        LogUtil.e(TAG, "loadData onNext");
+                        onSucceedView(imageResult);
+                        setStartIndex(getStartIndex() + 1);
                     }
                 });
+    }
+
+    private void onErrorView() {
+        if (mItems.isEmpty()) {
+            setIsLoadData(false);
+        }
+        mLoadingView.setVisibility(View.GONE);
+        mLoadMoreView.setVisibility(View.GONE);
+        mFunGameRefreshView.finishRefreshing();
+    }
+
+    private void onSucceedView(ImageResult imageResult) {
+        LogUtil.e(TAG, "onSucceedView");
+        if (null != imageResult && imageResult.getImgs() != null) {
+            if (getStartIndex() == 0) {
+                mItems.clear();
+            }
+            mItems.addAll(getFilterEndNullItems(imageResult));
+            mAdapter.notifyDataSetChanged();
+            mLoadMoreView.setVisibility(View.GONE);
+            mLoadingView.setVisibility(View.GONE);
+            mFunGameRefreshView.finishRefreshing();
+        }
     }
 }

@@ -50,12 +50,12 @@ public class DataRequestManager {
         Observable.create(new Observable.OnSubscribe<ImageResult>() {
             @Override
             public void call(Subscriber<? super ImageResult> subscriber) {
-                LogUtil.e(TAG, "currentThread1 ->" + Thread.currentThread());
+                LogUtil.e(TAG, "getImageCache currentThread ->" + Thread.currentThread().getName());
                 ImageResult imageResult = SharedPreferencesUtils.getCacheImageResult(context, tag);
                 subscriber.onNext(imageResult);
             }
         })
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
     }
@@ -70,17 +70,18 @@ public class DataRequestManager {
     public synchronized void getImageResult(final Context context, final String tag, final int pageNum,
                                             Subscriber<ImageResult> callback) {
         mImageInterface.getImages(tag, pageNum)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(new Action1<ImageResult>() {
                     @Override
                     public void call(ImageResult imageResult) {
-                        LogUtil.e(TAG, "getImageResult -> doOnNext " + pageNum + "  " + tag);
                         if (pageNum == 0) {
+                            LogUtil.e(TAG, "getImageResult -> doOnNext currentThread -> " +
+                                    Thread.currentThread().getName() + " pageNum ->" + pageNum + "  tag ->" + tag);
                             SharedPreferencesUtils.setCacheImageResult(context, tag, imageResult);
                         }
                     }
                 })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
     }
 }

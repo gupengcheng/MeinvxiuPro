@@ -41,6 +41,7 @@ public class BaseFragment extends Fragment {
         mInflateView = inflater.inflate(mInflateLayoutId, container, false);
         findViewByIds();
         initViews();
+        loadCacheData();
         setListeners();
         return mInflateView;
     }
@@ -66,7 +67,6 @@ public class BaseFragment extends Fragment {
     protected void loadDataFirst() {
         setIsLoadData(true);
         setStartIndex(0);
-        loadCacheData();
         loadData();
     }
 

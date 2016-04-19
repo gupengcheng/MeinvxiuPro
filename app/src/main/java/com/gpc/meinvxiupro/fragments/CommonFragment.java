@@ -124,28 +124,30 @@ public class CommonFragment extends BaseFragment {
 
     @Override
     protected void loadCacheData() {
-        DataRequestManager.getInstance().getImageCache(
-                getContext(),
-                getFragmentTitle(),
-                new Subscriber<ImageResult>() {
-                    @Override
-                    public void onCompleted() {
-                        LogUtil.e(TAG, "loadCacheData onCompleted");
-                    }
+        if (getStartIndex() == 0 && mItems.isEmpty()) {
+            DataRequestManager.getInstance().getImageCache(
+                    getContext(),
+                    getFragmentTitle(),
+                    new Subscriber<ImageResult>() {
+                        @Override
+                        public void onCompleted() {
+                            LogUtil.e(TAG, "loadCacheData onCompleted");
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtil.e(TAG, "loadCacheData onError ->" + e.toString());
-                        onErrorView();
-                    }
+                        @Override
+                        public void onError(Throwable e) {
+                            LogUtil.e(TAG, "loadCacheData onError ->" + e.toString());
+                            onErrorView();
+                        }
 
-                    @Override
-                    public void onNext(ImageResult imageResult) {
-                        LogUtil.e(TAG, "loadCacheData onNext");
-                        onSucceedView(imageResult);
+                        @Override
+                        public void onNext(ImageResult imageResult) {
+                            LogUtil.e(TAG, "loadCacheData onNext");
+                            onSucceedView(imageResult);
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 
     @Override

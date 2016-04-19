@@ -9,7 +9,6 @@
 
     <!-- 可爱类 -->
     <string-array name="tag_lovely_array">
-        <item>青春</item>
         <item>素颜</item>
         <item>清纯</item>
         <item>可爱</item>
@@ -19,6 +18,7 @@
         <item>小清新</item>
         <item>唯美</item>
         <item>甜美</item>
+        <item>青春</item>
     </string-array>
 
     <!-- 高贵类 -->
@@ -29,16 +29,10 @@
         <item>时尚</item>
         <item>日本</item>
         <item>韩国</item>
-    </string-array>
-
-    <!-- 综合类 -->
-    <string-array name="tag_generalist_array">
+        <item>礼服</item>
+        <item>私房</item>
         <item>街拍</item>
         <item>日韩</item>
-        <item>私房</item>
-        <item>外国</item>
-        <item>礼服</item>
-        <item>唯美</item>
     </string-array>
 
     <!-- 性感类 -->
@@ -51,13 +45,13 @@
         <item>丝袜</item>
         <item>大胸</item>
         <item>内衣</item>
+        <item>唯美</item>
     </string-array>
 
     <string-array name="tag_array">
-        <item>性感</item>
         <item>可爱</item>
+        <item>性感</item>
         <item>高贵</item>
-        <item>综合</item>
     </string-array>
 
     <string name="set_wallpaper">松开设置壁纸</string>
@@ -67,5 +61,6 @@
     <string name="set_wallpaper_failure">设置壁纸失败</string>
     <string name="collect_wallpaper_failure">收藏壁纸失败</string>
     <string name="click_again_exit">双击壁纸两次可以关闭当前页面</string>
+    <string name="load_all">图片已经全部加载</string>
 
 </resources>

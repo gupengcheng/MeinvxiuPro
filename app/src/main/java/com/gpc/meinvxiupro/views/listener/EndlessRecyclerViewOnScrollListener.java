@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
+import com.gpc.meinvxiupro.utils.NetworkUtils;
+
 /**
  * Created by pcgu on 16-4-5.
  */
@@ -60,6 +62,18 @@ public abstract class EndlessRecyclerViewOnScrollListener extends RecyclerView.O
                 mLoading = true;
             }
         }
+    }
+
+    public void setLoading(boolean loading) {
+        this.mLoading = loading;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.mCurrentPage = currentPage;
+    }
+
+    public int getCurrentPage() {
+        return this.mCurrentPage;
     }
 
     public abstract void onLoadMore(int currentPage);

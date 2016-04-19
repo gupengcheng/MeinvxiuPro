@@ -18,7 +18,11 @@ import com.gpc.meinvxiupro.utils.LogUtil;
  */
 public class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
-    private boolean mIsLoadData = false;
+    private boolean mIsLoadFirstPageData = false;
+    private boolean mIsLoadingMoreData = false;
+    private boolean mIsLoadAll = false;
+    private int mTotalPage;
+    private int mCurrentPage;
     private int mStartIndex = 0;
     private String mTitleTag;
     private int mInflateLayoutId;
@@ -50,7 +54,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && !mIsLoadData) {
+        if (isVisibleToUser && !isLoadFirstPageData()) {
             loadDataFirst();
         }
     }
@@ -65,7 +69,7 @@ public class BaseFragment extends Fragment {
 
     //每一个Fragment第一次加载数据
     protected void loadDataFirst() {
-        setIsLoadData(true);
+        setIsLoadFirstPageData(true);
         setStartIndex(0);
         loadData();
     }
@@ -108,12 +112,20 @@ public class BaseFragment extends Fragment {
         return mTitleTag;
     }
 
-    public boolean isLoadData() {
-        return mIsLoadData;
+    public boolean isLoadFirstPageData() {
+        return mIsLoadFirstPageData;
     }
 
-    public void setIsLoadData(boolean isLoadData) {
-        this.mIsLoadData = isLoadData;
+    public void setIsLoadFirstPageData(boolean mIsLoadFirstPageData) {
+        this.mIsLoadFirstPageData = mIsLoadFirstPageData;
+    }
+
+    public boolean isLoadingMoreData() {
+        return mIsLoadingMoreData;
+    }
+
+    public void setIsLoadingMoreData(boolean mIsLoadingMoreData) {
+        this.mIsLoadingMoreData = mIsLoadingMoreData;
     }
 
     public int getStartIndex() {
@@ -122,5 +134,29 @@ public class BaseFragment extends Fragment {
 
     public void setStartIndex(int startIndex) {
         this.mStartIndex = startIndex;
+    }
+
+    public boolean isLoadAll() {
+        return mIsLoadAll;
+    }
+
+    public void setIsLoadAll(boolean mIsLoadAll) {
+        this.mIsLoadAll = mIsLoadAll;
+    }
+
+    public int getTotalPage() {
+        return mTotalPage;
+    }
+
+    public void setTotalPage(int mTotalPage) {
+        this.mTotalPage = mTotalPage;
+    }
+
+    public int getCurrentPage() {
+        return mCurrentPage;
+    }
+
+    public void setCurrentPage(int mCurrentPage) {
+        this.mCurrentPage = mCurrentPage;
     }
 }

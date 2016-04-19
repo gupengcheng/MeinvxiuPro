@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rgb_f8f8f8"
-    android:orientation="vertical">
+    android:background="@color/rgb_f8f8f8">
 
     <com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView
         android:id="@+id/common_fungamerefreshview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:game_type="hit_block">
 
         <android.support.v7.widget.RecyclerView
@@ -23,15 +22,13 @@
         layout="@layout/progress_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rgb_f8f8f8"
         android:visibility="gone" />
 
     <include
-        android:id="@+id/common_loadmore"
-        layout="@layout/progress_loading"
+        android:id="@+id/common_load_more"
+        layout="@layout/progress_loading_more"
         android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/transparent"
+        android:layout_gravity="bottom"
         android:visibility="gone" />
-</RelativeLayout>
+</FrameLayout>

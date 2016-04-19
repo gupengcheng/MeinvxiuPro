@@ -54,8 +54,6 @@ public class CommonTagFragment extends BaseFragment {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_lovely_array)));
         } else if (getFragmentTitle().equals("高贵")) {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_nobility_array)));
-        } else if (getFragmentTitle().equals("综合")) {
-            mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_generalist_array)));
         } else if (getFragmentTitle().equals("性感")) {
             mCommonTagTabTitles.addAll(Arrays.asList(getResources().getStringArray(R.array.tag_sexy_array)));
         }

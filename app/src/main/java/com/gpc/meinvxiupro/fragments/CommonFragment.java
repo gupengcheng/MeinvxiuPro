@@ -215,9 +215,10 @@ public class CommonFragment extends BaseFragment {
                         imageResult.getTotalNum() / PAGE_NUM :
                         imageResult.getTotalNum() / PAGE_NUM + 1);
             }
+            int positionStart = mItems.size();
             List<ImgsEntity> results = getFilterEndNullItems(imageResult);
             mItems.addAll(results);
-            mAdapter.notifyItemRangeChanged(mAdapter.getItemCount(), results.size());
+            mAdapter.notifyItemRangeChanged(positionStart, results.size());
             mLoadMoreView.setVisibility(View.GONE);
             mLoadingView.setVisibility(View.GONE);
             mFunGameRefreshView.finishRefreshing();

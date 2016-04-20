@@ -5,7 +5,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.models.ImgsEntity;
+import com.gpc.meinvxiupro.provider.MnxDbProvider;
 
 import java.io.IOException;
 
@@ -88,4 +91,42 @@ public class WallpaperUtils {
                 });
     }
 
+
+    public static void collectWallpaper(final ImgsEntity imgsEntity, Subscriber<String> callback) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                if (MnxDbProvider.getInstance().isExistsInCollectTable(imgsEntity.getId())) {
+                    MnxDbProvider.getInstance().deleteImgEntity(imgsEntity.getId());
+                    subscriber.onNext(MeinvxiuApplication.getInstance().getResources()
+                            .getString(R.string.dis_collect_succeed));
+                } else {
+                    MnxDbProvider.getInstance().insertImgEntity(imgsEntity);
+                    subscriber.onNext(MeinvxiuApplication.getInstance().getResources()
+                            .getString(R.string.collect_wallpaper_succeed));
+                }
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
+
+    public static void setCollectWallpaperText(final String id, Subscriber<String> callback) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                if (MnxDbProvider.getInstance().isExistsInCollectTable(id)) {
+                    subscriber.onNext(MeinvxiuApplication.getInstance().getResources()
+                            .getString(R.string.dis_collect_wallpaper));
+                } else {
+                    subscriber.onNext(MeinvxiuApplication.getInstance().getResources()
+                            .getString(R.string.collect_wallpaper));
+                }
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
 }

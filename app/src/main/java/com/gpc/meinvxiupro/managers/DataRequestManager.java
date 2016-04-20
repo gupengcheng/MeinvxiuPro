@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
+import com.gpc.meinvxiupro.models.ImgsEntity;
+import com.gpc.meinvxiupro.provider.MnxDbProvider;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 
@@ -84,4 +86,5 @@ public class DataRequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
     }
+
 }

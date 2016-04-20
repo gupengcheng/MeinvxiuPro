@@ -10,16 +10,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.managers.DataRequestManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
+import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import rx.Subscriber;
 
 /**
  * Created by pcgu on 16-4-8.
@@ -32,6 +36,7 @@ public class ImageDetailActivity extends BaseActivity {
     private TextView mCollectWallpaperView;
 
     private int mParentImagePosition;
+    private ImgsEntity imgsEntity;
     private static final int DEFAULT_PARENT_IMAGE_POSITION = 0;
 
     @Override
@@ -53,21 +58,22 @@ public class ImageDetailActivity extends BaseActivity {
     protected void initViews() {
         super.initViews();
         getData();
+        loadData(imgsEntity.getDownloadUrl());
         initData();
         initListener();
+        setCollectWallpaperViewText(imgsEntity.getId());
     }
 
     private void getData() {
         Bundle bundle = getIntent().getBundleExtra(Constant.ContextConstant.BUNDLE_NAME);
         mParentImagePosition = bundle.getInt(Constant.BundleConstant.IMAGE_POSITION,
                 DEFAULT_PARENT_IMAGE_POSITION);
-        ImgsEntity imgsEntity = bundle.getParcelable(Constant.BundleConstant.IMAGE_ENTITY);
-        loadData(imgsEntity.getDownloadUrl());
+        imgsEntity = bundle.getParcelable(Constant.BundleConstant.IMAGE_ENTITY);
     }
 
-    private void loadData(String imagePath) {
+    private void loadData(String imgUrl) {
         mLoadingView.setVisibility(View.VISIBLE);
-        Picasso.with(mContext).load(imagePath).into(mDetailImg, new Callback() {
+        Picasso.with(mContext).load(imgUrl).into(mDetailImg, new Callback() {
             @Override
             public void onSuccess() {
                 mLoadingView.setVisibility(View.GONE);
@@ -106,7 +112,28 @@ public class ImageDetailActivity extends BaseActivity {
 
             @Override
             public void collectWallpaper() {
-                LogUtil.e(TAG, "collect wallpaper");
+                WallpaperUtils.collectWallpaper(imgsEntity, new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e(TAG, "collect wallpaper error ->" + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(String succeed) {
+                        LogUtil.e(TAG, "collect wallpaper onNext ->" + succeed + "  id ->" + imgsEntity.getId());
+                        ToastUtils.showShortSnakeBar(findViewById(android.R.id.content), succeed);
+                        if (succeed.equalsIgnoreCase(getResources().getString(R.string.dis_collect_succeed))) {
+                            mCollectWallpaperView.setText(getResources().getString(R.string.collect_wallpaper));
+                        } else {
+                            mCollectWallpaperView.setText(getResources().getString(R.string.dis_collect_wallpaper));
+                        }
+                    }
+                });
             }
 
         });
@@ -121,5 +148,25 @@ public class ImageDetailActivity extends BaseActivity {
             }
         };
         Palette.from(ImageUtils.getImageViewBitmap(imageView)).generate(paletteAsyncListener);
+    }
+
+    private void setCollectWallpaperViewText(String id) {
+        WallpaperUtils.setCollectWallpaperText(id, new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtil.e(TAG, "set Collect Wallpaper View Text error ->" + e.toString());
+            }
+
+            @Override
+            public void onNext(String succeed) {
+                LogUtil.e(TAG, "set Collect Wallpaper View onNext ->" + succeed);
+                mCollectWallpaperView.setText(succeed);
+            }
+        });
     }
 }

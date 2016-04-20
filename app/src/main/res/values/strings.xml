@@ -56,8 +56,10 @@
 
     <string name="set_wallpaper">松开设置壁纸</string>
     <string name="collect_wallpaper">松开收藏壁纸</string>
+    <string name="dis_collect_wallpaper">松开取消收藏壁纸</string>
     <string name="set_wallpaper_succeed">设置壁纸成功</string>
-    <string name="collect_wallpaper_succeed">收藏壁纸成功</string>
+    <string name="collect_wallpaper_succeed">收藏成功</string>
+    <string name="dis_collect_succeed">取消收藏成功</string>
     <string name="set_wallpaper_failure">设置壁纸失败</string>
     <string name="collect_wallpaper_failure">收藏壁纸失败</string>
     <string name="click_again_exit">双击壁纸两次可以关闭当前页面</string>

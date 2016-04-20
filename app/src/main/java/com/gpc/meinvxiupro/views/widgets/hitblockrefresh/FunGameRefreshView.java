@@ -13,6 +13,10 @@ import android.view.ViewConfiguration;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 
+import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PixelUtil;
+
 import java.util.concurrent.Executors;
 
 /**
@@ -245,7 +249,7 @@ public class FunGameRefreshView extends LinearLayout implements View.OnTouchList
         if (firstChild != null) {
             GridLayoutManager layoutManager = (GridLayoutManager) listView.getLayoutManager();
             int firstVisiblePos = layoutManager.findFirstVisibleItemPosition();
-            if (firstVisiblePos == 0 && firstChild.getTop() == 0) {
+            if (firstVisiblePos == 0 && firstChild.getTop() == (int) getResources().getDimension(R.dimen.item_offset)) {
                 // 如果首个元素的上边缘，距离父布局值为0，就说明ListView滚动到了最顶部，此时应该允许下拉刷新
                 if (!ableToPull) {
                     preDownY = event.getRawY();

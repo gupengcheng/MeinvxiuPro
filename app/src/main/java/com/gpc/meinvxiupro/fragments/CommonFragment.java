@@ -21,6 +21,7 @@ import com.gpc.meinvxiupro.utils.NetworkUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
+import com.gpc.meinvxiupro.views.widgets.RecyclerViewItemOffsetDecoration;
 import com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class CommonFragment extends BaseFragment {
     private RelativeLayout mLoadingView;
     private RelativeLayout mLoadMoreView;
     private CommonFragmentAdapter mAdapter;
+    private RecyclerViewItemOffsetDecoration mItemOffsetDecoration;
     private List<ImgsEntity> mItems = new ArrayList<>();
     private static final int PAGE_NUM = 30;
 
@@ -80,6 +82,8 @@ public class CommonFragment extends BaseFragment {
         mAdapter = new CommonFragmentAdapter(mItems, getContext());
         mGridLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mGridLayoutManager);
+        mItemOffsetDecoration = new RecyclerViewItemOffsetDecoration(getContext(), R.dimen.item_offset);
+        mRecyclerView.addItemDecoration(mItemOffsetDecoration);
         mRecyclerView.setAdapter(mAdapter);
         if (getStartIndex() == 0 && mItems.isEmpty()) {
             mLoadingView.setVisibility(View.VISIBLE);

@@ -22,4 +22,21 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="MeItemStyle">
+        <item name="android:background">@drawable/bg_me_item</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/rgb_333333</item>
+        <item name="android:textSize">@dimen/text_large2</item>
+    </style>
+
+    <style name="MeItemLineStyle">
+        <item name="android:background">@color/rgb_e9e9e9</item>
+    </style>
+
+    <style name="NoDataText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/rgb_333333</item>
+        <item name="android:textSize">@dimen/text_large2</item>
+    </style>
+
 </resources>

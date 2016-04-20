@@ -5,8 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
-import com.gpc.meinvxiupro.utils.NetworkUtils;
-
 /**
  * Created by pcgu on 16-4-5.
  */

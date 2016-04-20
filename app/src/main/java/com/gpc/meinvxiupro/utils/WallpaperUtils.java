@@ -1,5 +1,6 @@
 package com.gpc.meinvxiupro.utils;
 
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.provider.MnxDbProvider;
 
 import java.io.IOException;
+import java.util.List;
 
 import rx.Observable;
 import rx.Observer;
@@ -81,12 +83,12 @@ public class WallpaperUtils {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShortToast(context, R.string.set_wallpaper_failure);
                     }
 
                     @Override
                     public void onNext(String s) {
-                        ToastUtils.showShortToast(context, s);
+                        ToastUtils.showShortSnakeBar(((Activity) context).getWindow()
+                                .getDecorView().findViewById(android.R.id.content), s);
                     }
                 });
     }
@@ -123,6 +125,18 @@ public class WallpaperUtils {
                     subscriber.onNext(MeinvxiuApplication.getInstance().getResources()
                             .getString(R.string.collect_wallpaper));
                 }
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
+
+    public static void getCollectWallpaper(Subscriber<List<ImgsEntity>> callback) {
+        Observable.create(new Observable.OnSubscribe<List<ImgsEntity>>() {
+            @Override
+            public void call(Subscriber<? super List<ImgsEntity>> subscriber) {
+                subscriber.onNext(MnxDbProvider.getInstance().getCollectDatas());
             }
         })
                 .subscribeOn(Schedulers.io())

@@ -8,4 +8,8 @@
     <dimen name="text_huge">20sp</dimen>
     <dimen name="text_middle">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
+
+    <dimen name="me_item_height">48dp</dimen>
+    <dimen name="me_item_line">1dp</dimen>
+    <dimen name="item_offset">4dp</dimen>
 </resources>

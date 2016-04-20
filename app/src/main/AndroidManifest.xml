@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.WelcomeActivity"
-            android:label="@string/title_activity_welcome"
+            android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,8 +30,25 @@
         <activity
             android:name=".activities.ImageDetailActivity"
             android:label="@string/title_activity_image_detail"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TranslucentStatus">
+
+        </activity>
+
+        <activity
+            android:name=".activities.MyCollectActivity"
+            android:label="@string/my_collect"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activities.AboutUsActivity"
+            android:label="@string/about_us"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>

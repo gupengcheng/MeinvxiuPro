@@ -19,9 +19,6 @@ import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.LruCache;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +31,10 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private List<ImgsEntity> mItems;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
+    private int mFragmentTag = TAG_DEFAULT;
+    private static final int IMAGE_FRAGMENT_TOTAL_NUM = 3;
+    private static final int TAG_DEFAULT = 0;
+    private static final int TAG_NOT_NEED_TOP_LAYOUT = 1;
 
     public CommonFragmentAdapter(List<ImgsEntity> items, Context context) {
         if (items == null) {
@@ -105,7 +106,9 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
                 StatusBarUtil.setColor(((Activity) mContext), mutedColor);
                 setToolbarBackground(mutedColor);
 //                setBottomTabLayoutTextColor(mutedColor);
-                setTopTabLayoutTextColor(mutedColor);
+                if (mFragmentTag == TAG_DEFAULT) {
+                    setTopTabLayoutTextColor(mutedColor);
+                }
             }
         };
         Palette.from(ImageUtils.getImageViewBitmap(imageView)).generate(paletteAsyncListener);
@@ -116,12 +119,12 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         HomePagerAdapter adapter = (HomePagerAdapter) viewPager.getAdapter();
         //最外层viewpager的当前item
         android.support.v4.app.Fragment fragment = adapter.getItem(viewPager.getCurrentItem());
-        if (fragment.getView() != null) {
+        if (fragment.getView() != null && viewPager.getCurrentItem() < IMAGE_FRAGMENT_TOTAL_NUM) {
             TabLayout topTabLayout = (TabLayout) fragment.getView().findViewById(R.id.common_tag_tab_layout);
             topTabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
         }
         //最外层viewpager的当前item之前的item
-        if (viewPager.getCurrentItem() - 1 >= 0) {
+        if (viewPager.getCurrentItem() - 1 >= 0 && viewPager.getCurrentItem() < IMAGE_FRAGMENT_TOTAL_NUM) {
             android.support.v4.app.Fragment lastFragment = adapter.getItem(viewPager.getCurrentItem() - 1);
             if (lastFragment.getView() != null) {
                 TabLayout lastTabLayout = (TabLayout) lastFragment.getView().findViewById(R.id.common_tag_tab_layout);
@@ -129,7 +132,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
             }
         }
         //最外层viewpager的当前item之后的item
-        if (viewPager.getCurrentItem() + 1 < adapter.getCount()) {
+        if (viewPager.getCurrentItem() < IMAGE_FRAGMENT_TOTAL_NUM - 1) {
             android.support.v4.app.Fragment nextFragment = adapter.getItem(viewPager.getCurrentItem() + 1);
             if (nextFragment.getView() != null) {
                 TabLayout nextTabLayout = (TabLayout) nextFragment.getView().findViewById(R.id.common_tag_tab_layout);
@@ -146,4 +149,9 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         TabLayout tabLayout = (TabLayout) ((Activity) mContext).findViewById(R.id.home_tab_layout);
         tabLayout.setTabTextColors(ContextCompat.getColor(mContext, R.color.rgb_333333), mutedColor);
     }
+
+    public void setNotNeedTabLayoutFragmentTag() {
+        mFragmentTag = TAG_NOT_NEED_TOP_LAYOUT;
+    }
+
 }

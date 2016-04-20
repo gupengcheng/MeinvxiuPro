@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
+import com.gpc.meinvxiupro.fragments.MeFragment;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
@@ -62,6 +63,8 @@ public class HomeActivity extends BaseActivity {
             LogUtil.e(TAG, "tag == " + title);
             mAdapter.addTab(CommonTagFragment.newInstance(title), title);
         }
+        mAdapter.addTab(MeFragment.newInstance(getResources().getString(R.string.tag_me))
+                , getResources().getString(R.string.tag_me));
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, new CubeOutTransformer());
         mViewPager.setOffscreenPageLimit(1);

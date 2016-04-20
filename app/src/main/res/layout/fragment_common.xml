@@ -8,13 +8,14 @@
     <com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView
         android:id="@+id/common_fungamerefreshview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:game_type="hit_block">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/common_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
     </com.gpc.meinvxiupro.views.widgets.hitblockrefresh.FunGameRefreshView>
 
     <include

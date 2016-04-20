@@ -65,4 +65,9 @@
     <string name="click_again_exit">双击壁纸两次可以关闭当前页面</string>
     <string name="load_all">图片已经全部加载</string>
 
+    <string name="tag_me">我的</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="about_us">关于我们</string>
+    <string name="no_collect">无收藏</string>
+
 </resources>

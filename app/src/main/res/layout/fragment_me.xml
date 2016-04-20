@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rgb_f8f8f8"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/my_collect"
+        style="@style/MeItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:text="@string/my_collect" />
+
+    <TextView
+        style="@style/MeItemLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line" />
+
+    <TextView
+        android:id="@+id/about_us"
+        style="@style/MeItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:text="@string/about_us" />
+
+    <TextView
+        style="@style/MeItemLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line" />
+</LinearLayout>

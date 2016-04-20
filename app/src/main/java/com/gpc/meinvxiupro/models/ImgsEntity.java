@@ -3,8 +3,6 @@ package com.gpc.meinvxiupro.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by pcgu on 16-3-11.
  */

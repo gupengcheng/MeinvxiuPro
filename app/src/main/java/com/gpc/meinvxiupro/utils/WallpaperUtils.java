@@ -5,13 +5,20 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.util.Log;
 
 import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.provider.MnxDbProvider;
+import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import rx.Observable;
@@ -142,5 +149,32 @@ public class WallpaperUtils {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
+    }
+
+    public static void downloadWallpaper(final String fileName, final CustomImageView imageView, Subscriber<Boolean> callback) {
+        Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(saveBitmap2file(ImageUtils.getImageViewBitmap(imageView), fileName));
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
+
+    // 图片转为文件
+    public static boolean saveBitmap2file(Bitmap bmp, String filename) {
+        Bitmap.CompressFormat format = Bitmap.CompressFormat.PNG;
+        int quality = 100;
+        OutputStream stream = null;
+        try {
+            stream = new FileOutputStream(MeinvxiuApplication.getInstance().getApplicationContext()
+                    .getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + filename + ".png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return bmp.compress(format, quality, stream);
     }
 }

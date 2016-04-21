@@ -27,7 +27,7 @@
 
     <include
         android:id="@+id/common_load_more"
-        layout="@layout/progress_loading_more"
+        layout="@layout/progress_loading_more_vertical"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:layout_gravity="bottom"

@@ -9,6 +9,7 @@ import android.support.v7.graphics.Palette;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
+import com.gpc.meinvxiupro.utils.SystemConfigUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
@@ -57,6 +59,7 @@ public class ImageDetailAdapter extends PagerAdapter {
         initListener(view, mData.get(position));
         setCollectWallpaperViewText(view, mData.get(position).getId());
         container.addView(view);
+        view.setTag(position);
         return view;
     }
 
@@ -89,21 +92,24 @@ public class ImageDetailAdapter extends PagerAdapter {
     private void initData(View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             ((CustomImageView) view.findViewById(R.id.img_detail)).setAddStatusBarDistanceYSetWallpaper();
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.findViewById(R.id.set_wallpaper).getLayoutParams();
-            layoutParams.setMargins(0, PixelUtil.dp2px(mContext, Constant.STATUS_BAR_HEIGHT), 0, 0);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    view.findViewById(R.id.set_wallpaper).getLayoutParams();
+            layoutParams.setMargins(0, SystemConfigUtils.getInternalDimensionSize() == 0 ?
+                    PixelUtil.dp2px(mContext, Constant.STATUS_BAR_HEIGHT)
+                    : SystemConfigUtils.getInternalDimensionSize(), 0, 0);
             view.findViewById(R.id.set_wallpaper).setLayoutParams(layoutParams);
+
+            FrameLayout.LayoutParams toolbarLayoutParams = (FrameLayout.LayoutParams)
+                    ((Activity) mContext).findViewById(R.id.toolbar).getLayoutParams();
+            toolbarLayoutParams.setMargins(0, SystemConfigUtils.getInternalDimensionSize() == 0 ?
+                    PixelUtil.dp2px(mContext, Constant.STATUS_BAR_HEIGHT)
+                    : SystemConfigUtils.getInternalDimensionSize(), 0, 0);
+            ((Activity) mContext).findViewById(R.id.toolbar).setLayoutParams(toolbarLayoutParams);
         }
     }
 
     private void initListener(final View view, final ImgsEntity imgsEntity) {
-        ((CustomImageView) view.findViewById(R.id.img_detail)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        ((CustomImageView) view.findViewById(R.id.img_detail)).setOnTouchDistanceListener(new CustomImageView.OnTouchDistanceListener() {
+        ((CustomImageView) view.findViewById(R.id.img_detail)).setOnTouchListener(new CustomImageView.OnTouchListener() {
             @Override
             public void setWallpaper() {
                 WallpaperUtils.setWallpaper(mContext, ImageUtils.getImageViewBitmap((CustomImageView) view.findViewById(R.id.img_detail)));
@@ -135,6 +141,15 @@ public class ImageDetailAdapter extends PagerAdapter {
                 });
             }
 
+            @Override
+            public void onClick() {
+                LogUtil.e(TAG, "img_detail_onclick");
+                if (((Activity) mContext).findViewById(R.id.toolbar).getVisibility() == View.VISIBLE) {
+                    ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.GONE);
+                } else {
+                    ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
+                }
+            }
         });
     }
 

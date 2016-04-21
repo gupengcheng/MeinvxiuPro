@@ -28,4 +28,28 @@
         style="@style/MeItemLineStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/me_item_line" />
+
+    <TextView
+        android:id="@+id/feedback"
+        style="@style/MeItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:text="@string/feedback" />
+
+    <TextView
+        style="@style/MeItemLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line" />
+
+    <TextView
+        android:id="@+id/setting"
+        style="@style/MeItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:text="@string/setting" />
+
+    <TextView
+        style="@style/MeItemLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line" />
 </LinearLayout>

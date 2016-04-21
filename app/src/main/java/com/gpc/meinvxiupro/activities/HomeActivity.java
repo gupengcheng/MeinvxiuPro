@@ -51,6 +51,7 @@ public class HomeActivity extends BaseActivity {
     private void initToolbar() {
         setSupportActionBar(mHomeToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mHomeToolbar.setBackgroundResource(R.color.colorPrimary);
     }
 
     private void initTabLayoutTitle() {

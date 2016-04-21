@@ -16,4 +16,6 @@
 
     <color name="transparent">#00000000</color>
     <color name="rgb_e6e6e6">#e6e6e6</color>
+
+    <color name="argb_33000000">#33000000</color>
 </resources>

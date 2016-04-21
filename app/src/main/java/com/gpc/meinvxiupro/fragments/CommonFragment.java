@@ -247,7 +247,8 @@ public class CommonFragment extends BaseFragment {
                 setIsLoadAll(true);
                 ToastUtils.showLongSnakeBar(getView(), getFragmentTitle() +
                                 getResources().getString(R.string.load_all),
-                        (((ColorDrawable) ((Activity) getContext()).findViewById(R.id.home_toolbar).getBackground()).getColor()));
+                        (((ColorDrawable) ((Activity) getContext())
+                                .findViewById(R.id.home_toolbar).getBackground()).getColor()));
             }
         }
     }

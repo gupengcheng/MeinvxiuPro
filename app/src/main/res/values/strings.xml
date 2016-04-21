@@ -49,8 +49,8 @@
     </string-array>
 
     <string-array name="tag_array">
-        <item>可爱</item>
         <item>性感</item>
+        <item>可爱</item>
         <item>高贵</item>
     </string-array>
 
@@ -68,6 +68,11 @@
     <string name="tag_me">我的</string>
     <string name="my_collect">我的收藏</string>
     <string name="about_us">关于我们</string>
+    <string name="feedback">我要吐槽</string>
+    <string name="setting">设置</string>
     <string name="no_collect">无收藏</string>
 
+    <string name="download_wallpaper_start">开始下载壁纸</string>
+    <string name="download_wallpaper_succeed">下载完成</string>
+    <string name="download_wallpaper_failed">下载失败</string>
 </resources>

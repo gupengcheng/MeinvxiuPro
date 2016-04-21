@@ -70,6 +70,7 @@ public class MyCollectActivity extends BaseActivity {
         mCollectToolbar.findViewById(R.id.tool_back).setVisibility(View.VISIBLE);
         ((TextView) mCollectToolbar.findViewById(R.id.tool_title))
                 .setText(getResources().getString(R.string.my_collect));
+        mCollectToolbar.setBackgroundResource(R.color.colorPrimary);
     }
 
     private void initRecyclerView() {

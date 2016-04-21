@@ -172,4 +172,11 @@ public class CustomImageView extends ImageView {
         void onClick();
 
     }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        setImageDrawable(null);
+    }
 }

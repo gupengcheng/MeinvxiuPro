@@ -2,6 +2,7 @@ package com.gpc.meinvxiupro.views.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -12,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.ImageUtils;
+import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;
@@ -35,6 +38,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private static final int IMAGE_FRAGMENT_TOTAL_NUM = 3;
     private static final int TAG_DEFAULT = 0;
     private static final int TAG_NOT_NEED_TOP_LAYOUT = 1;
+    private static final int RESIZE_WIDTH = PixelUtil.dp2px(MeinvxiuApplication.getInstance().getApplicationContext(), 200);
 
     public CommonFragmentAdapter(List<ImgsEntity> items, Context context) {
         if (items == null) {
@@ -63,20 +67,24 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
-        ImageLoaderManager.getPicassoInstance(mContext).load(mItems.get(position)
-                .getThumbLargeUrl()).into(holder.mImageView, new Callback() {
-            @Override
-            public void onSuccess() {
-                if (position == 0) {
-                    getPaletteColor(holder.mImageView);
-                }
-            }
+        ImageLoaderManager.getPicassoInstance(mContext)
+                .load(mItems.get(position).getThumbLargeUrl())
+                .config(Bitmap.Config.RGB_565)
+                .resize(RESIZE_WIDTH, RESIZE_WIDTH)
+                .centerCrop()
+                .into(holder.mImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (position == 0) {
+                            getPaletteColor(holder.mImageView);
+                        }
+                    }
 
-            @Override
-            public void onError() {
+                    @Override
+                    public void onError() {
 
-            }
-        });
+                    }
+                });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

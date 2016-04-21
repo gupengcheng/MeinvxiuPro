@@ -28,10 +28,17 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <!--列表页的内存已经非常稳定，但是查看大图时，大图往往占用了20+m内存，加上现有进程中的内存，非常容易oom
+        ，在新进程中打开Activity成为比较取巧的避免oom的方式。
+        <activity android:name=".DetailActivity" android:process=":picture"/>
+        只要在AndroidManifest.xml中定义Activity时加入process属性，即可在新进程中打开此Activity。
+        由此，picasso也将在新进程中创建基于新ApplicationContext的单例。-->
         <activity
             android:name=".activities.ImageDetailActivity"
             android:label="@string/title_activity_image_detail"
             android:launchMode="singleTop"
+            android:process=":picture"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TranslucentStatus">
 

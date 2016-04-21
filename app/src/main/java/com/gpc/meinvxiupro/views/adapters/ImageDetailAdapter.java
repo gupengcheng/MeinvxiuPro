@@ -2,10 +2,12 @@ package com.gpc.meinvxiupro.views.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.graphics.Palette;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gpc.meinvxiupro.R;
+import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
@@ -25,6 +28,7 @@ import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -39,11 +43,19 @@ public class ImageDetailAdapter extends PagerAdapter {
     private ArrayList<ImgsEntity> mData;
     private LayoutInflater mInflater;
     private Context mContext;
+    private static int mHeightPix;
+    private static int mWidthPix;
 
     public ImageDetailAdapter(Context context, ArrayList<ImgsEntity> data) {
         mContext = context;
         mData = data;
         mInflater = LayoutInflater.from(context);
+        if (mHeightPix == 0 && mWidthPix == 0) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            mHeightPix = metrics.heightPixels;
+            mWidthPix = metrics.widthPixels;
+        }
     }
 
     @Override
@@ -75,18 +87,24 @@ public class ImageDetailAdapter extends PagerAdapter {
 
     private void loadData(final View view, String imgUrl) {
         view.findViewById(R.id.common_loading).setVisibility(View.VISIBLE);
-        Picasso.with(mContext).load(imgUrl).into((CustomImageView) view.findViewById(R.id.img_detail), new Callback() {
-            @Override
-            public void onSuccess() {
-                view.findViewById(R.id.common_loading).setVisibility(View.GONE);
-                getPaletteColor(view, (CustomImageView) view.findViewById(R.id.img_detail));
-            }
+        ImageLoaderManager.getPicassoInstance(mContext)
+                .load(imgUrl)
+                .config(Bitmap.Config.RGB_565)
+                .resize(mWidthPix, mHeightPix)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .centerCrop()
+                .into((CustomImageView) view.findViewById(R.id.img_detail), new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        view.findViewById(R.id.common_loading).setVisibility(View.GONE);
+                        getPaletteColor(view, (CustomImageView) view.findViewById(R.id.img_detail));
+                    }
 
-            @Override
-            public void onError() {
-                view.findViewById(R.id.common_loading).setVisibility(View.GONE);
-            }
-        });
+                    @Override
+                    public void onError() {
+                        view.findViewById(R.id.common_loading).setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void initData(View view) {

@@ -95,7 +95,7 @@ public class CustomImageView extends ImageView {
                 mLastX = rawX;
                 break;
             case MotionEvent.ACTION_UP:
-                if (Math.abs(mLastY - rawY) < 3 && Math.abs(mLastX - rawX) < 3) {
+                if (Math.abs(mLastY - rawY) <= 1 && Math.abs(mLastX - rawX) <= 1 && Math.abs(mTotalY) == 0) {
                     mOnTouchListener.onClick();
                 }
                 resetAnimation();

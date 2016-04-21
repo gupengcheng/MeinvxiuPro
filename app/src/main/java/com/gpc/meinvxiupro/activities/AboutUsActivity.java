@@ -32,6 +32,7 @@ public class AboutUsActivity extends BaseActivity {
     protected void initViews() {
         super.initViews();
         initToolbar();
+        initRecyclerView();
     }
 
     private void initToolbar() {
@@ -49,5 +50,9 @@ public class AboutUsActivity extends BaseActivity {
         ((TextView) mAboutUsToolbar.findViewById(R.id.tool_title))
                 .setText(getResources().getString(R.string.about_us));
         mAboutUsToolbar.setBackgroundResource(R.color.colorPrimary);
+    }
+
+    private void initRecyclerView() {
+
     }
 }

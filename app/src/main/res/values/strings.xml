@@ -9,9 +9,9 @@
 
     <!-- 可爱类 -->
     <string-array name="tag_lovely_array">
-        <item>素颜</item>
         <item>清纯</item>
         <item>可爱</item>
+        <item>素颜</item>
         <item>校花</item>
         <item>萝莉</item>
         <item>甜素纯</item>

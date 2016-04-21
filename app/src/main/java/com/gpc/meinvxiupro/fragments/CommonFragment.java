@@ -109,11 +109,11 @@ public class CommonFragment extends BaseFragment {
 
         mAdapter.setOnClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClickListener(ImgsEntity imgsEntity, int position) {
-                LogUtil.e(TAG, "position ->" + position + "  imgsEntity ->" + imgsEntity.getTitle());
+            public void onItemClickListener(int position) {
+                LogUtil.e(TAG, "position ->" + position);
                 Bundle bundle = new Bundle();
-                bundle.putParcelable(Constant.BundleConstant.IMAGE_ENTITY, imgsEntity);
                 bundle.putInt(Constant.BundleConstant.IMAGE_POSITION, position);
+                bundle.putParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS, (ArrayList<ImgsEntity>) mItems);
                 ContextUtils.goActivity(getContext(), ImageDetailActivity.class, bundle);
             }
         });
@@ -201,6 +201,7 @@ public class CommonFragment extends BaseFragment {
 
     private void refreshData() {
         setStartIndex(0);
+        setCurrentPage(0);
         loadData();
     }
 

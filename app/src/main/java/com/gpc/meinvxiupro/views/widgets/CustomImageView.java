@@ -17,11 +17,10 @@ import com.gpc.meinvxiupro.views.interfaces.DoubleClickListener;
 /**
  * Created by pcgu on 16-4-12.
  */
-public class CustomImageView extends ImageView implements View.OnClickListener {
+public class CustomImageView extends ImageView {
     private static final String TAG = "CustomImageView";
     private static final long EXIT_INTERVAL = 1000;
     private long mSysClickLastTime = 0;
-    private DoubleClickListener mDoubleClickListener;
     private OnTouchDistanceListener mOnTouchDistanceListener;
     private int mClickCount = 1;
 
@@ -56,12 +55,6 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     }
 
     private void init() {
-//        setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        twiceClickResponse();
     }
 
     @Override
@@ -139,7 +132,7 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
         if (mClickCount == 1) {
             ToastUtils.showShortToast(getContext(), R.string.click_again_exit);
         } else if (mClickCount == 2) {
-            mDoubleClickListener.OnTwiceClickListener();
+//            mDoubleClickListener.OnTwiceClickListener();
             mClickCount = 0;
             mSysClickLastTime = now;
         } else {
@@ -153,9 +146,9 @@ public class CustomImageView extends ImageView implements View.OnClickListener {
     }
 
 
-    public void setOnDoubleClickListener(DoubleClickListener listener) {
-        this.mDoubleClickListener = listener;
-    }
+//    public void setOnDoubleClickListener(DoubleClickListener listener) {
+//        this.mDoubleClickListener = listener;
+//    }
 
     public void setAddStatusBarDistanceYSetWallpaper() {
         this.mDistanceYSetWallpaper = DISTANCE_Y_ADD_STATUS_SET_WALLPAPER;

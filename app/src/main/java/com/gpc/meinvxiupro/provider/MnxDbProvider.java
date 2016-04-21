@@ -76,13 +76,19 @@ public class MnxDbProvider {
         return false;
     }
 
+    /**
+     * ASC 为升序，DESC 为降序
+     * 获取所有的收藏数据
+     *
+     * @return
+     */
     public List<ImgsEntity> getCollectDatas() {
         if (mReadableDatabase == null) {
             mReadableDatabase = mDbHelper.getReadableDatabase();
         }
         List<ImgsEntity> imgResult = new ArrayList<>();
         Cursor cursor = mReadableDatabase.query(ImgsEntity.COLLECT_TABLE_NAME, null, null, null
-                , null, null, ImgsEntity.COLUMN.ID + " desc");
+                , null, null, ImgsEntity.COLUMN.PRIMARY_ID + " DESC");
         if (cursor != null) {
             listFromCursor(cursor, imgResult);
         }

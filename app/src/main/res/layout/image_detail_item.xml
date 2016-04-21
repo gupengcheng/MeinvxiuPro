@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image_detail_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rgb_e9e9e9">
+
+    <TextView
+        android:id="@+id/set_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:text="@string/set_wallpaper"
+        android:textColor="@color/rgb_ffffff"
+        android:textSize="@dimen/text_large1" />
+
+    <TextView
+        android:id="@+id/collect_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent"
+        android:gravity="center"
+        android:text="@string/collect_wallpaper"
+        android:textColor="@color/rgb_ffffff"
+        android:textSize="@dimen/text_large1" />
+
+    <com.gpc.meinvxiupro.views.widgets.CustomImageView
+        android:id="@+id/img_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <include
+        android:id="@+id/common_loading"
+        layout="@layout/progress_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rgb_f8f8f8"
+        android:visibility="gone" />
+
+</RelativeLayout>

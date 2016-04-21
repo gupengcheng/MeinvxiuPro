@@ -14,8 +14,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout;
 
 import com.gpc.meinvxiupro.R;
-import com.gpc.meinvxiupro.utils.LogUtil;
-import com.gpc.meinvxiupro.utils.PixelUtil;
 
 import java.util.concurrent.Executors;
 

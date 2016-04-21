@@ -80,7 +80,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClickListener(mItems.get(position), position);
+                mOnItemClickListener.onItemClickListener(position);
             }
         });
     }

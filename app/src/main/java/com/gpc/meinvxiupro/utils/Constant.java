@@ -15,6 +15,7 @@ public class Constant {
         public static final String FRAGMENT_TITLE = "fragment_title";
         public static final String IMAGE_ENTITY = "imgsEntity";
         public static final String IMAGE_POSITION = "imgPosition";
+        public static final String IMAGE_DATAS = "imgDatas";
     }
 
     public class BroadcastReceiverAction {

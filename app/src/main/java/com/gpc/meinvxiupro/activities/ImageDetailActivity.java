@@ -119,7 +119,6 @@ public class ImageDetailActivity extends BaseActivity {
         mAdapter = new ImageDetailAdapter(mContext, mItems);
         mDetailViewPager.setAdapter(mAdapter);
         mDetailViewPager.setCurrentItem(mParentImagePosition);
-        mDetailViewPager.setPageTransformer(true, new CubeOutTransformer());
         mDetailViewPager.setOffscreenPageLimit(1);
     }
 

@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.ImageUtils;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
@@ -30,7 +32,6 @@ import java.util.List;
  * Created by pcgu on 16-3-25.
  */
 public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAdapter.BaseViewHolder> {
-    private static final String TAG = "CommonFragmentAdapter";
     private List<ImgsEntity> mItems;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
@@ -38,7 +39,6 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private static final int IMAGE_FRAGMENT_TOTAL_NUM = 3;
     private static final int TAG_DEFAULT = 0;
     private static final int TAG_NOT_NEED_TOP_LAYOUT = 1;
-    private static final int RESIZE_WIDTH = PixelUtil.dp2px(MeinvxiuApplication.getInstance().getApplicationContext(), 200);
 
     public CommonFragmentAdapter(List<ImgsEntity> items, Context context) {
         if (items == null) {
@@ -70,8 +70,6 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
         ImageLoaderManager.getPicassoInstance(mContext)
                 .load(mItems.get(position).getThumbLargeUrl())
                 .config(Bitmap.Config.RGB_565)
-                .resize(RESIZE_WIDTH, RESIZE_WIDTH)
-                .centerCrop()
                 .into(holder.mImageView, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -100,6 +98,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
             super(view);
             mImageView = (ImageView) view.findViewById(R.id.common_image);
         }
+
     }
 
     public void setOnClickListener(OnItemClickListener onItemClickListener) {

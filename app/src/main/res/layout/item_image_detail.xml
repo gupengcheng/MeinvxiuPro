@@ -30,15 +30,13 @@
     <com.gpc.meinvxiupro.views.widgets.CustomImageView
         android:id="@+id/img_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent" />
 
     <include
         android:id="@+id/common_loading"
         layout="@layout/progress_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rgb_f8f8f8"
         android:visibility="gone" />
 
 </RelativeLayout>

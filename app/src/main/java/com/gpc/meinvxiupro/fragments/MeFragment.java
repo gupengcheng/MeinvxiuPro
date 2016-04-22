@@ -6,9 +6,13 @@ import android.widget.TextView;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.activities.AboutUsActivity;
+import com.gpc.meinvxiupro.activities.FeedbackActivity;
 import com.gpc.meinvxiupro.activities.MyCollectActivity;
+import com.gpc.meinvxiupro.activities.SettingActivity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ContextUtils;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by pcgu on 16-4-20.
@@ -16,6 +20,8 @@ import com.gpc.meinvxiupro.utils.ContextUtils;
 public class MeFragment extends BaseFragment {
     private TextView mCollectTv;
     private TextView mAboutUsTv;
+    private TextView mFeedbackTv;
+    private TextView mSettingTv;
 
     public static MeFragment newInstance(String tag) {
         MeFragment meFragment = new MeFragment();
@@ -36,6 +42,8 @@ public class MeFragment extends BaseFragment {
         super.findViewByIds();
         mCollectTv = (TextView) getInflateView().findViewById(R.id.my_collect);
         mAboutUsTv = (TextView) getInflateView().findViewById(R.id.about_us);
+        mSettingTv = (TextView) getInflateView().findViewById(R.id.setting);
+        mFeedbackTv = (TextView) getInflateView().findViewById(R.id.feedback);
     }
 
     @Override
@@ -55,6 +63,18 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ContextUtils.goActivity(getContext(), AboutUsActivity.class);
+            }
+        });
+        mFeedbackTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContextUtils.goActivity(getContext(), FeedbackActivity.class);
+            }
+        });
+        mSettingTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContextUtils.goActivity(getContext(), SettingActivity.class);
             }
         });
     }

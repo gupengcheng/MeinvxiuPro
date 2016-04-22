@@ -68,10 +68,23 @@
     <string name="my_collect">我的收藏</string>
     <string name="about_us">软件介绍</string>
     <string name="feedback">我要吐槽</string>
-    <string name="setting">设置</string>
+    <string name="setting">风格设置</string>
     <string name="no_collect">无收藏</string>
 
     <string name="download_wallpaper_start">开始下载壁纸</string>
     <string name="download_wallpaper_succeed">下载完成</string>
     <string name="download_wallpaper_failed">下载失败</string>
+
+    <string-array name="about_us_question_title">
+        <item>1.进入图片详情页面，怎么设置壁纸、下载壁纸、收藏壁纸？</item>
+        <item>2.下载后的图片在哪里?</item>
+        <item>3.怎么自定义页面的滑动效果?</item>
+        <item>4.我觉得这款软件太烂了，想吐槽，怎么让开发者知道？</item>
+    </string-array>
+    <string-array name="about_us_question_description">
+        <item>上下滑动图片到不能滑动，松开，即可设置壁纸、收藏壁纸；\n点击图片，顶部菜单栏出现，点击下载图标即可下载壁纸，再次图片，关闭顶部菜单栏</item>
+        <item>下载后的图片保存目录是SD(部分手机为手机存储)/Android/data/com.gpc.meinvxiupro/files/Pictures下</item>
+        <item>进入风格设置页面，选择页面滑动风格，关闭app下次进入即可体验不同的页面滑动风格</item>
+        <item>进入我要吐槽页面，写下你想让开发者改进的内容，我会第一时间联系您，并在后续版本迭代中改进</item>
+    </string-array>
 </resources>

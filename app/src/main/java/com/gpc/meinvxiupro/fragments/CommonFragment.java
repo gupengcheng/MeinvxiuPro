@@ -160,43 +160,42 @@ public class CommonFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        if (NetworkUtils.isNetworkAvailable()) {
-            setIsLoadingMoreData(true);
-            DataRequestManager.getInstance().getImageResult(
-                    getContext(),
-                    getFragmentTitle(),
-                    getStartIndex(),
-                    new Subscriber<ImageResult>() {
-                        @Override
-                        public void onCompleted() {
-                            LogUtil.e(TAG, "loadData onCompleted");
-                        }
+        setIsLoadingMoreData(true);
+        DataRequestManager.getInstance().getImageResult(
+                getContext(),
+                getFragmentTitle(),
+                getStartIndex(),
+                new Subscriber<ImageResult>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtil.e(TAG, "loadData onCompleted");
+                    }
 
-                        @Override
-                        public void onError(Throwable throwable) {
-                            LogUtil.e(TAG, "loadData onError ->" + throwable.toString());
-                            onErrorView();
-                            setIsLoadingMoreData(false);
-                            //用户滑动页面还会执行loadFirstData
-                            if (getStartIndex() == 0) {
-                                setIsLoadFirstPageData(false);
-                            }
+                    @Override
+                    public void onError(Throwable throwable) {
+                        LogUtil.e(TAG, "loadData onError ->" + throwable.toString());
+                        onErrorView();
+                        setIsLoadingMoreData(false);
+                        //用户滑动页面还会执行loadFirstData
+                        if (getStartIndex() == 0) {
+                            setIsLoadFirstPageData(false);
                         }
+                    }
 
-                        @Override
-                        public void onNext(ImageResult imageResult) {
-                            LogUtil.e(TAG, "loadData onNext");
-                            onSucceedView(imageResult);
-                            setIsLoadingMoreData(false);
-                            setStartIndex(getStartIndex() + imageResult.getReturnNumber());
-                            setCurrentPage(getCurrentPage() + 1);
-                            //表示当前页面的首页数据已经加载完成，用户滑动不用在执行loadFirstData
-                            if (getStartIndex() == 0) {
-                                setIsLoadFirstPageData(true);
-                            }
+                    @Override
+                    public void onNext(ImageResult imageResult) {
+                        LogUtil.e(TAG, "loadData onNext");
+                        onSucceedView(imageResult);
+                        if (getStartIndex() == 0) {
+                            setIsLoadFirstPageData(true);
+                            mLoadingView.setVisibility(View.GONE);
                         }
-                    });
-        }
+                        setIsLoadingMoreData(false);
+                        setStartIndex(getStartIndex() + imageResult.getReturnNumber());
+                        setCurrentPage(getCurrentPage() + 1);
+                        //表示当前页面的首页数据已经加载完成，用户滑动不用在执行loadFirstData
+                    }
+                });
     }
 
     private void refreshData() {
@@ -224,10 +223,9 @@ public class CommonFragment extends BaseFragment {
             List<ImgsEntity> results = getFilterEndNullItems(imageResult);
             mItems.addAll(results);
             mAdapter.notifyItemRangeChanged(positionStart, results.size());
-            mLoadMoreView.setVisibility(View.GONE);
-            mLoadingView.setVisibility(View.GONE);
-            mFunGameRefreshView.finishRefreshing();
         }
+        mLoadMoreView.setVisibility(View.GONE);
+        mFunGameRefreshView.finishRefreshing();
     }
 
     private void scrollListener(int dy) {

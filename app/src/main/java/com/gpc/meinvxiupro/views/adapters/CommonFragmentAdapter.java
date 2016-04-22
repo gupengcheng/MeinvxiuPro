@@ -40,12 +40,15 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private static final int TAG_DEFAULT = 0;
     private static final int TAG_NOT_NEED_TOP_LAYOUT = 1;
 
+    private LayoutInflater mInflater;
+
     public CommonFragmentAdapter(List<ImgsEntity> items, Context context) {
         if (items == null) {
             items = new ArrayList<>();
         }
         this.mItems = items;
         this.mContext = context;
+        mInflater = LayoutInflater.from(mContext);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_common, parent, false);
+        View view = mInflater.inflate(R.layout.item_common, parent, false);
         BaseViewHolder viewHolder = new BaseViewHolder(view);
         return viewHolder;
     }
@@ -69,6 +72,8 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
         ImageLoaderManager.getPicassoInstance(mContext)
                 .load(mItems.get(position).getThumbLargeUrl())
+                .placeholder(R.drawable.progress_indeterminate)
+                .error(R.mipmap.ic_error)
                 .config(Bitmap.Config.RGB_565)
                 .into(holder.mImageView, new Callback() {
                     @Override

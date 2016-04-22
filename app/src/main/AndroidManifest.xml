@@ -59,6 +59,22 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <activity
+            android:name=".activities.FeedbackActivity"
+            android:label="@string/feedback"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".activities.SettingActivity"
+            android:label="@string/setting"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

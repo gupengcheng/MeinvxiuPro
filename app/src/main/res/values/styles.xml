@@ -39,4 +39,24 @@
         <item name="android:textSize">@dimen/text_large2</item>
     </style>
 
+    <style name="TitleText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/rgb_333333</item>
+        <item name="android:textSize">@dimen/text_large2</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+
+    <style name="DescText">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/rgb_969696</item>
+        <item name="android:textSize">@dimen/text_large1</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
 </resources>

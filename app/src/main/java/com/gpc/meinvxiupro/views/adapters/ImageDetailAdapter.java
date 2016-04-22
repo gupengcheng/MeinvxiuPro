@@ -29,7 +29,6 @@ import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -65,7 +64,7 @@ public class ImageDetailAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = mInflater.inflate(R.layout.image_detail_item, container, false);
+        View view = mInflater.inflate(R.layout.item_image_detail, container, false);
         loadData(view, mData.get(position).getDownloadUrl());
         initData(view);
         initListener(view, mData.get(position));
@@ -89,6 +88,8 @@ public class ImageDetailAdapter extends PagerAdapter {
         view.findViewById(R.id.common_loading).setVisibility(View.VISIBLE);
         ImageLoaderManager.getPicassoInstance(mContext)
                 .load(imgUrl)
+                .placeholder(R.drawable.progress_indeterminate)
+                .error(R.mipmap.ic_error)
                 .config(Bitmap.Config.RGB_565)
                 .resize(mWidthPix, mHeightPix)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

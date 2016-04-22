@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity {
                 , getResources().getString(R.string.tag_me));
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, new CubeOutTransformer());
-        mViewPager.setOffscreenPageLimit(0);
+        mViewPager.setOffscreenPageLimit(1);
     }
 
     private void initTabLayout() {

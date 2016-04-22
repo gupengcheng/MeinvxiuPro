@@ -28,7 +28,6 @@ public class ImageDetailActivity extends BaseActivity {
     private static final String TAG = "ImageDetailActivity";
     private ViewPager mDetailViewPager;
     private Toolbar mDetailToolbar;
-    //    private RelativeLayout mLoadingMoreView;
     private ImageDetailAdapter mAdapter;
 
     private int mParentImagePosition;
@@ -46,7 +45,6 @@ public class ImageDetailActivity extends BaseActivity {
         super.findViewByIds();
         mDetailViewPager = (ViewPager) findViewById(R.id.viewpager);
         mDetailToolbar = (Toolbar) findViewById(R.id.toolbar);
-//        mLoadingMoreView = (RelativeLayout) findViewById(R.id.loading_more);
     }
 
     @Override

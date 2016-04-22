@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/transformer"
+        style="@style/SettingItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/setting_item_height" />
+
+    <TextView
+        android:id="@+id/transformer_title_line"
+        style="@style/SettingTitleLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/transformer_item_line"
+        style="@style/SettingLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line"
+        android:visibility="gone" />
+
+</LinearLayout>

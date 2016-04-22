@@ -87,4 +87,46 @@
         <item>进入风格设置页面，选择页面滑动风格，关闭app下次进入即可体验不同的页面滑动风格</item>
         <item>进入我要吐槽页面，写下你想让开发者改进的内容，我会第一时间联系您，并在后续版本迭代中改进</item>
     </string-array>
+
+    <string name="page_style">页面切换动画</string>
+    <string-array name="page_style_key">
+        <item>DefaultTransformer</item>
+        <item>ABaseTransformer</item>
+        <item>AccordionTransformer</item>
+        <item>BackgroundToForegroundTransformer</item>
+        <item>CubeInTransformer</item>
+        <item>CubeOutTransformer</item>
+        <item>DepthPageTransformer</item>
+        <item>FlipHorizontalTransformer</item>
+        <item>FlipVerticalTransformer</item>
+        <item>ForegroundToBackgroundTransformer</item>
+        <item>RotateDownTransformer</item>
+        <item>RotateUpTransformer</item>
+        <item>ScaleInOutTransformer</item>
+        <item>StackTransformer</item>
+        <item>TabletTransformer</item>
+        <item>ZoomInTransformer</item>
+        <item>ZoomOutTransformer</item>
+        <item>ZoomOutSlideTransformer</item>
+    </string-array>
+    <string-array name="page_style_content">
+        <item>默认</item>
+        <item>Abase</item>
+        <item>手风琴</item>
+        <item>背景到前景</item>
+        <item>向内立方体</item>
+        <item>向外立方体</item>
+        <item>深度页</item>
+        <item>水平翻动</item>
+        <item>垂直翻动</item>
+        <item>前景到背景</item>
+        <item>向下旋转</item>
+        <item>向上旋转</item>
+        <item>缩小放大</item>
+        <item>堆</item>
+        <item>盒子</item>
+        <item>缩小</item>
+        <item>放大</item>
+        <item>放大滑动</item>
+    </string-array>
 </resources>

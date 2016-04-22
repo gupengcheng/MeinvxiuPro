@@ -12,4 +12,7 @@
     <dimen name="me_item_height">56dp</dimen>
     <dimen name="me_item_line">1dp</dimen>
     <dimen name="item_offset">4dp</dimen>
+
+    <dimen name="setting_title_height">56dp</dimen>
+    <dimen name="setting_item_height">48dp</dimen>
 </resources>

@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity {
-    private static final String TAG = "HomeActivity";
     private Toolbar mHomeToolbar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -62,7 +61,6 @@ public class HomeActivity extends BaseActivity {
     private void initViewPager() {
         mAdapter = new HomePagerAdapter(getSupportFragmentManager());
         for (String title : mHomeTabTitles) {
-            LogUtil.e(TAG, "tag == " + title);
             mAdapter.addTab(CommonTagFragment.newInstance(title), title);
         }
         mAdapter.addTab(MeFragment.newInstance(getResources().getString(R.string.tag_me))

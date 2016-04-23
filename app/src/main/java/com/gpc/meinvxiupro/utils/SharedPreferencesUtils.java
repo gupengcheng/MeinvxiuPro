@@ -143,4 +143,18 @@ public class SharedPreferencesUtils {
         editor.putInt(Constant.SharedPreferencesKey.TRANSFORMER_POSITION, position);
         editor.apply();
     }
+
+    // get the imei of current device
+    public static String getDeviceIMEI(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        return sp.getString(Constant.SharedPreferencesKey.DEVICE_IMEI, "");
+    }
+
+    public static void setDeviceIMEI(Context context, String deviceImei) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putString(Constant.SharedPreferencesKey.DEVICE_IMEI, deviceImei);
+        editor.apply();
+    }
+
 }

@@ -19,7 +19,6 @@ import java.util.List;
  * Created by gupengcheng on 16/4/4.
  */
 public class CommonTagFragment extends BaseFragment {
-    private static final String TAG = "CommonTagFragment";
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 

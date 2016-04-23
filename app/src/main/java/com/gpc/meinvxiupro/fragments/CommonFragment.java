@@ -33,8 +33,6 @@ import rx.Subscriber;
  * Created by pcgu on 16-3-23.
  */
 public class CommonFragment extends BaseFragment {
-    private static final String TAG = "CommonFragment";
-
     private FunGameRefreshView mFunGameRefreshView;
     private RecyclerView mRecyclerView;
     private GridLayoutManager mGridLayoutManager;
@@ -110,7 +108,6 @@ public class CommonFragment extends BaseFragment {
         mAdapter.setOnClickListener(new OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                LogUtil.e(TAG, "position ->" + position);
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constant.BundleConstant.IMAGE_POSITION, position);
                 bundle.putParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS, (ArrayList<ImgsEntity>) mItems);
@@ -139,18 +136,15 @@ public class CommonFragment extends BaseFragment {
                     new Subscriber<ImageResult>() {
                         @Override
                         public void onCompleted() {
-                            LogUtil.e(TAG, "loadCacheData onCompleted");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            LogUtil.e(TAG, "loadCacheData onError ->" + e.toString());
                             onErrorView();
                         }
 
                         @Override
                         public void onNext(ImageResult imageResult) {
-                            LogUtil.e(TAG, "loadCacheData onNext");
                             onSucceedView(imageResult);
                         }
                     }
@@ -168,12 +162,10 @@ public class CommonFragment extends BaseFragment {
                 new Subscriber<ImageResult>() {
                     @Override
                     public void onCompleted() {
-                        LogUtil.e(TAG, "loadData onCompleted");
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-                        LogUtil.e(TAG, "loadData onError ->" + throwable.toString());
                         onErrorView();
                         setIsLoadingMoreData(false);
                         //用户滑动页面还会执行loadFirstData
@@ -184,7 +176,6 @@ public class CommonFragment extends BaseFragment {
 
                     @Override
                     public void onNext(ImageResult imageResult) {
-                        LogUtil.e(TAG, "loadData onNext");
                         onSucceedView(imageResult);
                         if (getStartIndex() == 0) {
                             setIsLoadFirstPageData(true);
@@ -212,7 +203,6 @@ public class CommonFragment extends BaseFragment {
 
     private void onSucceedView(ImageResult imageResult) {
         if (null != imageResult && imageResult.getImgs() != null) {
-            LogUtil.e(TAG, "onSucceedView" + imageResult.getTotalNum());
             if (getStartIndex() == 0) {
                 mItems.clear();
                 setTotalPage(imageResult.getTotalNum() % PAGE_NUM == 0 ?

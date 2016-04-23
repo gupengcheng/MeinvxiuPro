@@ -26,7 +26,6 @@ import rx.Subscriber;
  * Created by pcgu on 16-4-8.
  */
 public class ImageDetailActivity extends BaseActivity {
-    private static final String TAG = "ImageDetailActivity";
     private ViewPager mDetailViewPager;
     private Toolbar mDetailToolbar;
     private ImageDetailAdapter mAdapter;
@@ -81,7 +80,7 @@ public class ImageDetailActivity extends BaseActivity {
         mDetailToolbar.findViewById(R.id.download).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View view = (View) mDetailViewPager.findViewWithTag(mDetailViewPager.getCurrentItem());
+                View view = mDetailViewPager.findViewWithTag(mDetailViewPager.getCurrentItem());
                 ToastUtils.showShortSnakeBar(view,
                         getResources().getString(R.string.download_wallpaper_start));
                 WallpaperUtils.downloadWallpaper(mItems.get(mParentImagePosition).getTitle() +
@@ -95,12 +94,10 @@ public class ImageDetailActivity extends BaseActivity {
 
                             @Override
                             public void onError(Throwable e) {
-                                LogUtil.e(TAG, "onError ->" + e.toString());
                             }
 
                             @Override
                             public void onNext(Boolean aBoolean) {
-                                LogUtil.e(TAG, "onNext ->" + aBoolean);
                                 if (aBoolean) {
                                     ToastUtils.showShortSnakeBar(findViewById(android.R.id.content),
                                             getResources().getString(R.string.download_wallpaper_succeed));

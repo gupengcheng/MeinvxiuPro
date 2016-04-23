@@ -14,7 +14,8 @@
         android:gravity="center"
         android:text="@string/set_wallpaper"
         android:textColor="@color/rgb_ffffff"
-        android:textSize="@dimen/text_large1" />
+        android:textSize="@dimen/text_large1"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/collect_wallpaper"
@@ -25,7 +26,8 @@
         android:gravity="center"
         android:text="@string/collect_wallpaper"
         android:textColor="@color/rgb_ffffff"
-        android:textSize="@dimen/text_large1" />
+        android:textSize="@dimen/text_large1"
+        android:visibility="gone" />
 
     <com.gpc.meinvxiupro.views.widgets.CustomImageView
         android:id="@+id/img_detail"

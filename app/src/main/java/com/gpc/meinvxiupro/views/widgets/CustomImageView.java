@@ -16,7 +16,6 @@ import com.gpc.meinvxiupro.utils.ToastUtils;
  * Created by pcgu on 16-4-12.
  */
 public class CustomImageView extends ImageView {
-    private static final String TAG = "CustomImageView";
     private static final long EXIT_INTERVAL = 1000;
     private long mSysClickLastTime = 0;
     private OnTouchListener mOnTouchListener;

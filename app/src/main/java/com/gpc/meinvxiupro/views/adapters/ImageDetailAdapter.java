@@ -38,7 +38,6 @@ import rx.Subscriber;
  * Created by pcgu on 16-4-21.
  */
 public class ImageDetailAdapter extends PagerAdapter {
-    private static final String TAG = "ImageDetailAdapter";
     private ArrayList<ImgsEntity> mData;
     private LayoutInflater mInflater;
     private Context mContext;
@@ -97,6 +96,8 @@ public class ImageDetailAdapter extends PagerAdapter {
                     @Override
                     public void onSuccess() {
                         view.findViewById(R.id.common_loading).setVisibility(View.GONE);
+                        view.findViewById(R.id.collect_wallpaper).setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.set_wallpaper).setVisibility(View.VISIBLE);
                         getPaletteColor(view, (CustomImageView) view.findViewById(R.id.img_detail));
                     }
 
@@ -127,48 +128,55 @@ public class ImageDetailAdapter extends PagerAdapter {
     }
 
     private void initListener(final View view, final ImgsEntity imgsEntity) {
-        ((CustomImageView) view.findViewById(R.id.img_detail)).setOnTouchListener(new CustomImageView.OnTouchListener() {
-            @Override
-            public void setWallpaper() {
-                WallpaperUtils.setWallpaper(mContext, ImageUtils.getImageViewBitmap((CustomImageView) view.findViewById(R.id.img_detail)));
-            }
-
-            @Override
-            public void collectWallpaper() {
-                WallpaperUtils.collectWallpaper(imgsEntity, new Subscriber<String>() {
+        ((CustomImageView) view.findViewById(R.id.img_detail)).setOnTouchListener
+                (new CustomImageView.OnTouchListener() {
                     @Override
-                    public void onCompleted() {
-
+                    public void setWallpaper() {
+                        ToastUtils.showShortSnakeBar(((Activity) mContext).getWindow()
+                                        .getDecorView().findViewById(android.R.id.content),
+                                mContext.getResources().getString(R.string.start_setting_wallpaper));
+                        WallpaperUtils.setWallpaper(mContext,
+                                ImageUtils.getImageViewBitmap((CustomImageView) view
+                                        .findViewById(R.id.img_detail)));
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        LogUtil.e(TAG, "collect wallpaper error ->" + e.toString());
+                    public void collectWallpaper() {
+                        WallpaperUtils.collectWallpaper(imgsEntity, new Subscriber<String>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                            }
+
+                            @Override
+                            public void onNext(String succeed) {
+                                ToastUtils.showShortSnakeBar(((Activity) mContext)
+                                        .findViewById(android.R.id.content), succeed);
+                                if (succeed.equalsIgnoreCase(mContext.getResources().getString(R.string.dis_collect_succeed))) {
+                                    ((TextView) view.findViewById(R.id.collect_wallpaper))
+                                            .setText(mContext.getResources().getString(R.string.collect_wallpaper));
+                                } else {
+                                    ((TextView) view.findViewById(R.id.collect_wallpaper))
+                                            .setText(mContext.getResources().getString(R.string.dis_collect_wallpaper));
+                                }
+                            }
+                        });
                     }
 
                     @Override
-                    public void onNext(String succeed) {
-                        LogUtil.e(TAG, "collect wallpaper onNext ->" + succeed + "  id ->" + imgsEntity.getId());
-                        ToastUtils.showShortSnakeBar(((Activity) mContext).findViewById(android.R.id.content), succeed);
-                        if (succeed.equalsIgnoreCase(mContext.getResources().getString(R.string.dis_collect_succeed))) {
-                            ((TextView) view.findViewById(R.id.collect_wallpaper)).setText(mContext.getResources().getString(R.string.collect_wallpaper));
+                    public void onClick() {
+                        if (((Activity) mContext).findViewById(R.id.toolbar)
+                                .getVisibility() == View.VISIBLE) {
+                            ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.GONE);
                         } else {
-                            ((TextView) view.findViewById(R.id.collect_wallpaper)).setText(mContext.getResources().getString(R.string.dis_collect_wallpaper));
+                            ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
                         }
                     }
                 });
-            }
-
-            @Override
-            public void onClick() {
-                LogUtil.e(TAG, "img_detail_onclick");
-                if (((Activity) mContext).findViewById(R.id.toolbar).getVisibility() == View.VISIBLE) {
-                    ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.GONE);
-                } else {
-                    ((Activity) mContext).findViewById(R.id.toolbar).setVisibility(View.VISIBLE);
-                }
-            }
-        });
     }
 
     private void getPaletteColor(final View rootView, ImageView imageView) {
@@ -191,12 +199,10 @@ public class ImageDetailAdapter extends PagerAdapter {
 
             @Override
             public void onError(Throwable e) {
-                LogUtil.e(TAG, "set Collect Wallpaper View Text error ->" + e.toString());
             }
 
             @Override
             public void onNext(String succeed) {
-                LogUtil.e(TAG, "set Collect Wallpaper View onNext ->" + succeed);
                 ((TextView) view.findViewById(R.id.collect_wallpaper)).setText(succeed);
             }
         });

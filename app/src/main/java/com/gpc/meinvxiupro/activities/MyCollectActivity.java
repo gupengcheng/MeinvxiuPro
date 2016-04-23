@@ -26,7 +26,6 @@ import rx.Subscriber;
  * Created by pcgu on 16-4-20.
  */
 public class MyCollectActivity extends BaseActivity {
-    private static final String TAG = "MyCollectActivity";
     private Toolbar mCollectToolbar;
     private RecyclerView mCollectRecyclerView;
     private GridLayoutManager mGridLayoutManager;
@@ -87,7 +86,6 @@ public class MyCollectActivity extends BaseActivity {
         mAdapter.setOnClickListener(new OnItemClickListener() {
             @Override
             public void onItemClickListener(int position) {
-                LogUtil.e(TAG, "position ->" + position);
                 Bundle bundle = new Bundle();
                 bundle.putInt(Constant.BundleConstant.IMAGE_POSITION, position);
                 bundle.putParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS, (ArrayList<ImgsEntity>) mItems);
@@ -106,13 +104,11 @@ public class MyCollectActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
-                LogUtil.e(TAG, "loadData onError ->" + e.toString());
                 findViewById(R.id.my_collect_loading).setVisibility(View.GONE);
             }
 
             @Override
             public void onNext(List<ImgsEntity> imgsEntities) {
-                LogUtil.e(TAG, "loadData onNext ->" + imgsEntities.size());
                 if (imgsEntities.isEmpty()) {
                     findViewById(R.id.my_collect_no_data).setVisibility(View.VISIBLE);
                 } else {

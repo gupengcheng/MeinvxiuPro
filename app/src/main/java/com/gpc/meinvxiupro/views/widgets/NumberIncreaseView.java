@@ -17,7 +17,6 @@ import com.gpc.meinvxiupro.utils.LogUtil;
  * Created by pcgu on 16-4-5.
  */
 public class NumberIncreaseView extends View implements View.OnClickListener {
-    private static final String TAG = "NumberIncreaseView";
     private int mNum;
     private int mNumColor;
     private float mNumSize;
@@ -76,7 +75,6 @@ public class NumberIncreaseView extends View implements View.OnClickListener {
 
     private void increaseNum() {
         ++mNum;
-        LogUtil.e(TAG, "  mNum == " + mNum);
         postInvalidate();
     }
 
@@ -118,12 +116,10 @@ public class NumberIncreaseView extends View implements View.OnClickListener {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        LogUtil.e(TAG, "onLayout");
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        LogUtil.e(TAG, "onDraw");
         super.onDraw(canvas);
         canvas.drawColor(ContextCompat.getColor(getContext(), R.color.rgb_ffffff));
         canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, getMeasuredWidth() / 2, mBgPaint);

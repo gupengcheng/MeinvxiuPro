@@ -20,7 +20,6 @@ import java.util.List;
  * Created by pcgu on 16-4-22.
  */
 public class SettingActivity extends BaseActivity {
-    private static final String TAG = "SettingActivity";
     private Toolbar mSettingToolbar;
     private RecyclerView mSettingRecyclerView;
     private List<SettingItem> mDatas;

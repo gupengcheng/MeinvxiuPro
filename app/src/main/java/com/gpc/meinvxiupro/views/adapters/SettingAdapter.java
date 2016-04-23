@@ -1,5 +1,6 @@
 package com.gpc.meinvxiupro.views.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.SettingItem;
 import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
+import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 
 import java.util.List;
@@ -63,7 +65,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
             LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mTransformer.getLayoutParams();
             layoutParams.setMargins(PixelUtil.dp2px(mContext, 32), 0, 0, 0);
             holder.mTransformer.setLayoutParams(layoutParams);
-            holder.mTransformer.setBackgroundResource(R.drawable.bg_me_item);
+            holder.mTransformer.setBackgroundResource(R.drawable.bg_setting_item);
             holder.mTransformer.setTextSize(16);
             holder.mTransformer.setTextColor(ContextCompat.getColor(mContext, R.color.rgb_969696));
         }
@@ -75,6 +77,8 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtils.showShortSnakeBar(((Activity) mContext).findViewById(android.R.id.content),
+                        mContext.getResources().getString(R.string.setting_next_action));
                 SharedPreferencesUtils.setTransformerPosition(mContext, position);
                 SharedPreferencesUtils.setTransformer(mContext, item.getSettingKey());
                 notifyDataSetChanged();

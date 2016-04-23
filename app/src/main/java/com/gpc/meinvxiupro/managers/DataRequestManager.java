@@ -1,11 +1,14 @@
 package com.gpc.meinvxiupro.managers;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
+
+import java.util.Map;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -20,8 +23,8 @@ import rx.schedulers.Schedulers;
  * Created by pcgu on 16-3-11.
  */
 public class DataRequestManager {
-    private static final String TAG = "DataRequestManager";
     public static final String IP = "http://image.baidu.com/data/";
+    public static final String URL_SEND_FEEDBACK = "http://520mengchong.com/app/feedback/post_feedback.php";
     private static DataRequestManager mInstance;
     private static ImageInterface mImageInterface;
 
@@ -49,7 +52,6 @@ public class DataRequestManager {
         Observable.create(new Observable.OnSubscribe<ImageResult>() {
             @Override
             public void call(Subscriber<? super ImageResult> subscriber) {
-                LogUtil.e(TAG, "getImageCache currentThread ->" + Thread.currentThread().getName());
                 ImageResult imageResult = SharedPreferencesUtils.getCacheImageResult(context, tag);
                 subscriber.onNext(imageResult);
             }
@@ -73,12 +75,28 @@ public class DataRequestManager {
                     @Override
                     public void call(ImageResult imageResult) {
                         if (pageNum == 0) {
-                            LogUtil.e(TAG, "getImageResult -> doOnNext currentThread -> " +
-                                    Thread.currentThread().getName() + " pageNum ->" + pageNum + "  tag ->" + tag);
                             SharedPreferencesUtils.setCacheImageResult(context, tag, imageResult);
                         }
                     }
                 })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
+
+    public synchronized void sendFeedback(final Map<String, Object> sendMap,
+                                          Subscriber<Boolean> callback) {
+        Observable.create(new Observable.OnSubscribe<Boolean>() {
+            @Override
+            public void call(Subscriber<? super Boolean> subscriber) {
+                String response = OkHttpManager.getInstance().post(URL_SEND_FEEDBACK, sendMap);
+                if (TextUtils.equals(response,"success")) {
+                    subscriber.onNext(true);
+                } else {
+                    subscriber.onNext(false);
+                }
+            }
+        })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);

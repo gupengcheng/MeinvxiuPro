@@ -17,7 +17,6 @@ import com.gpc.meinvxiupro.utils.LogUtil;
  * Created by pcgu on 16-3-23.
  */
 public class BaseFragment extends Fragment {
-    private static final String TAG = "BaseFragment";
     private boolean mIsLoadFirstPageData = false;
     private boolean mIsLoadingMoreData = false;
     private boolean mIsLoadAll = false;
@@ -34,14 +33,12 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         mTitleTag = bundle.getString(Constant.BundleConstant.FRAGMENT_TITLE);
-        LogUtil.e(TAG, "onCreate ->" + getFragmentTitle());
         initInflateView();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        LogUtil.e(TAG, "onCreateView ->" + getFragmentTitle());
         mInflateView = inflater.inflate(mInflateLayoutId, container, false);
         findViewByIds();
         initViews();

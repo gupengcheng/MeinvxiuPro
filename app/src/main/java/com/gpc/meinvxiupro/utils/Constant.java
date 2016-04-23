@@ -27,6 +27,7 @@ public class Constant {
         public static final String APPLICATION_FIRST_INSTALLED = "application_first_installed";
         public static final String TRANSFORMER = "transformer";
         public static final String TRANSFORMER_POSITION = "transformer_position";
+        public static final String DEVICE_IMEI = "device_imei";
     }
 
     public class Transformer {

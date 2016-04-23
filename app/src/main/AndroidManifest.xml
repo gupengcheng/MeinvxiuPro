@@ -54,6 +54,14 @@
         </activity>
 
         <activity
+            android:name=".activities.MyDownloadActivity"
+            android:label="@string/my_download"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
             android:name=".activities.AboutUsActivity"
             android:label="@string/about_us"
             android:launchMode="singleTop"

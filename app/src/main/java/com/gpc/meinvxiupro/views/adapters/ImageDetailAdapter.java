@@ -29,7 +29,9 @@ import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.RequestCreator;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import rx.Subscriber;
@@ -43,6 +45,7 @@ public class ImageDetailAdapter extends PagerAdapter {
     private Context mContext;
     private static int mHeightPix;
     private static int mWidthPix;
+    private int mLoadTag;
 
     public ImageDetailAdapter(Context context, ArrayList<ImgsEntity> data) {
         mContext = context;
@@ -85,9 +88,15 @@ public class ImageDetailAdapter extends PagerAdapter {
 
     private void loadData(final View view, String imgUrl) {
         view.findViewById(R.id.common_loading).setVisibility(View.VISIBLE);
-        ImageLoaderManager.getPicassoInstance(mContext)
-                .load(imgUrl)
-                .error(R.color.rgb_e9e9e9)
+        RequestCreator creator;
+        if (mLoadTag == Constant.CommonData.LOAD_DEFAULT) {
+            creator = ImageLoaderManager.getPicassoInstance(mContext)
+                    .load(imgUrl);
+        } else {
+            creator = ImageLoaderManager.getPicassoInstance(mContext)
+                    .load(new File(imgUrl));
+        }
+        creator.error(R.color.rgb_e9e9e9)
                 .config(Bitmap.Config.RGB_565)
                 .resize(mWidthPix, mHeightPix)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -96,7 +105,11 @@ public class ImageDetailAdapter extends PagerAdapter {
                     @Override
                     public void onSuccess() {
                         view.findViewById(R.id.common_loading).setVisibility(View.GONE);
-                        view.findViewById(R.id.collect_wallpaper).setVisibility(View.VISIBLE);
+                        if (mLoadTag == Constant.CommonData.LOAD_DEFAULT) {
+                            view.findViewById(R.id.collect_wallpaper).setVisibility(View.VISIBLE);
+                        } else {
+                            view.findViewById(R.id.collect_wallpaper).setVisibility(View.GONE);
+                        }
                         view.findViewById(R.id.set_wallpaper).setVisibility(View.VISIBLE);
                         getPaletteColor(view, (CustomImageView) view.findViewById(R.id.img_detail));
                     }
@@ -135,13 +148,20 @@ public class ImageDetailAdapter extends PagerAdapter {
                         ToastUtils.showShortSnakeBar(((Activity) mContext).getWindow()
                                         .getDecorView().findViewById(android.R.id.content),
                                 mContext.getResources().getString(R.string.start_setting_wallpaper));
-                        WallpaperUtils.setWallpaper(mContext,
-                                ImageUtils.getImageViewBitmap((CustomImageView) view
-                                        .findViewById(R.id.img_detail)));
+                        if (mLoadTag == Constant.CommonData.LOAD_DEFAULT) {
+                            WallpaperUtils.setWallpaper(mContext,
+                                    ImageUtils.getImageViewBitmap((CustomImageView) view
+                                            .findViewById(R.id.img_detail)));
+                        } else {
+                            WallpaperUtils.setWallpaper(mContext, imgsEntity.getDownloadUrl());
+                        }
                     }
 
                     @Override
                     public void collectWallpaper() {
+                        if (mLoadTag == Constant.CommonData.LOAD_LOCAL) {
+                            return;
+                        }
                         WallpaperUtils.collectWallpaper(imgsEntity, new Subscriber<String>() {
                             @Override
                             public void onCompleted() {
@@ -206,5 +226,9 @@ public class ImageDetailAdapter extends PagerAdapter {
                 ((TextView) view.findViewById(R.id.collect_wallpaper)).setText(succeed);
             }
         });
+    }
+
+    public void setLoadUrlTag(int loadUrlTag) {
+        mLoadTag = loadUrlTag;
     }
 }

@@ -8,6 +8,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.activities.AboutUsActivity;
 import com.gpc.meinvxiupro.activities.FeedbackActivity;
 import com.gpc.meinvxiupro.activities.MyCollectActivity;
+import com.gpc.meinvxiupro.activities.MyDownloadActivity;
 import com.gpc.meinvxiupro.activities.SettingActivity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ContextUtils;
@@ -19,6 +20,7 @@ import org.w3c.dom.Text;
  */
 public class MeFragment extends BaseFragment {
     private TextView mCollectTv;
+    private TextView mDownloadTv;
     private TextView mAboutUsTv;
     private TextView mFeedbackTv;
     private TextView mSettingTv;
@@ -41,6 +43,7 @@ public class MeFragment extends BaseFragment {
     protected void findViewByIds() {
         super.findViewByIds();
         mCollectTv = (TextView) getInflateView().findViewById(R.id.my_collect);
+        mDownloadTv = (TextView) getInflateView().findViewById(R.id.my_download);
         mAboutUsTv = (TextView) getInflateView().findViewById(R.id.about_us);
         mSettingTv = (TextView) getInflateView().findViewById(R.id.setting);
         mFeedbackTv = (TextView) getInflateView().findViewById(R.id.feedback);
@@ -57,6 +60,12 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ContextUtils.goActivity(getContext(), MyCollectActivity.class);
+            }
+        });
+        mDownloadTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContextUtils.goActivity(getContext(), MyDownloadActivity.class);
             }
         });
         mAboutUsTv.setOnClickListener(new View.OnClickListener() {

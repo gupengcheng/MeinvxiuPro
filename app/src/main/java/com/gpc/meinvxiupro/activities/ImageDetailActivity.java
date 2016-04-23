@@ -31,6 +31,7 @@ public class ImageDetailActivity extends BaseActivity {
     private ImageDetailAdapter mAdapter;
 
     private int mParentImagePosition;
+    private int mLoadUrlTag;
     private ArrayList<ImgsEntity> mItems;
     private static final int DEFAULT_PARENT_IMAGE_POSITION = 0;
 
@@ -61,6 +62,7 @@ public class ImageDetailActivity extends BaseActivity {
         mParentImagePosition = bundle.getInt(Constant.BundleConstant.IMAGE_POSITION,
                 DEFAULT_PARENT_IMAGE_POSITION);
         mItems = bundle.getParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS);
+        mLoadUrlTag = bundle.getInt(Constant.BundleConstant.LOAD_TAG, Constant.CommonData.LOAD_DEFAULT);
     }
 
     private void initToolbar() {
@@ -76,14 +78,18 @@ public class ImageDetailActivity extends BaseActivity {
         mDetailToolbar.findViewById(R.id.tool_back).setVisibility(View.VISIBLE);
         ((TextView) mDetailToolbar.findViewById(R.id.tool_title))
                 .setText(mItems.get(mParentImagePosition).getDesc());
-        mDetailToolbar.findViewById(R.id.download).setVisibility(View.VISIBLE);
+        if (mLoadUrlTag == Constant.CommonData.LOAD_DEFAULT) {
+            mDetailToolbar.findViewById(R.id.download).setVisibility(View.VISIBLE);
+        } else {
+            mDetailToolbar.findViewById(R.id.download).setVisibility(View.GONE);
+        }
         mDetailToolbar.findViewById(R.id.download).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View view = mDetailViewPager.findViewWithTag(mDetailViewPager.getCurrentItem());
                 ToastUtils.showShortSnakeBar(view,
                         getResources().getString(R.string.download_wallpaper_start));
-                WallpaperUtils.downloadWallpaper(mItems.get(mParentImagePosition).getTitle() +
+                WallpaperUtils.downloadWallpaper(mItems.get(mParentImagePosition).getTitle() + "-" +
                                 mItems.get(mParentImagePosition).getId(),
                         ((CustomImageView) view.findViewById(R.id.img_detail)),
                         new Subscriber<Boolean>() {
@@ -113,9 +119,10 @@ public class ImageDetailActivity extends BaseActivity {
 
     private void initViewPager() {
         mAdapter = new ImageDetailAdapter(mContext, mItems);
+        mAdapter.setLoadUrlTag(mLoadUrlTag);
         mDetailViewPager.setAdapter(mAdapter);
-        mDetailViewPager.setCurrentItem(mParentImagePosition);
         mDetailViewPager.setPageTransformer(true, PageUtils.getPageTransformer(mContext));
+        mDetailViewPager.setCurrentItem(mParentImagePosition);
         mDetailViewPager.setOffscreenPageLimit(1);
     }
 

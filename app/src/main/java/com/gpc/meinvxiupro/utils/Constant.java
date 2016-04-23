@@ -13,9 +13,9 @@ public class Constant {
 
     public class BundleConstant {
         public static final String FRAGMENT_TITLE = "fragment_title";
-        public static final String IMAGE_ENTITY = "imgsEntity";
         public static final String IMAGE_POSITION = "imgPosition";
         public static final String IMAGE_DATAS = "imgDatas";
+        public static final String LOAD_TAG = "load_tag";
     }
 
     public class BroadcastReceiverAction {
@@ -32,12 +32,9 @@ public class Constant {
 
     public class Transformer {
         public static final String DefaultTransformer = "DefaultTransformer";
+        public static final String AccordionTransformer = "AccordionTransformer";
         public static final String BackgroundToForegroundTransformer = "BackgroundToForegroundTransformer";
-        public static final String CubeInTransformer = "CubeInTransformer";
-        public static final String CubeOutTransformer = "CubeOutTransformer";
         public static final String DepthPageTransformer = "DepthPageTransformer";
-        public static final String FlipHorizontalTransformer = "FlipHorizontalTransformer";
-        public static final String FlipVerticalTransformer = "FlipVerticalTransformer";
         public static final String ForegroundToBackgroundTransformer = "ForegroundToBackgroundTransformer";
         public static final String RotateDownTransformer = "RotateDownTransformer";
         public static final String RotateUpTransformer = "RotateUpTransformer";
@@ -47,5 +44,10 @@ public class Constant {
         public static final String ZoomInTransformer = "ZoomInTransformer";
         public static final String ZoomOutTransformer = "ZoomOutTransformer";
         public static final String ZoomOutSlideTransformer = "ZoomOutSlideTransformer";
+    }
+
+    public class CommonData {
+        public static final int LOAD_DEFAULT = 0;
+        public static final int LOAD_LOCAL = 1;
     }
 }

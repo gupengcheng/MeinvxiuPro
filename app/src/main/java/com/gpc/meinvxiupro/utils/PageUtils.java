@@ -3,6 +3,7 @@ package com.gpc.meinvxiupro.utils;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
 import com.ToxicBakery.viewpager.transforms.BackgroundToForegroundTransformer;
 import com.ToxicBakery.viewpager.transforms.CubeInTransformer;
 import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
@@ -30,16 +31,10 @@ public class PageUtils {
             return new DefaultTransformer();
         }else if (sharedTransformer.equals(Constant.Transformer.BackgroundToForegroundTransformer)){
             return new BackgroundToForegroundTransformer();
-        }else if (sharedTransformer.equals(Constant.Transformer.CubeInTransformer)){
-            return new CubeInTransformer();
-        }else if (sharedTransformer.equals(Constant.Transformer.CubeOutTransformer)){
-            return new CubeOutTransformer();
+        }else if (sharedTransformer.equals(Constant.Transformer.AccordionTransformer)){
+            return new AccordionTransformer();
         }else if (sharedTransformer.equals(Constant.Transformer.DepthPageTransformer)){
             return new DepthPageTransformer();
-        }else if (sharedTransformer.equals(Constant.Transformer.FlipHorizontalTransformer)){
-            return new FlipHorizontalTransformer();
-        }else if (sharedTransformer.equals(Constant.Transformer.FlipVerticalTransformer)){
-            return new FlipVerticalTransformer();
         }else if (sharedTransformer.equals(Constant.Transformer.ForegroundToBackgroundTransformer)){
             return new ForegroundToBackgroundTransformer();
         }else if (sharedTransformer.equals(Constant.Transformer.RotateDownTransformer)){

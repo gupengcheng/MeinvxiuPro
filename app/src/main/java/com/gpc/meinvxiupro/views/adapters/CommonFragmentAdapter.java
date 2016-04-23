@@ -8,23 +8,23 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
+import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
-import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.RequestCreator;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +36,7 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
     private int mFragmentTag = TAG_DEFAULT;
+    private int mLoadUrlTag = Constant.CommonData.LOAD_DEFAULT;
     private static final int IMAGE_FRAGMENT_TOTAL_NUM = 3;
     private static final int TAG_DEFAULT = 0;
     private static final int TAG_NOT_NEED_TOP_LAYOUT = 1;
@@ -70,8 +71,15 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
-        ImageLoaderManager.getPicassoInstance(mContext)
-                .load(mItems.get(position).getThumbLargeUrl())
+        RequestCreator creator;
+        if (mLoadUrlTag == Constant.CommonData.LOAD_DEFAULT) {
+            creator = ImageLoaderManager.getPicassoInstance(mContext)
+                    .load(mItems.get(position).getThumbLargeUrl());
+        } else {
+            creator = ImageLoaderManager.getPicassoInstance(mContext)
+                    .load(new File(mItems.get(position).getThumbLargeUrl()));
+        }
+        creator
                 .placeholder(R.color.rgb_e9e9e9)
                 .error(R.color.rgb_e9e9e9)
                 .config(Bitmap.Config.RGB_565)
@@ -164,6 +172,14 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
 
     public void setNotNeedTabLayoutFragmentTag() {
         mFragmentTag = TAG_NOT_NEED_TOP_LAYOUT;
+    }
+
+    public void setLoadUrlTag() {
+        mLoadUrlTag = Constant.CommonData.LOAD_LOCAL;
+    }
+
+    public int getLoadUrlTag() {
+        return mLoadUrlTag;
     }
 
 }

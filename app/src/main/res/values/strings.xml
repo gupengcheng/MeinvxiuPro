@@ -67,10 +67,12 @@
 
     <string name="tag_me">我的</string>
     <string name="my_collect">我的收藏</string>
+    <string name="my_download">我的下载</string>
     <string name="about_us">软件介绍</string>
     <string name="feedback">我要吐槽</string>
     <string name="setting">风格设置</string>
     <string name="no_collect">无收藏</string>
+    <string name="no_download">无下载</string>
 
     <string name="download_wallpaper_start">开始下载壁纸</string>
     <string name="download_wallpaper_succeed">下载完成</string>
@@ -106,8 +108,6 @@
         <item>DefaultTransformer</item>
         <item>AccordionTransformer</item>
         <item>BackgroundToForegroundTransformer</item>
-        <item>CubeInTransformer</item>
-        <item>CubeOutTransformer</item>
         <item>DepthPageTransformer</item>
         <item>ForegroundToBackgroundTransformer</item>
         <item>RotateDownTransformer</item>
@@ -123,8 +123,6 @@
         <item>默认</item>
         <item>手风琴</item>
         <item>背景到前景</item>
-        <item>向内立方体</item>
-        <item>向外立方体</item>
         <item>深度页</item>
         <item>前景到背景</item>
         <item>向下旋转</item>

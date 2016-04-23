@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Observable;
@@ -56,12 +57,12 @@ public class WallpaperUtils {
 
                     @Override
                     public void onError(Throwable e) {
-                        ToastUtils.showShortToast(context, R.string.set_wallpaper_failure);
                     }
 
                     @Override
                     public void onNext(String s) {
-                        ToastUtils.showShortToast(context, s);
+                        ToastUtils.showShortSnakeBar(((Activity) context).getWindow()
+                                .getDecorView().findViewById(android.R.id.content), s);
                     }
                 });
     }
@@ -144,6 +145,39 @@ public class WallpaperUtils {
             @Override
             public void call(Subscriber<? super List<ImgsEntity>> subscriber) {
                 subscriber.onNext(MnxDbProvider.getInstance().getCollectDatas());
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback);
+    }
+
+    public static void getDownloadWallpaper(Subscriber<List<ImgsEntity>> callback) {
+        Observable.create(new Observable.OnSubscribe<List<ImgsEntity>>() {
+            @Override
+            public void call(Subscriber<? super List<ImgsEntity>> subscriber) {
+                File file = new File(MeinvxiuApplication.getInstance().getApplicationContext()
+                        .getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath());
+                if (file.isDirectory()) {
+                    //获取该文件夹下的文件集合
+                    File[] files = file.listFiles();
+                    List<ImgsEntity> data = new ArrayList<ImgsEntity>();
+                    for (int i = 0; i < files.length; i++) {
+                        ImgsEntity imgsEntity = new ImgsEntity();
+                        imgsEntity.setDesc(files[i].getName());
+                        imgsEntity.setTitle(files[i].getName());
+                        imgsEntity.setDownloadUrl(files[i].getAbsolutePath());
+                        imgsEntity.setThumbLargeUrl(files[i].getAbsolutePath());
+                        data.add(imgsEntity);
+                    }
+                    if (data.isEmpty()) {
+                        subscriber.onNext(null);
+                    } else {
+                        subscriber.onNext(data);
+                    }
+                } else {
+                    subscriber.onNext(null);
+                }
             }
         })
                 .subscribeOn(Schedulers.io())

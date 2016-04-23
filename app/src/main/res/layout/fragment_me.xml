@@ -19,6 +19,18 @@
         android:layout_height="@dimen/me_item_line" />
 
     <TextView
+        android:id="@+id/my_download"
+        style="@style/MeItemStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_height"
+        android:text="@string/my_download" />
+
+    <TextView
+        style="@style/MeItemLineStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/me_item_line" />
+
+    <TextView
         android:id="@+id/about_us"
         style="@style/MeItemStyle"
         android:layout_width="match_parent"

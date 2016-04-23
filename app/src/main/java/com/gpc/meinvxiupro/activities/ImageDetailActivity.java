@@ -12,6 +12,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 import com.gpc.meinvxiupro.views.adapters.ImageDetailAdapter;
@@ -117,6 +118,7 @@ public class ImageDetailActivity extends BaseActivity {
         mAdapter = new ImageDetailAdapter(mContext, mItems);
         mDetailViewPager.setAdapter(mAdapter);
         mDetailViewPager.setCurrentItem(mParentImagePosition);
+        mDetailViewPager.setPageTransformer(true, PageUtils.getPageTransformer(mContext));
         mDetailViewPager.setOffscreenPageLimit(1);
     }
 

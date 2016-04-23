@@ -72,8 +72,8 @@ public class CommonFragmentAdapter extends RecyclerView.Adapter<CommonFragmentAd
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
         ImageLoaderManager.getPicassoInstance(mContext)
                 .load(mItems.get(position).getThumbLargeUrl())
-                .placeholder(R.drawable.progress_indeterminate)
-                .error(R.mipmap.ic_error)
+                .placeholder(R.color.rgb_e9e9e9)
+                .error(R.color.rgb_e9e9e9)
                 .config(Bitmap.Config.RGB_565)
                 .into(holder.mImageView, new Callback() {
                     @Override

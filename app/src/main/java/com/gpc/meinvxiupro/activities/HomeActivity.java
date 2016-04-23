@@ -10,6 +10,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.fragments.MeFragment;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class HomeActivity extends BaseActivity {
         mAdapter.addTab(MeFragment.newInstance(getResources().getString(R.string.tag_me))
                 , getResources().getString(R.string.tag_me));
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageTransformer(true, new CubeOutTransformer());
+        mViewPager.setPageTransformer(true, PageUtils.getPageTransformer(mContext));
         mViewPager.setOffscreenPageLimit(1);
     }
 

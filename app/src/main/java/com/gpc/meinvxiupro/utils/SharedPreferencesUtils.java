@@ -108,4 +108,39 @@ public class SharedPreferencesUtils {
             editor.apply();
         }
     }
+
+    public static String getTransformer(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        String transformer = sp.getString(Constant.SharedPreferencesKey.TRANSFORMER, "");
+        return transformer;
+    }
+
+    public static void setTransformer(Context context, String transformer) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        if (!TextUtils.isEmpty(transformer)) {
+            editor.putString(Constant.SharedPreferencesKey.TRANSFORMER, transformer);
+            editor.apply();
+        }
+    }
+
+    /**
+     * 获取当前选中的页面切换动画的位置，用于设置选中背景
+     * 默认值为1，表示position为1的位置
+     *
+     * @param context
+     * @return
+     */
+    public static int getTransformerPosition(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        int transformerPosition = sp.getInt(Constant.SharedPreferencesKey.TRANSFORMER_POSITION, 1);
+        return transformerPosition;
+    }
+
+    public static void setTransformerPosition(Context context, int position) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putInt(Constant.SharedPreferencesKey.TRANSFORMER_POSITION, position);
+        editor.apply();
+    }
 }

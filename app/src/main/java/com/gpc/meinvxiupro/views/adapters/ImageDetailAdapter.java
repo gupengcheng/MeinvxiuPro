@@ -88,8 +88,7 @@ public class ImageDetailAdapter extends PagerAdapter {
         view.findViewById(R.id.common_loading).setVisibility(View.VISIBLE);
         ImageLoaderManager.getPicassoInstance(mContext)
                 .load(imgUrl)
-                .placeholder(R.drawable.progress_indeterminate)
-                .error(R.mipmap.ic_error)
+                .error(R.color.rgb_e9e9e9)
                 .config(Bitmap.Config.RGB_565)
                 .resize(mWidthPix, mHeightPix)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

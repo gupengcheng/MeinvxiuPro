@@ -8,6 +8,7 @@ import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;
@@ -59,11 +60,10 @@ public class CommonTagFragment extends BaseFragment {
         }
         mAdapter = new HomePagerAdapter(getChildFragmentManager());
         for (String title : mCommonTagTabTitles) {
-            LogUtil.e(TAG, "title == " + title);
             mAdapter.addTab(CommonFragment.newInstance(title), title);
         }
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setPageTransformer(true, new CubeOutTransformer());
+        mViewPager.setPageTransformer(true, PageUtils.getPageTransformer(getContext()));
         mViewPager.setOffscreenPageLimit(1);
         mTabLayout.setupWithViewPager(mViewPager);
     }

@@ -91,7 +91,6 @@
     <string name="page_style">页面切换动画</string>
     <string-array name="page_style_key">
         <item>DefaultTransformer</item>
-        <item>ABaseTransformer</item>
         <item>AccordionTransformer</item>
         <item>BackgroundToForegroundTransformer</item>
         <item>CubeInTransformer</item>
@@ -111,7 +110,6 @@
     </string-array>
     <string-array name="page_style_content">
         <item>默认</item>
-        <item>Abase</item>
         <item>手风琴</item>
         <item>背景到前景</item>
         <item>向内立方体</item>

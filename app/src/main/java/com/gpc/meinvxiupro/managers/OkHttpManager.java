@@ -37,7 +37,6 @@ public class OkHttpManager {
         try {
             com.squareup.okhttp.Response response = mOkHttpClient.newCall(request).execute();
             info = response.body().string();
-            Log.e("TAG", "info=" + info);
         } catch (IOException e) {
             e.printStackTrace();
         }

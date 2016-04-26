@@ -42,20 +42,18 @@ public class ImageDetailAdapter extends PagerAdapter {
     private ArrayList<ImgsEntity> mData;
     private LayoutInflater mInflater;
     private Context mContext;
-    private static int mHeightPix;
-    private static int mWidthPix;
+    private int mHeightPix;
+    private int mWidthPix;
     private int mLoadTag;
 
     public ImageDetailAdapter(Context context, ArrayList<ImgsEntity> data) {
         mContext = context;
         mData = data;
         mInflater = LayoutInflater.from(context);
-        if (mHeightPix == 0 && mWidthPix == 0) {
-            DisplayMetrics metrics = new DisplayMetrics();
-            ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            mHeightPix = metrics.heightPixels;
-            mWidthPix = metrics.widthPixels;
-        }
+        DisplayMetrics metrics = new DisplayMetrics();
+        ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mHeightPix = metrics.heightPixels;
+        mWidthPix = metrics.widthPixels;
     }
 
     @Override

@@ -32,7 +32,8 @@
     <com.gpc.meinvxiupro.views.widgets.CustomImageView
         android:id="@+id/img_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <include
         android:id="@+id/common_loading"

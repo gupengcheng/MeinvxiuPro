@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.SettingItem;
-import com.gpc.meinvxiupro.utils.LogUtil;
+import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.views.adapters.SettingAdapter;
-import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,24 +40,22 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initViews() {
         super.initViews();
-        getDatas();
+        getData();
         initToolbar();
         initRecyclerViews();
     }
 
-    private void getDatas() {
+    private void getData() {
         mDatas = new ArrayList<>();
-        String[] settingKey = getResources().getStringArray(R.array.page_style_key);
-        String[] settingContent = getResources().getStringArray(R.array.page_style_content);
-        SettingItem title = new SettingItem();
-        title.setSettingContent(getResources().getString(R.string.page_style));
-        mDatas.add(title);
-        for (int i = 0; i < Math.min(settingKey.length, settingContent.length); i++) {
-            SettingItem item = new SettingItem();
-            item.setSettingKey(settingKey[i]);
-            item.setSettingContent(settingContent[i]);
-            mDatas.add(item);
-        }
+        setListData(getResources().getString(R.string.page_style),
+                getResources().getStringArray(R.array.page_style_key),
+                getResources().getStringArray(R.array.page_style_content),
+                Constant.SettingType.TRANSFORM_ITEM);
+
+        setListData(getResources().getString(R.string.auto_set_download_wallpaper),
+                getResources().getStringArray(R.array.auto_set_download_wallpaper_key),
+                getResources().getStringArray(R.array.auto_set_download_wallpaper_content),
+                Constant.SettingType.AUTO_SET_DOWNLOAD_WALLPAPER_ITEM);
     }
 
     private void initToolbar() {
@@ -84,6 +81,20 @@ public class SettingActivity extends BaseActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mSettingRecyclerView.setLayoutManager(layoutManager);
         mSettingRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void setListData(String title, String[] key, String[] content, int itemType) {
+        SettingItem autoSetDownloadWallpaperTitle = new SettingItem();
+        autoSetDownloadWallpaperTitle.setSettingContent(title);
+        autoSetDownloadWallpaperTitle.setType(Constant.SettingType.TITLE);
+        mDatas.add(autoSetDownloadWallpaperTitle);
+        for (int i = 0; i < Math.min(key.length, content.length); i++) {
+            SettingItem item = new SettingItem();
+            item.setSettingKey(key[i]);
+            item.setSettingContent(content[i]);
+            item.setType(itemType);
+            mDatas.add(item);
+        }
     }
 
 }

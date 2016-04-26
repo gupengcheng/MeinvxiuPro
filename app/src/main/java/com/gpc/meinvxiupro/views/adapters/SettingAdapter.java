@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.SettingItem;
+import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
-import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
+import com.gpc.meinvxiupro.utils.WallpaperUtils;
 
 import java.util.List;
 
@@ -24,15 +27,17 @@ import java.util.List;
  */
 public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseViewHolder> {
     public static class BaseViewHolder extends RecyclerView.ViewHolder {
-        private TextView mTransformer;
-        private TextView mTransformerTitleLine;
-        private TextView mTransformerItemLine;
+        private TextView mSettingTitle;
+        private TextView mSettingItem;
+        private LinearLayout mSettingItemLay;
+        private LinearLayout mSettingTitleLay;
 
         public BaseViewHolder(View view) {
             super(view);
-            mTransformer = (TextView) view.findViewById(R.id.transformer);
-            mTransformerTitleLine = (TextView) view.findViewById(R.id.transformer_title_line);
-            mTransformerItemLine = (TextView) view.findViewById(R.id.transformer_item_line);
+            mSettingTitle = (TextView) view.findViewById(R.id.setting_title);
+            mSettingItem = (TextView) view.findViewById(R.id.setting_item);
+            mSettingItemLay = (LinearLayout) view.findViewById(R.id.setting_item_lay);
+            mSettingTitleLay = (LinearLayout) view.findViewById(R.id.setting_title_lay);
         }
     }
 
@@ -49,39 +54,13 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
     @Override
     public void onBindViewHolder(final BaseViewHolder holder, final int position) {
         final SettingItem item = mDatas.get(position);
-        holder.mTransformer.setText(item.getSettingContent());
-        if (position == 0) {
-            holder.mTransformerTitleLine.setVisibility(View.VISIBLE);
-            holder.mTransformerItemLine.setVisibility(View.GONE);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mTransformer.getLayoutParams();
-            layoutParams.setMargins(PixelUtil.dp2px(mContext, 16), 0, 0, 0);
-            holder.mTransformer.setLayoutParams(layoutParams);
-            holder.mTransformer.setBackgroundResource(R.color.rgb_f8f8f8);
-            holder.mTransformer.setTextSize(18);
-            holder.mTransformer.setTextColor(ContextCompat.getColor(mContext, R.color.rgb_333333));
-        } else {
-            holder.mTransformerTitleLine.setVisibility(View.GONE);
-            holder.mTransformerItemLine.setVisibility(View.VISIBLE);
-            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) holder.mTransformer.getLayoutParams();
-            layoutParams.setMargins(PixelUtil.dp2px(mContext, 32), 0, 0, 0);
-            holder.mTransformer.setLayoutParams(layoutParams);
-            holder.mTransformer.setBackgroundResource(R.drawable.bg_setting_item);
-            holder.mTransformer.setTextSize(16);
-            holder.mTransformer.setTextColor(ContextCompat.getColor(mContext, R.color.rgb_969696));
-        }
-        if (position == SharedPreferencesUtils.getTransformerPosition(mContext)) {
-            holder.mTransformer.setSelected(true);
-        } else {
-            holder.mTransformer.setSelected(false);
-        }
+        setSettingItemVisible(holder, item.getType());
+        setSettingItemText(holder, item.getSettingContent());
+        setSettingItemSelected(holder, position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.showShortSnakeBar(((Activity) mContext).findViewById(android.R.id.content),
-                        mContext.getResources().getString(R.string.setting_next_action));
-                SharedPreferencesUtils.setTransformerPosition(mContext, position);
-                SharedPreferencesUtils.setTransformer(mContext, item.getSettingKey());
-                notifyDataSetChanged();
+                itemClickResponse(item, position);
             }
         });
     }
@@ -97,4 +76,29 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
         return new BaseViewHolder(view);
     }
 
+    private void setSettingItemVisible(BaseViewHolder holder, int type) {
+        holder.mSettingTitleLay.setVisibility(type == Constant.SettingType.TITLE ? View.VISIBLE : View.GONE);
+        holder.mSettingItemLay.setVisibility(type == Constant.SettingType.TITLE ? View.GONE : View.VISIBLE);
+    }
+
+    private void setSettingItemText(BaseViewHolder holder, String text) {
+        holder.mSettingTitle.setText(text);
+        holder.mSettingItem.setText(text);
+    }
+
+    private void setSettingItemSelected(BaseViewHolder holder, int position) {
+        holder.mSettingItem.setSelected((position == SharedPreferencesUtils.getTransformerPosition(mContext)
+                || position == SharedPreferencesUtils.getAutoSetWallpaperPosition(mContext)) ? true : false);
+    }
+
+    private void itemClickResponse(SettingItem item, int position) {
+        if (item.getType() == Constant.SettingType.TITLE) {
+            return;
+        }
+        if (item.getType() == Constant.SettingType.TRANSFORM_ITEM) {
+            WallpaperUtils.settingTransform(mContext, position, item, this);
+        } else {
+            WallpaperUtils.autoSetWallpaper(mContext, position, this);
+        }
+    }
 }

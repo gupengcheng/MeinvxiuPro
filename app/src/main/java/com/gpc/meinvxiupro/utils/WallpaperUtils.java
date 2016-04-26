@@ -11,7 +11,9 @@ import android.util.Log;
 import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
+import com.gpc.meinvxiupro.models.SettingItem;
 import com.gpc.meinvxiupro.provider.MnxDbProvider;
+import com.gpc.meinvxiupro.views.adapters.SettingAdapter;
 import com.gpc.meinvxiupro.views.widgets.CustomImageView;
 
 import java.io.File;
@@ -195,6 +197,70 @@ public class WallpaperUtils {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback);
+    }
+
+    public static void autoSetWallpaper(final Context context, final int position, final SettingAdapter adapter) {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                int lastPosition = SharedPreferencesUtils.getAutoSetWallpaperPosition(context);
+                SharedPreferencesUtils.setAutoSetWallpaperPosition(context, position);
+                subscriber.onNext(lastPosition);
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Integer lastPosition) {
+                        adapter.notifyItemChanged(lastPosition);
+                        adapter.notifyItemChanged(position);
+                        ToastUtils.showShortSnakeBar(((Activity) context).findViewById(android.R.id.content),
+                                context.getResources().getString(R.string.setting_auto_set_wallpaper_succeed));
+                    }
+                });
+    }
+
+    public static void settingTransform(final Context context, final int position,
+                                        final SettingItem item, final SettingAdapter adapter) {
+        Observable.create(new Observable.OnSubscribe<Integer>() {
+            @Override
+            public void call(Subscriber<? super Integer> subscriber) {
+                int lastPosition = SharedPreferencesUtils.getTransformerPosition(context);
+                SharedPreferencesUtils.setTransformerPosition(context, position);
+                SharedPreferencesUtils.setTransformer(context, item.getSettingKey());
+                subscriber.onNext(lastPosition);
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Integer>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(Integer lastPosition) {
+                        adapter.notifyItemChanged(lastPosition);
+                        adapter.notifyItemChanged(position);
+                        ToastUtils.showShortSnakeBar(((Activity) context).findViewById(android.R.id.content),
+                                context.getResources().getString(R.string.setting_next_action));
+                    }
+                });
     }
 
     // 图片转为文件

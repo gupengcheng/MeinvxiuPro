@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="49dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/transformer"
-        style="@style/SettingItemStyle"
+    <LinearLayout
+        android:id="@+id/setting_item_lay"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/setting_item_height" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/transformer_title_line"
-        style="@style/SettingTitleLineStyle"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/me_item_line"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/setting_item"
+            style="@style/SettingItemStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_item_height" />
 
-    <TextView
-        android:id="@+id/transformer_item_line"
-        style="@style/SettingLineStyle"
+        <TextView
+            style="@style/SettingLineStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/me_item_line" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/setting_title_lay"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/me_item_line"
-        android:visibility="gone" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/setting_title"
+            style="@style/SettingTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_title_height" />
+
+        <TextView
+            style="@style/SettingTitleLineStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/me_item_line" />
+    </LinearLayout>
 
 </LinearLayout>

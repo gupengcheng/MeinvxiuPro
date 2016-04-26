@@ -28,6 +28,7 @@ public class Constant {
         public static final String TRANSFORMER = "transformer";
         public static final String TRANSFORMER_POSITION = "transformer_position";
         public static final String DEVICE_IMEI = "device_imei";
+        public static final String AUTO_SET_WALLPAPER = "auto_set_wallpaper";
     }
 
     public class Transformer {
@@ -49,5 +50,12 @@ public class Constant {
     public class CommonData {
         public static final int LOAD_DEFAULT = 0;
         public static final int LOAD_LOCAL = 1;
+    }
+
+    public class SettingType {
+        public static final int TITLE = 1;
+        public static final int ITEM = 2;
+        public static final int TRANSFORM_ITEM = 11;
+        public static final int AUTO_SET_DOWNLOAD_WALLPAPER_ITEM = 12;
     }
 }

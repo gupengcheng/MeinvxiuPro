@@ -79,6 +79,7 @@
     <string name="download_wallpaper_failed">下载失败</string>
 
     <string name="setting_next_action">下次进入应用生效</string>
+    <string name="setting_auto_set_wallpaper_succeed">自动轮播设置成功</string>
     <string name="feedback_content_hint">请告诉我您想让我改进的地方或者吐槽的问题</string>
     <string name="feedback_contact_hint">如果方便，可以留下您的联系方式或者邮箱地址</string>
     <string name="send_feedback">发射吐槽</string>
@@ -133,5 +134,33 @@
         <item>缩小</item>
         <item>放大</item>
         <item>放大滑动</item>
+    </string-array>
+
+    <string name="auto_set_download_wallpaper">自动轮播下载壁纸</string>
+    <string-array name="auto_set_download_wallpaper_key">
+        <item>8</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>600</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>14400</item>
+        <item>28800</item>
+        <item>43200</item>
+        <item>86400</item>
+    </string-array>
+    <string-array name="auto_set_download_wallpaper_content">
+        <item>8秒</item>
+        <item>30秒</item>
+        <item>1分钟</item>
+        <item>3分钟</item>
+        <item>10分钟</item>
+        <item>30分钟</item>
+        <item>1小时</item>
+        <item>4小时</item>
+        <item>8小时</item>
+        <item>12小时</item>
+        <item>24小时</item>
     </string-array>
 </resources>

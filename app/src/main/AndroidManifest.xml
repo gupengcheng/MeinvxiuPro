@@ -85,6 +85,10 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <service
+            android:name=".services.AutoSetWallpaperService"
+            android:process=":SettingWallpaper" />
     </application>
 
 </manifest>

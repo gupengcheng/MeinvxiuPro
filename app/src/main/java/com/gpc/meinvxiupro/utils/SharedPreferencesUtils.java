@@ -144,6 +144,26 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    /**
+     * 获取自动设置壁纸的位置，用于设置选中背景
+     * 默认值为15，表示position为15的位置
+     *
+     * @param context
+     * @return
+     */
+    public static int getAutoSetWallpaperPosition(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        int transformerPosition = sp.getInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER, 15);
+        return transformerPosition;
+    }
+
+    public static void setAutoSetWallpaperPosition(Context context, int position) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER, position);
+        editor.apply();
+    }
+
     // get the imei of current device
     public static String getDeviceIMEI(Context context) {
         SharedPreferences sp = getDefaultSharedPreferences(context);

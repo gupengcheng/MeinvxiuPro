@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gpc.meinvxiupro.utils.Constant;
-import com.gpc.meinvxiupro.utils.LogUtil;
 
 
 /**

@@ -1,8 +1,6 @@
 package com.gpc.meinvxiupro.views.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +8,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.SettingItem;
 import com.gpc.meinvxiupro.utils.Constant;
-import com.gpc.meinvxiupro.utils.LogUtil;
-import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
-import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
 
 import java.util.List;
@@ -98,7 +92,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
         if (item.getType() == Constant.SettingType.TRANSFORM_ITEM) {
             WallpaperUtils.settingTransform(mContext, position, item, this);
         } else {
-            WallpaperUtils.autoSetWallpaper(mContext, position, this);
+            WallpaperUtils.settingAutoSetWallpaper(mContext, position, this);
         }
     }
 }

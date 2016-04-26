@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.managers.DataRequestManager;

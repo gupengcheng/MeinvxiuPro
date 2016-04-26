@@ -1,7 +1,5 @@
 package com.gpc.meinvxiupro.managers;
 
-import android.util.Log;
-
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

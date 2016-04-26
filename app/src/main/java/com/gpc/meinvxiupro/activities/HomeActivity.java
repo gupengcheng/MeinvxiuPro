@@ -5,11 +5,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.fragments.MeFragment;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Log;
 
 import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.R;
@@ -199,7 +198,7 @@ public class WallpaperUtils {
                 .subscribe(callback);
     }
 
-    public static void autoSetWallpaper(final Context context, final int position, final SettingAdapter adapter) {
+    public static void settingAutoSetWallpaper(final Context context, final int position, final SettingAdapter adapter) {
         Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {

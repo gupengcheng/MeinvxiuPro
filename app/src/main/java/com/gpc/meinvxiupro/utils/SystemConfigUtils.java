@@ -1,7 +1,5 @@
 package com.gpc.meinvxiupro.utils;
 
-import android.content.res.Resources;
-
 import com.gpc.meinvxiupro.MeinvxiuApplication;
 
 /**

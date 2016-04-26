@@ -13,8 +13,6 @@ import com.gpc.meinvxiupro.activities.SettingActivity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ContextUtils;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by pcgu on 16-4-20.
  */

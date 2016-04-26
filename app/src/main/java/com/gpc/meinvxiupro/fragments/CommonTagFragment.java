@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.utils.Constant;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 

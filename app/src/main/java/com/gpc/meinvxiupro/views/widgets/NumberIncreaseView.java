@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.gpc.meinvxiupro.R;
-import com.gpc.meinvxiupro.utils.LogUtil;
 
 /**
  * Created by pcgu on 16-4-5.

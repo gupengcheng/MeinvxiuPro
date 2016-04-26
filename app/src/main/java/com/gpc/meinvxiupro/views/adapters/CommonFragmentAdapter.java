@@ -18,7 +18,6 @@ import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.squareup.picasso.Callback;

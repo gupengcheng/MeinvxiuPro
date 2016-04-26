@@ -16,8 +16,6 @@ import com.gpc.meinvxiupro.models.ImageResult;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ContextUtils;
-import com.gpc.meinvxiupro.utils.LogUtil;
-import com.gpc.meinvxiupro.utils.NetworkUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.views.adapters.CommonFragmentAdapter;
 import com.gpc.meinvxiupro.views.interfaces.OnItemClickListener;

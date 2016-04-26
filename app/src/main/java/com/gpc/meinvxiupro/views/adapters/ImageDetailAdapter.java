@@ -21,7 +21,6 @@ import com.gpc.meinvxiupro.managers.ImageLoaderManager;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
 import com.gpc.meinvxiupro.utils.ImageUtils;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PixelUtil;
 import com.gpc.meinvxiupro.utils.SystemConfigUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;

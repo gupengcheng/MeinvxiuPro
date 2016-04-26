@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
-import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 
 import java.util.Map;

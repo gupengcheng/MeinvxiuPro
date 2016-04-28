@@ -22,6 +22,7 @@ public class MeFragment extends BaseFragment {
     private TextView mAboutUsTv;
     private TextView mFeedbackTv;
     private TextView mSettingTv;
+    private TextView mStarMeTv;
 
     public static MeFragment newInstance(String tag) {
         MeFragment meFragment = new MeFragment();
@@ -45,6 +46,7 @@ public class MeFragment extends BaseFragment {
         mAboutUsTv = (TextView) getInflateView().findViewById(R.id.about_us);
         mSettingTv = (TextView) getInflateView().findViewById(R.id.setting);
         mFeedbackTv = (TextView) getInflateView().findViewById(R.id.feedback);
+        mStarMeTv = (TextView) getInflateView().findViewById(R.id.star_me);
     }
 
     @Override
@@ -82,6 +84,13 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 ContextUtils.goActivity(getContext(), SettingActivity.class);
+            }
+        });
+        mStarMeTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContextUtils.launchMarketApp(getContext(), getContext().getPackageName(),
+                        Constant.MarketAppPackage.XIAO_MI);
             }
         });
     }

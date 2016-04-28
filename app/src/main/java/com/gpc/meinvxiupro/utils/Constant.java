@@ -61,4 +61,8 @@ public class Constant {
         public static final int TRANSFORM_ITEM = 11;
         public static final int AUTO_SET_DOWNLOAD_WALLPAPER_ITEM = 12;
     }
+
+    public class MarketAppPackage{
+        public static final String XIAO_MI = "com.xiaomi.market";
+    }
 }

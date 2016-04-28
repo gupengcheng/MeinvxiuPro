@@ -81,7 +81,7 @@
     <string name="setting_next_action">下次进入应用生效</string>
     <string name="setting_auto_set_wallpaper_succeed">自动轮播设置成功</string>
     <string name="feedback_content_hint">请告诉我您想让我改进的地方或者吐槽的问题</string>
-    <string name="feedback_contact_hint">如果方便，可以留下您的联系方式或者邮箱地址</string>
+    <string name="feedback_contact_hint">如果方便，留下您的邮箱地址,修复问题我会第一时间通知你</string>
     <string name="send_feedback">发射吐槽</string>
 
     <string name="network_dis_connect">网络好像没有开</string>

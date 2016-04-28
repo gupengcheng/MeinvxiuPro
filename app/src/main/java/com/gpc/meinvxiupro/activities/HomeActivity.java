@@ -1,5 +1,6 @@
 package com.gpc.meinvxiupro.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.fragments.MeFragment;
+import com.gpc.meinvxiupro.services.AutoSetWallpaperService;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
@@ -46,6 +48,7 @@ public class HomeActivity extends BaseActivity {
         initViewPager();
         initTabLayout();
         setFirstLoad();
+        startService();
     }
 
     private void initToolbar() {
@@ -78,6 +81,11 @@ public class HomeActivity extends BaseActivity {
         if (SharedPreferencesUtils.getApplicationFirstLoadMore(mContext)) {
             SharedPreferencesUtils.setApplicationFirstLoadMore(mContext, false);
         }
+    }
+
+    private void startService() {
+        Intent intent = new Intent(mContext, AutoSetWallpaperService.class);
+        mContext.startService(intent);
     }
 
 }

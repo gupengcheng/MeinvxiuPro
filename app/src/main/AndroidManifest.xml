@@ -90,11 +90,15 @@
         <receiver
             android:name=".receivers.CustomAlarmReceiver"
             android:enabled="true">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="com.gpc.meinvxiupro.autosetwallpaper" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".services.AutoSetWallpaperService"
+            android:process=":wallpaper" />
 
     </application>
 

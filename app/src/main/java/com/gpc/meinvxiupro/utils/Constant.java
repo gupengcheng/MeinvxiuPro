@@ -21,7 +21,6 @@ public class Constant {
     public class BroadcastReceiverAction {
         public static final String EXIT_TO_DESKTOP = "com.meinvxiupro.exittodesktop";
         public static final String AUTO_SET_WALLPAPER = "com.gpc.meinvxiupro.autosetwallpaper";
-        public static final String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
     }
 
     public class SharedPreferencesKey {

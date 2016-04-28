@@ -205,7 +205,11 @@ public class WallpaperUtils {
                     int lastPosition = SharedPreferencesUtils.getAutoSetWallpaperPosition(context);
                     SharedPreferencesUtils.setAutoSetWallpaperPosition(context, position);
                     SharedPreferencesUtils.setAutoSetWallpaperMilli(context, millis);
-                    setAlarmAutoSetWallpaper(context);
+                    if (millis != 0) {
+                        setAlarmAutoSetWallpaper(context);
+                    } else {
+                        cancelAlarmAutoSetWallpaper();
+                    }
                     subscriber.onNext(lastPosition);
                 } else {
                     subscriber.onNext(NOT_NEED_RESPONSE);
@@ -343,9 +347,6 @@ public class WallpaperUtils {
 
     public static void setAlarmAutoSetWallpaper(Context context) {
         long intervalMillis = SharedPreferencesUtils.getAutoSetWallpaperMilli(context);
-        if (intervalMillis == 0) {
-            return;
-        }
         Intent intent = new Intent(context, CustomAlarmReceiver.class);
         intent.setAction(Constant.BroadcastReceiverAction.AUTO_SET_WALLPAPER);
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

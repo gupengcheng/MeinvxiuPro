@@ -20,6 +20,8 @@ public class Constant {
 
     public class BroadcastReceiverAction {
         public static final String EXIT_TO_DESKTOP = "com.meinvxiupro.exittodesktop";
+        public static final String AUTO_SET_WALLPAPER = "com.gpc.meinvxiupro.autosetwallpaper";
+        public static final String BOOT_COMPLETE = "android.intent.action.BOOT_COMPLETED";
     }
 
     public class SharedPreferencesKey {
@@ -29,6 +31,8 @@ public class Constant {
         public static final String TRANSFORMER_POSITION = "transformer_position";
         public static final String DEVICE_IMEI = "device_imei";
         public static final String AUTO_SET_WALLPAPER = "auto_set_wallpaper";
+        public static final String AUTO_SET_WALLPAPER_MILLI = "auto_set_wallpaper_mill";
+        public static final String AUTO_SET_WALLPAPER_CURRENT_FILE_POSITION = "current_file_position";
     }
 
     public class Transformer {

@@ -92,7 +92,7 @@ public class SettingAdapter extends RecyclerView.Adapter<SettingAdapter.BaseView
         if (item.getType() == Constant.SettingType.TRANSFORM_ITEM) {
             WallpaperUtils.settingTransform(mContext, position, item, this);
         } else {
-            WallpaperUtils.settingAutoSetWallpaper(mContext, position, this);
+            WallpaperUtils.settingAutoSetWallpaper(mContext, position, item, this);
         }
     }
 }

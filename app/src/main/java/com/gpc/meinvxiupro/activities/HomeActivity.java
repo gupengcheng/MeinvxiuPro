@@ -9,6 +9,7 @@ import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
 import com.gpc.meinvxiupro.fragments.MeFragment;
 import com.gpc.meinvxiupro.utils.PageUtils;
+import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class HomeActivity extends BaseActivity {
         initTabLayoutTitle();
         initViewPager();
         initTabLayout();
+        setFirstLoad();
     }
 
     private void initToolbar() {
@@ -70,6 +72,12 @@ public class HomeActivity extends BaseActivity {
 
     private void initTabLayout() {
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void setFirstLoad() {
+        if (SharedPreferencesUtils.getApplicationFirstLoadMore(mContext)) {
+            SharedPreferencesUtils.setApplicationFirstLoadMore(mContext, false);
+        }
     }
 
 }

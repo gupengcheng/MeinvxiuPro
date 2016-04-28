@@ -164,6 +164,38 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    /**
+     * 存储用户设置的自动切换壁纸时间
+     *
+     * @param context
+     * @return
+     */
+    public static int getAutoSetWallpaperMilli(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        int milli = sp.getInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER_MILLI, 0);
+        return milli;
+    }
+
+    public static void setAutoSetWallpaperMilli(Context context, int milli) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER_MILLI, milli);
+        editor.apply();
+    }
+
+    public static int getAutoSetWallpaperFilePosition(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        int milli = sp.getInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER_CURRENT_FILE_POSITION, 0);
+        return milli;
+    }
+
+    public static void setAutoSetWallpaperFilePosition(Context context, int position) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putInt(Constant.SharedPreferencesKey.AUTO_SET_WALLPAPER_CURRENT_FILE_POSITION, position);
+        editor.apply();
+    }
+
     // get the imei of current device
     public static String getDeviceIMEI(Context context) {
         SharedPreferences sp = getDefaultSharedPreferences(context);

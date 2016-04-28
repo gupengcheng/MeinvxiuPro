@@ -138,19 +138,21 @@
 
     <string name="auto_set_download_wallpaper">自动轮播下载壁纸</string>
     <string-array name="auto_set_download_wallpaper_key">
-        <item>8</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>600</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>14400</item>
-        <item>28800</item>
-        <item>43200</item>
-        <item>86400</item>
+        <item>0</item>
+        <item>8000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>180000</item>
+        <item>600000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>14400000</item>
+        <item>28800000</item>
+        <item>43200000</item>
+        <item>86400000</item>
     </string-array>
     <string-array name="auto_set_download_wallpaper_content">
+        <item>关闭</item>
         <item>8秒</item>
         <item>30秒</item>
         <item>1分钟</item>

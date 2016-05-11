@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.utils.WallpaperUtils;
@@ -55,6 +56,7 @@ public class ImageDetailActivity extends BaseActivity {
     }
 
     private void getData() {
+        LogUtil.e("ImageDetailActivity", "getData");
         Bundle bundle = getIntent().getBundleExtra(Constant.ContextConstant.BUNDLE_NAME);
         mParentImagePosition = bundle.getInt(Constant.BundleConstant.IMAGE_POSITION,
                 DEFAULT_PARENT_IMAGE_POSITION);

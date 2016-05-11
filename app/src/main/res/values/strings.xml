@@ -2,7 +2,6 @@
     <string name="app_name">图说</string>
     <string name="title_activity_welcome">欢迎页</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_home">图说</string>
     <string name="title_activity_image_detail">图片详情</string>
@@ -60,8 +59,6 @@
     <string name="set_wallpaper_succeed">设置壁纸成功</string>
     <string name="collect_wallpaper_succeed">收藏成功</string>
     <string name="dis_collect_succeed">取消收藏成功</string>
-    <string name="set_wallpaper_failure">设置壁纸失败</string>
-    <string name="collect_wallpaper_failure">收藏壁纸失败</string>
     <string name="click_again_exit">双击壁纸两次可以关闭当前页面</string>
     <string name="load_all">图片已经全部加载</string>
 

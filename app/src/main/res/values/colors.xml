@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#EF8D21</color>
     <color name="rgb_ffffff">#ffffff</color>
 
-    <color name="rgb_898900">#898900</color>
-    <color name="rgb_ef89ff">#ef89ff</color>
-    <color name="rgb_7789ff">#7789ff</color>
-    <color name="rgb_cdcdff">#cdcdff</color>
     <color name="rgb_f8f8f8">#f8f8f8</color>
     <color name="rgb_333333">#333333</color>
     <color name="rgb_969696">#969696</color>
@@ -15,7 +11,6 @@
     <color name="rgb_e3e3e3">#e3e3e3</color>
 
     <color name="transparent">#00000000</color>
-    <color name="rgb_e6e6e6">#e6e6e6</color>
 
     <color name="argb_33000000">#33000000</color>
 </resources>

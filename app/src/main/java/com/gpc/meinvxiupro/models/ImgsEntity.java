@@ -3,6 +3,8 @@ package com.gpc.meinvxiupro.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by pcgu on 16-3-11.
  */
@@ -12,12 +14,19 @@ public class ImgsEntity implements Parcelable {
     private String id;
     private String desc;
     private String date;
+    @SerializedName("downloadUrl")
     private String downloadUrl;
+    @SerializedName("thumbnailUrl")
     private String thumbnailUrl;
+    @SerializedName("thumbLargeUrl")
     private String thumbLargeUrl;
+    @SerializedName("thumbLargeTnUrl")
     private String thumbLargeTnUrl;
+    @SerializedName("fromUrl")
     private String fromUrl;
+    @SerializedName("objUrl")
     private String objUrl;
+    @SerializedName("objTag")
     private String objTag;
     private String title;
 

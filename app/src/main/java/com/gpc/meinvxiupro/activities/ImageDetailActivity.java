@@ -3,12 +3,14 @@ package com.gpc.meinvxiupro.activities;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.ContextUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.utils.ToastUtils;
@@ -32,6 +34,7 @@ public class ImageDetailActivity extends BaseActivity {
     private int mLoadUrlTag;
     private ArrayList<ImgsEntity> mItems;
     private static final int DEFAULT_PARENT_IMAGE_POSITION = 0;
+    private boolean mFromPush = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class ImageDetailActivity extends BaseActivity {
                 DEFAULT_PARENT_IMAGE_POSITION);
         mItems = bundle.getParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS);
         mLoadUrlTag = bundle.getInt(Constant.BundleConstant.LOAD_TAG, Constant.CommonData.LOAD_DEFAULT);
+        mFromPush = bundle.getBoolean(Constant.BundleConstant.FROM_PUSH, false);
     }
 
     private void initToolbar() {
@@ -70,7 +74,7 @@ public class ImageDetailActivity extends BaseActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ImageDetailActivity.this.finish();
+                        exit();
                     }
                 }
         );
@@ -146,4 +150,20 @@ public class ImageDetailActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (mFromPush) {
+            ContextUtils.goActivity(ImageDetailActivity.this, HomeActivity.class, true);
+        } else {
+            ImageDetailActivity.this.finish();
+        }
+    }
 }

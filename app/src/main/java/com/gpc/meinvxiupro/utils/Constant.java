@@ -16,6 +16,7 @@ public class Constant {
         public static final String IMAGE_POSITION = "imgPosition";
         public static final String IMAGE_DATAS = "imgDatas";
         public static final String LOAD_TAG = "load_tag";
+        public static final String FROM_PUSH = "from_push";
     }
 
     public class BroadcastReceiverAction {
@@ -29,6 +30,7 @@ public class Constant {
         public static final String TRANSFORMER = "transformer";
         public static final String TRANSFORMER_POSITION = "transformer_position";
         public static final String DEVICE_IMEI = "device_imei";
+        public static final String WELCOME_URL = "welcome_url";
         public static final String AUTO_SET_WALLPAPER = "auto_set_wallpaper";
         public static final String AUTO_SET_WALLPAPER_MILLI = "auto_set_wallpaper_mill";
         public static final String AUTO_SET_WALLPAPER_CURRENT_FILE_POSITION = "current_file_position";
@@ -62,7 +64,14 @@ public class Constant {
         public static final int AUTO_SET_DOWNLOAD_WALLPAPER_ITEM = 12;
     }
 
-    public class MarketAppPackage{
+    public class MarketAppPackage {
         public static final String XIAO_MI = "com.xiaomi.market";
+    }
+
+    public class MetaDataName {
+        public static final String XIAOMI_PUSH_ID = "xiaomiappid";
+        public static final String XIAOMI_PUSH_KEY = "xiaomiappkey";
+        public static final String IMG_IP = "imgip";
+        public static final String FEEDBACK_IP = "feedbackip";
     }
 }

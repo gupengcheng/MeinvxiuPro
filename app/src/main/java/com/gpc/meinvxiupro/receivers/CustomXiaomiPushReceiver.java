@@ -1,31 +1,21 @@
 package com.gpc.meinvxiupro.receivers;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.gpc.meinvxiupro.MeinvxiuApplication;
 import com.gpc.meinvxiupro.activities.ImageDetailActivity;
 import com.gpc.meinvxiupro.models.ImgsEntity;
 import com.gpc.meinvxiupro.utils.Constant;
-import com.gpc.meinvxiupro.utils.ContextUtils;
 import com.gpc.meinvxiupro.utils.JsonUtils;
 import com.gpc.meinvxiupro.utils.LogUtil;
-import com.xiaomi.mipush.sdk.ErrorCode;
-import com.xiaomi.mipush.sdk.MiPushClient;
+import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
 import com.xiaomi.mipush.sdk.PushMessageReceiver;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by pcgu on 16-5-11.
@@ -37,10 +27,13 @@ public class CustomXiaomiPushReceiver extends PushMessageReceiver {
 
     @Override
     public void onReceivePassThroughMessage(Context context, MiPushMessage message) {
-        LogUtil.e(TAG,
-                "onReceivePassThroughMessage is called. " + message.toString());
         mContent = message.getContent();
-
+        LogUtil.e(TAG,
+                "onReceivePassThroughMessage is called. content-> " + mContent);
+        ImgsEntity imgsEntity = JsonUtils.fromJson(mContent, ImgsEntity.class);
+        if (imgsEntity != null && !TextUtils.isEmpty(imgsEntity.getDownloadUrl())) {
+            SharedPreferencesUtils.setWelcomeUrl(context, imgsEntity.getDownloadUrl());
+        }
     }
 
     @Override
@@ -50,15 +43,19 @@ public class CustomXiaomiPushReceiver extends PushMessageReceiver {
                 "onNotificationMessageClicked content->" + mContent);
         ImgsEntity imgsEntity = JsonUtils.fromJson(mContent, ImgsEntity.class);
         if (imgsEntity != null) {
-            LogUtil.e(TAG, "imgsEntity is not empty ->" + imgsEntity.getDownloadUrl());
+            LogUtil.e(TAG, "imgsEntity is not empty id->" + imgsEntity.getId() + "|url ->" + imgsEntity.getDownloadUrl());
             mItems.clear();
             mItems.add(imgsEntity);
         }
         if (!mItems.isEmpty()) {
-            LogUtil.e(TAG, "mItems is not empty ->" + mItems.size());
+            LogUtil.e(TAG, "mItems is not empty ->" + mItems.size() + " " + context.getPackageName());
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList(Constant.BundleConstant.IMAGE_DATAS, mItems);
-            ContextUtils.goActivity(context, ImageDetailActivity.class, bundle);
+            bundle.putBoolean(Constant.BundleConstant.FROM_PUSH, true);
+            Intent intent = new Intent(context, ImageDetailActivity.class);
+            intent.putExtra(Constant.ContextConstant.BUNDLE_NAME, bundle);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
         }
     }
 

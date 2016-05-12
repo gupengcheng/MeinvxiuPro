@@ -31,7 +31,8 @@
         <activity
             android:name=".activities.WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -53,7 +54,6 @@
             android:name=".activities.ImageDetailActivity"
             android:label="@string/title_activity_image_detail"
             android:launchMode="singleTop"
-            android:process=":picture"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TranslucentStatus">
 
@@ -156,6 +156,23 @@
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
+
+        <meta-data
+            android:name="xiaomiappid"
+            android:resource="@string/xiaomiAppId" />
+
+        <meta-data
+            android:name="xiaomiappkey"
+            android:resource="@string/xiaomiAppKey" />
+
+        <meta-data
+            android:name="imgip"
+            android:resource="@string/img_ip" />
+
+        <meta-data
+            android:name="feedbackip"
+            android:resource="@string/feedback_ip" />
+
         <!--小米推送-->
     </application>
 

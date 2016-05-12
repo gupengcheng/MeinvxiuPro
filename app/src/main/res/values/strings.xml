@@ -163,4 +163,9 @@
         <item>12小时</item>
         <item>24小时</item>
     </string-array>
+
+    <string name="xiaomiAppId"></string>
+    <string name="xiaomiAppKey"></string>
+    <string name="img_ip"></string>
+    <string name="feedback_ip"></string>
 </resources>

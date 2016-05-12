@@ -209,4 +209,17 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    // set the welcome url
+    public static String getWelcomeUrl(Context context) {
+        SharedPreferences sp = getDefaultSharedPreferences(context);
+        return sp.getString(Constant.SharedPreferencesKey.WELCOME_URL, "");
+    }
+
+    public static void setWelcomeUrl(Context context, String welcomeUrl) {
+        SharedPreferences.Editor editor = getDefaultSharedPreferences(
+                context).edit();
+        editor.putString(Constant.SharedPreferencesKey.WELCOME_URL, welcomeUrl);
+        editor.apply();
+    }
+
 }

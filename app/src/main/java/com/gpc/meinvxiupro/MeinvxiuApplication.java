@@ -7,6 +7,8 @@ import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
+import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.MetaDataUtils;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.Logger;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -18,8 +20,6 @@ import java.util.List;
  */
 public class MeinvxiuApplication extends Application {
     private static MeinvxiuApplication mInstance;
-    public static final String APP_ID = "";
-    public static final String APP_KEY = "";
     public static final String TAG = "com.gpc.meinvxiupro";
 
     @Override
@@ -28,7 +28,9 @@ public class MeinvxiuApplication extends Application {
         mInstance = this;
         //初始化push推送服务
         if (shouldInit()) {
-            MiPushClient.registerPush(this, APP_ID, APP_KEY);
+            MiPushClient.registerPush(this, MetaDataUtils.getStringMetaData(
+                            Constant.MetaDataName.XIAOMI_PUSH_ID),
+                    MetaDataUtils.getStringMetaData(Constant.MetaDataName.XIAOMI_PUSH_KEY));
         }
         //打开Log
         LoggerInterface newLogger = new LoggerInterface() {

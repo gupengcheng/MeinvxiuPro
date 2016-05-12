@@ -45,6 +45,7 @@ public class WallpaperUtils {
             getSystemService(Context.ALARM_SERVICE);
     private static PendingIntent alarmIntent;
     private static final int NOT_NEED_RESPONSE = -1;
+    private static String welImgUrl;
 
     public static void setWallpaper(final Context context, final String imageFilesPath) {
         Observable.create(new Observable.OnSubscribe<String>() {
@@ -276,6 +277,7 @@ public class WallpaperUtils {
 
     // 图片转为文件
     public static boolean saveBitmap2file(Bitmap bmp, String filename) {
+        LogUtil.e("WallpaperUtils", "saveBitmap2file filename ->" + filename);
         Bitmap.CompressFormat format = Bitmap.CompressFormat.PNG;
         int quality = 100;
         OutputStream stream = null;
@@ -283,6 +285,7 @@ public class WallpaperUtils {
             stream = new FileOutputStream(MeinvxiuApplication.getInstance().getApplicationContext()
                     .getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + File.separator + filename + ".png");
         } catch (FileNotFoundException e) {
+            LogUtil.e("WallpaperUtils", "saveBitmap2file fileNotFound ->" + e.toString());
             e.printStackTrace();
         }
 

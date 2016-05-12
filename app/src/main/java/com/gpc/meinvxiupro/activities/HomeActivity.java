@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 
 import com.gpc.meinvxiupro.R;
 import com.gpc.meinvxiupro.fragments.CommonTagFragment;
@@ -12,6 +13,7 @@ import com.gpc.meinvxiupro.fragments.MeFragment;
 import com.gpc.meinvxiupro.services.AutoSetWallpaperService;
 import com.gpc.meinvxiupro.utils.PageUtils;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
+import com.gpc.meinvxiupro.utils.ToastUtils;
 import com.gpc.meinvxiupro.views.adapters.HomePagerAdapter;
 
 import java.util.ArrayList;
@@ -88,4 +90,12 @@ public class HomeActivity extends BaseActivity {
         mContext.startService(intent);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            ToastUtils.showShortToast(mContext, "home key down");
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

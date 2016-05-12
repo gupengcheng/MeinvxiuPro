@@ -5,6 +5,8 @@ import android.text.TextUtils;
 
 import com.gpc.meinvxiupro.apis.ImageInterface;
 import com.gpc.meinvxiupro.models.ImageResult;
+import com.gpc.meinvxiupro.utils.Constant;
+import com.gpc.meinvxiupro.utils.MetaDataUtils;
 import com.gpc.meinvxiupro.utils.SharedPreferencesUtils;
 
 import java.util.Map;
@@ -22,14 +24,12 @@ import rx.schedulers.Schedulers;
  * Created by pcgu on 16-3-11.
  */
 public class DataRequestManager {
-    public static final String IP = "http://image.baidu.com/data/";
-    public static final String URL_SEND_FEEDBACK = "http://520mengchong.com/app/feedback/post_feedback.php";
     private static DataRequestManager mInstance;
     private static ImageInterface mImageInterface;
 
     private DataRequestManager() {
         Retrofit mRetrofit = new Retrofit.Builder()
-                .baseUrl(IP)
+                .baseUrl(MetaDataUtils.getStringMetaData(Constant.MetaDataName.IMG_IP))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
@@ -88,8 +88,9 @@ public class DataRequestManager {
         Observable.create(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
-                String response = OkHttpManager.getInstance().post(URL_SEND_FEEDBACK, sendMap);
-                if (TextUtils.equals(response,"success")) {
+                String response = OkHttpManager.getInstance().post(
+                        MetaDataUtils.getStringMetaData(Constant.MetaDataName.FEEDBACK_IP), sendMap);
+                if (TextUtils.equals(response, "success")) {
                     subscriber.onNext(true);
                 } else {
                     subscriber.onNext(false);
